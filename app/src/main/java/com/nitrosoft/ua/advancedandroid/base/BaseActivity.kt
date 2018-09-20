@@ -3,6 +3,7 @@ package com.nitrosoft.ua.advancedandroid.base
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.nitrosoft.ua.advancedandroid.di.Injector
+import dagger.android.AndroidInjection
 import java.util.*
 
 abstract class BaseActivity: AppCompatActivity() {
@@ -18,14 +19,14 @@ abstract class BaseActivity: AppCompatActivity() {
             null -> UUID.randomUUID().toString()
             else -> savedInstanceState.getString(INSTANCE_ID) ?: ""
         }
-        //Injector.inject(this)
+        Injector.inject(this)
         super.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (isFinishing) {
-            //Injector.clear(this)
+            Injector.clear(this)
         }
     }
 

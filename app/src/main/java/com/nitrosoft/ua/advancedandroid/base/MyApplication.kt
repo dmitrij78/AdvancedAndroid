@@ -8,7 +8,7 @@ class MyApplication : Application() {
 
     private lateinit var component : ApplicationComponent
 
-    //@Inject lateinit var activityInjector: ActivityInjector
+    @Inject lateinit var activityInjector: ActivityInjector
 
     override fun onCreate() {
         super.onCreate()
