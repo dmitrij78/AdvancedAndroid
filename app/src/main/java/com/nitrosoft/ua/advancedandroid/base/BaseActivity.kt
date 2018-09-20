@@ -10,6 +10,7 @@ import com.bluelinelabs.conductor.Router
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.di.ScreenInjector
+import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import java.util.*
 import javax.inject.Inject
 
@@ -21,8 +22,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var screenInjector: ScreenInjector
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
 
-    lateinit var router: Router
+    private lateinit var router: Router
 
     private lateinit var instanceId: String
 
@@ -38,7 +41,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
         val screenContainer = findViewById<ViewGroup>(R.id.screen_container)
                 ?: throw UnsupportedOperationException("Activity must have a view with id: screen_container")
+
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState)
+        screenNavigator.initWithRouter(router, initialScreen())
+
         monitorBackStack()
 
         super.onCreate(savedInstanceState)
@@ -51,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
 
             override fun onChangeCompleted(to: Controller?, from: Controller?, isPush: Boolean, container: ViewGroup, handler: ControllerChangeHandler) {
-                if(!isPush && from != null) {
+                if (!isPush && from != null) {
                     Injector.clear(from)
                 }
             }
@@ -60,8 +66,17 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        screenNavigator.clear()
+
         if (isFinishing) {
             Injector.clear(this)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!screenNavigator.pop()) {
+            super.onBackPressed()
         }
     }
 
@@ -75,4 +90,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     abstract fun layoutRes(): Int
+
+    abstract fun initialScreen(): Controller
 }
