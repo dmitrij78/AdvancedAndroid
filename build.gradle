@@ -31,8 +31,6 @@ ext {
     daggerVersion = '2.16'
     retrofitVersion = '2.3.0'
     moshiVersion = '1.6.0'
-    autoValueVersion = '1.6.2'
-    moshiAutoValueVersion = '0.4.5'
     rxJavaVersion = '2.2.2'
     rxAndroidVersion = '2.0.2'
     rxRelayVersion = '2.0.0'
