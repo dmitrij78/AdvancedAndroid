@@ -1,7 +1,9 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import android.app.Application
+import com.nitrosoft.ua.advancedandroid.BuildConfig
 import com.nitrosoft.ua.advancedandroid.di.ActivityInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 class MyApplication : Application() {
@@ -18,5 +20,9 @@ class MyApplication : Application() {
                 .applicationModule(ApplicationModule(this))
                 .build()
         component.inject(this)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

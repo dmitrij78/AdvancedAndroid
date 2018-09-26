@@ -1,14 +1,23 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseController
+import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 class TrendingReposController : BaseController() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        return inflater.inflate(R.layout.view_trending_repo, container, false)
+    @Inject lateinit var presenter: TrendingReposPresenter
+    @Inject lateinit var viewModel: TrendingRepoViewModel
+
+    override fun layoutRes(): Int {
+        return R.layout.view_trending_repo
+    }
+
+    override fun subscriptions(): Array<Disposable> {
+        return Array(1) {
+            viewModel.loading()
+                    .subscribe()
+        }
     }
 }
