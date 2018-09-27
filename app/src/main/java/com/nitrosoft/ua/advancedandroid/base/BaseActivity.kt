@@ -1,8 +1,8 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler
@@ -39,8 +39,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         setContentView(layoutRes())
 
-        val screenContainer = findViewById<ViewGroup>(R.id.screen_container)
-                ?: throw UnsupportedOperationException("Activity must have a view with id: screen_container")
+        val screenContainer = findViewById(R.id.screen_container) as ViewGroup
 
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState)
         screenNavigator.initWithRouter(router, initialScreen())

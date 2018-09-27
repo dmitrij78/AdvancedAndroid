@@ -10,7 +10,7 @@ class RepoServiceModule {
 
     @Singleton
     @Provides
-    fun provideRepoServices(retrofit: Retrofit): RepoSrevice {
-        return retrofit.create(RepoSrevice::class.java)
+    fun provideRepoServices(retrofit: Retrofit): RepoService {
+        return retrofit.create(RepoService::class.java)
     }
 }

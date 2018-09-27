@@ -5,7 +5,7 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseActivity
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposController
 
-class MainActivity : BaseActivity() {
+open class MainActivity : BaseActivity() {
 
     override fun initialScreen(): Controller {
         return TrendingReposController()

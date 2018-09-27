@@ -1,10 +1,10 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import android.content.Context
-import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import io.reactivex.disposables.CompositeDisposable
@@ -45,6 +45,5 @@ abstract class BaseController : Controller() {
         return arrayOf()
     }
 
-    protected fun onViewBound(view: View) {
-    }
+    protected open fun onViewBound(view: View) {}
 }
