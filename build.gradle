@@ -27,17 +27,19 @@ ext {
     buildToolsVersion = '28.0.3'
     minSdkVersion = 21
     targetSdkVersion = 28
-    supportLibraryVersion = '1.0.0'
+
+    conductorVersion = '2.1.5'
     daggerVersion = '2.16'
-    retrofitVersion = '2.4.0'
-    moshiVersion = '1.6.0'
-    rxJavaVersion = '2.2.2'
-    rxAndroidVersion = '2.0.2'
-    rxRelayVersion = '2.0.0'
-    conductorVersion = '2.1.4'
     kotshiVersion = '1.0.5'
-    treeTenAppVersion = '1.1.0'
+    moshiVersion = '1.6.0'
+    okhttpVersion = '3.11.0'
+    retrofitVersion = '2.4.0'
+    rxAndroidVersion = '2.0.2'
+    rxJavaVersion = '2.2.2'
+    rxRelayVersion = '2.0.0'
+    supportLibraryVersion = '1.0.0'
     timberVersion = '4.7.1'
+    treeTenAppVersion = '1.1.0'
 }
 
 task clean(type: Delete) {

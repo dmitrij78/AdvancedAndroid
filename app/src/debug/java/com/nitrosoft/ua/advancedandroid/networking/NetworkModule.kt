@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Call
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -13,7 +14,11 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttp(): Call.Factory {
-        return OkHttpClient.Builder().build()
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
     }
 
     @Singleton

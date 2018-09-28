@@ -9,7 +9,7 @@ data class Repo(
         val id: Long,
         val name: String,
         val description: String,
-        val user: User,
+        @Json(name = "owner") val user: User,
         @Json(name = "stargazers_count") val starGazersCount: Long,
         @Json(name = "forks_count") val forksCount: Long,
         @Json(name = "contributors_url") val contributorsUrl: String,

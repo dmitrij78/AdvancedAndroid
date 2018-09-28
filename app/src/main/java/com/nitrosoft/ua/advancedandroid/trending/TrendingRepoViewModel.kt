@@ -1,11 +1,12 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Observable
+import io.reactivex.functions.Consumer
 import timber.log.Timber
-import java.util.function.Consumer
 import javax.inject.Inject
 
 @ScreenScope
@@ -27,17 +28,18 @@ class TrendingRepoViewModel @Inject constructor() {
         return errorRelay
     }
 
-    fun loadingUpdated(): BehaviorRelay<Boolean> {
+    fun loadingUpdated(): Consumer<Boolean> {
         return loadRelay
     }
 
-    fun requestUpdated(): BehaviorRelay<List<Repo>> {
+    fun requestUpdated(): Consumer<List<Repo>> {
         return reposRelay
     }
 
-    fun onError(throwable: Throwable): Consumer<Throwable> {
+    fun onError(): Consumer<Throwable> {
         return Consumer {
-            Timber.e(throwable)
+            Timber.e(it)
+            errorRelay.accept(R.string.api_error_repos)
         }
     }
 }

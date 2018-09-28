@@ -9,7 +9,5 @@ import dagger.android.AndroidInjector
 interface TrendingReposComponent : AndroidInjector<TrendingReposController> {
 
     @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<TrendingReposController>() {
-        //TODO Не реализовано
-    }
+    abstract class Builder : AndroidInjector.Builder<TrendingReposController>()
 }

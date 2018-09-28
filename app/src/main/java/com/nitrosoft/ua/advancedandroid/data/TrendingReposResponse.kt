@@ -6,6 +6,5 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class TrendingReposResponse(
-
         @Json(name = "items") val repos: List<Repo>
 )

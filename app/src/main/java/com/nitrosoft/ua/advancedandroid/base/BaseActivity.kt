@@ -13,6 +13,7 @@ import com.nitrosoft.ua.advancedandroid.di.ScreenInjector
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import java.util.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -26,7 +27,6 @@ abstract class BaseActivity : AppCompatActivity() {
     lateinit var screenNavigator: ScreenNavigator
 
     private lateinit var router: Router
-
     private lateinit var instanceId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,24 +36,19 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         Injector.inject(this)
+        super.onCreate(savedInstanceState)
 
         setContentView(layoutRes())
-
-        val screenContainer = findViewById(R.id.screen_container) as ViewGroup
 
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState)
         screenNavigator.initWithRouter(router, initialScreen())
 
         monitorBackStack()
-
-        super.onCreate(savedInstanceState)
     }
 
     private fun monitorBackStack() {
         router.addChangeListener(object : ControllerChangeHandler.ControllerChangeListener {
-            override fun onChangeStarted(to: Controller?, from: Controller?, isPush: Boolean, container: ViewGroup, handler: ControllerChangeHandler) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun onChangeStarted(to: Controller?, from: Controller?, isPush: Boolean, container: ViewGroup, handler: ControllerChangeHandler) {}
 
             override fun onChangeCompleted(to: Controller?, from: Controller?, isPush: Boolean, container: ViewGroup, handler: ControllerChangeHandler) {
                 if (!isPush && from != null) {
