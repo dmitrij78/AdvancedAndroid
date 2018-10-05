@@ -40,6 +40,11 @@ ext {
     supportLibraryVersion = '1.0.0'
     timberVersion = '4.7.1'
     treeTenAppVersion = '1.1.0'
+
+    junitVersion = '4.12'
+    mockitoVersion = '2.23.0'
+    testRunnerVersion = '1.0.2'
+    espressoVersion = '3.0.2'
 }
 
 task clean(type: Delete) {
