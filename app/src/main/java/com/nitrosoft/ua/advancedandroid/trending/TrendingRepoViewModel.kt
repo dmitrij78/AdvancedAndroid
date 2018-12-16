@@ -6,7 +6,6 @@ import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
-import timber.log.Timber
 import javax.inject.Inject
 
 @ScreenScope
@@ -33,12 +32,12 @@ class TrendingRepoViewModel @Inject constructor() {
     }
 
     fun requestUpdated(): Consumer<List<Repo>> {
+        errorRelay.accept(-1)
         return reposRelay
     }
 
     fun onError(): Consumer<Throwable> {
         return Consumer {
-            Timber.e(it)
             errorRelay.accept(R.string.api_error_repos)
         }
     }
