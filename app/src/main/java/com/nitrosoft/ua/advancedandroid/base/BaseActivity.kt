@@ -7,13 +7,12 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.Router
-import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.di.ScreenInjector
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -23,6 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var screenInjector: ScreenInjector
+
     @Inject
     lateinit var screenNavigator: ScreenNavigator
 
