@@ -22,7 +22,7 @@ public class TestUtils {
         return builder.build();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unused"})
     public static <T> T loadJson(String path, Type type) {
         try {
             String json = getFileString(path);
@@ -42,6 +42,7 @@ public class TestUtils {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static String getFileString(String path) {
         try {
             StringBuilder sb = new StringBuilder();
@@ -52,7 +53,7 @@ public class TestUtils {
                 sb.append(line);
             }
             return sb.toString();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new IllegalArgumentException("Could not read from resource " + path);
         }
     }
