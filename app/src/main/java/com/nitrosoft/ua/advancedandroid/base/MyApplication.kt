@@ -13,12 +13,6 @@ open class MyApplication : Application() {
     @Inject
     lateinit var activityInjector: ActivityInjector
 
-    protected open fun initComponent(): ApplicationComponent {
-        return DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-    }
-
     override fun onCreate() {
         super.onCreate()
 
@@ -28,5 +22,11 @@ open class MyApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+    }
+
+    protected open fun initComponent(): ApplicationComponent {
+        return DaggerApplicationComponent.builder()
+                .applicationModule(ApplicationModule(this))
+                .build()
     }
 }
