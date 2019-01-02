@@ -2,9 +2,11 @@ package com.nitrosoft.ua.advancedandroid.trending
 
 import android.annotation.SuppressLint
 import com.nitrosoft.ua.advancedandroid.data.RepoRequester
+import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import javax.inject.Inject
 
+@ScreenScope
 class TrendingReposPresenter @Inject constructor(private val viewModel: TrendingRepoViewModel, private val repoRequester: RepoRequester) : RepoClickListener {
 
     override fun onRepoClicked(repo: Repo) {}

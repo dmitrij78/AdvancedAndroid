@@ -6,19 +6,23 @@ import com.nitrosoft.ua.advancedandroid.di.ActivityInjector
 import timber.log.Timber
 import javax.inject.Inject
 
-class MyApplication : Application() {
+open class MyApplication : Application() {
 
-    private lateinit var component: ApplicationComponent
+    protected lateinit var component: ApplicationComponent
 
     @Inject
     lateinit var activityInjector: ActivityInjector
 
+    protected open fun initComponent(): ApplicationComponent {
+        return DaggerApplicationComponent.builder()
+                .applicationModule(ApplicationModule(this))
+                .build()
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        component = DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
+        component = initComponent()
         component.inject(this)
 
         if (BuildConfig.DEBUG) {
