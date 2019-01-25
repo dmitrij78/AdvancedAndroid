@@ -67,6 +67,7 @@
                     android:layout_height="wrap_content"
                     tools:text="March 5, 2017" />
             </LinearLayout>
+
         </LinearLayout>
 
         <TextView

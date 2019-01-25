@@ -1,6 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,15 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-abstract class BaseController : Controller() {
+abstract class BaseController : Controller {
 
     private val tag: String = "AdvancedAndroidApp." + BaseController::class.java.simpleName
 
     private var injected = false
     private val disposables: CompositeDisposable = CompositeDisposable()
+
+    constructor() : super()
+    constructor(args: Bundle?) : super(args)
 
     override fun onContextAvailable(context: Context) {
         Timber.tag(tag).d("onContextAvailable")
@@ -60,7 +64,7 @@ abstract class BaseController : Controller() {
     @LayoutRes
     abstract fun layoutRes(): Int
 
-    protected open fun subscriptions() : Array<Disposable> {
+    protected open fun subscriptions(): Array<Disposable> {
         return arrayOf()
     }
 
