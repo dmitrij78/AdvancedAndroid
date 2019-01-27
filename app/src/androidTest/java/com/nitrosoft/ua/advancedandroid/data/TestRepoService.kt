@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.data
 
+import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.test.TestUtils
 import io.reactivex.Single
 import java.io.IOException
@@ -20,5 +21,9 @@ class TestRepoService @Inject constructor(private val testUtils: TestUtils) : Re
             return Single.just(reposResponse)
         }
         return Single.error(IOException())
+    }
+
+    override fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

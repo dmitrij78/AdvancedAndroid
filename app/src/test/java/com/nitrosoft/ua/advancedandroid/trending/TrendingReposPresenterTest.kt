@@ -1,6 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
-import com.nitrosoft.ua.advancedandroid.data.RepoRequester
+import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TrendingReposResponse
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
@@ -16,7 +16,7 @@ import java.io.IOException
 class TrendingReposPresenterTest {
 
     @Mock
-    lateinit var repoRequester: RepoRequester
+    lateinit var repoRepository: RepoRepository
 
     @Mock
     lateinit var viewModel: TrendingRepoViewModel
@@ -50,7 +50,7 @@ class TrendingReposPresenterTest {
         val repos = setupSuccess()
         initializePresenter()
 
-        Mockito.verify(repoRequester).getTrendingRepos()
+        Mockito.verify(repoRepository).getTrendingRepos()
         Mockito.verify(onSuccessConsumer).accept(repos)
         Mockito.verifyZeroInteractions(onErrorConsumer)
 
@@ -92,7 +92,7 @@ class TrendingReposPresenterTest {
         )
         val repos = response.repos
 
-        Mockito.`when`(repoRequester.getTrendingRepos()).thenReturn(Single.just(repos))
+        Mockito.`when`(repoRepository.getTrendingRepos()).thenReturn(Single.just(repos))
 
         return repos
     }
@@ -100,12 +100,12 @@ class TrendingReposPresenterTest {
     private fun setupError(): Throwable {
         val error = IOException()
 
-        Mockito.`when`(repoRequester.getTrendingRepos()).thenReturn(Single.error(error))
+        Mockito.`when`(repoRepository.getTrendingRepos()).thenReturn(Single.error(error))
 
         return error
     }
 
     private fun initializePresenter() {
-        presenter = TrendingReposPresenter(viewModel, repoRequester)
+        presenter = TrendingReposPresenter(viewModel, repoRepository)
     }
 }
