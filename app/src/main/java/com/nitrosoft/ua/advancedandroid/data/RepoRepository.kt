@@ -26,7 +26,7 @@ class RepoRepository @Inject constructor(private val repoRequesterProvider: Prov
 
     private fun cachedTrendingRepos(): Maybe<List<Repo>> {
         return Maybe.create(MaybeOnSubscribe(function = fun(it: MaybeEmitter<List<Repo>>) {
-            when (cachedTrendingRepos.isEmpty()) {
+	        when (!cachedTrendingRepos.isEmpty()) {
                 true -> it.onSuccess(cachedTrendingRepos)
                 false -> it.onComplete()
             }
