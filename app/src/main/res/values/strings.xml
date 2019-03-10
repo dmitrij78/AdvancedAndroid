@@ -4,4 +4,6 @@
     <string name="creation_date_label">Created:</string>
     <string name="updated_date_label">Updated:</string>
     <string name="contributors_label">Contributors</string>
+    <string name="api_error_single_repo">Single Repo Error</string>
+    <string name="api_error_contributors">Error loading contributors</string>
 </resources>

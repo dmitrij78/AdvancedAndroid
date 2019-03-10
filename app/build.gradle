@@ -27,9 +27,6 @@ android {
             debuggable true
         }
     }
-    kapt {
-        generateStubs = true
-    }
 }
 
 dependencies {

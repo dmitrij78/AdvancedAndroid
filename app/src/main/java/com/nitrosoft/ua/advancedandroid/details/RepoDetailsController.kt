@@ -20,6 +20,6 @@ class RepoDetailsController(bundle: Bundle) : BaseController() {
     }
 
     override fun layoutRes(): Int {
-        return R.layout.scree_repo_details
+        return R.layout.screen_repo_details
     }
 }

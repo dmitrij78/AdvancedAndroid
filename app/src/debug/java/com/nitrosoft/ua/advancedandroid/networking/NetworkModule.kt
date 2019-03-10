@@ -11,20 +11,26 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    @Singleton
-    @Provides
-    fun provideOkHttp(): Call.Factory {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build()
-    }
+    @Module
+    companion object {
 
-    @Singleton
-    @Provides
-    @Named("base_url")
-    fun provideBaseUrl(): String {
-        return "https://api.github.com"
+        @JvmStatic
+        @Singleton
+        @Provides
+        fun provideOkHttp(): Call.Factory {
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            return OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .build()
+        }
+
+        @JvmStatic
+        @Singleton
+        @Provides
+        @Named("base_url")
+        fun provideBaseUrl(): String {
+            return "https://api.github.com"
+        }
     }
 }

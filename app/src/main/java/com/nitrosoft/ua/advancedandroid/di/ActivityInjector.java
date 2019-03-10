@@ -8,6 +8,7 @@ import com.nitrosoft.ua.advancedandroid.base.MyApplication;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -15,6 +16,7 @@ import javax.inject.Singleton;
 
 import dagger.android.AndroidInjector;
 
+@SuppressWarnings("ConstantConditions")
 @Singleton
 public class ActivityInjector {
 
@@ -40,7 +42,7 @@ public class ActivityInjector {
 
         //noinspection unchecked
         AndroidInjector.Factory<Activity> injectorFactory =
-                (AndroidInjector.Factory<Activity>) activityInjectors.get(activity.getClass()).get();
+                (AndroidInjector.Factory<Activity>) Objects.requireNonNull(activityInjectors.get(activity.getClass())).get();
         AndroidInjector<Activity> injector = injectorFactory.create(activity);
         cache.put(instanceId, injector);
         injector.inject(activity);
