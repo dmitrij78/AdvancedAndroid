@@ -7,7 +7,9 @@ import com.nitrosoft.ua.advancedandroid.models.Repo
 import javax.inject.Inject
 
 @ScreenScope
-class TrendingReposPresenter @Inject constructor(private val viewModel: TrendingRepoViewModel, private val repoRepository: RepoRepository) : RepoClickListener {
+class TrendingReposPresenter @Inject constructor(
+        private val viewModel: TrendingRepoViewModel,
+        private val repoRepository: RepoRepository) : RepoClickListener {
 
     override fun onRepoClicked(repo: Repo) {}
 
