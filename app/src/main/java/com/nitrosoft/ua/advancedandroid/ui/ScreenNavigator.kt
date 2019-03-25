@@ -10,4 +10,6 @@ interface ScreenNavigator {
     fun pop(): Boolean
 
     fun clear()
+
+    /* fun goToRepoDetails(repoOwner: String, repoName: String)*/
 }

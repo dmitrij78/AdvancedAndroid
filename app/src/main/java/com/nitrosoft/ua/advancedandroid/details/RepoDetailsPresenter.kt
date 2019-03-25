@@ -22,7 +22,7 @@ class RepoDetailsPresenter @Inject constructor(
     @SuppressLint("CheckResult")
     private fun loadRepo() {
         repository.getRepo(repoOwner, repoName)
-                .doOnSuccess { viewModel.processRepo() }
+                .doOnSuccess(viewModel.processRepo())
                 .doOnError(viewModel.detailsError())
                 .flatMap { repository.getContributors(it.contributorsUrl).doOnError(viewModel.contributorsError()) }
                 .subscribe(viewModel.processContibutors(), Consumer { })

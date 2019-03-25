@@ -3,15 +3,16 @@ package com.nitrosoft.ua.advancedandroid.data
 import com.nitrosoft.ua.advancedandroid.models.Contributor
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Maybe
+import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class RepoRepository @Inject constructor(private val repoRequesterProvider: Provider<RepoRequester>) {
+class RepoRepository @Inject constructor(private val repoRequesterProvider: Provider<RepoRequester>,
+                                         @Named("network_scheduler") private val scheduler: Scheduler) {
 
     private val cachedTrendingRepos: MutableList<Repo> = arrayListOf()
     private val cachedContributors: MutableMap<String, List<Contributor>> = mutableMapOf()
@@ -19,19 +20,19 @@ class RepoRepository @Inject constructor(private val repoRequesterProvider: Prov
     fun getTrendingRepos(): Single<List<Repo>> {
         return Maybe.concat(cachedTrendingRepos(), apiTrendingRepos())
                 .firstOrError()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(scheduler)
     }
 
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
         return Maybe.concat(cachedRepo(repoOwner, repoName), apiRepo(repoOwner, repoName))
                 .firstOrError()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(scheduler)
     }
 
     fun getContributors(url: String): Single<List<Contributor>> {
         return Maybe.concat(cachedContributors(url), apiContributors(url))
                 .firstOrError()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(scheduler)
     }
 
     private fun cachedContributors(url: String): Maybe<List<Contributor>> {

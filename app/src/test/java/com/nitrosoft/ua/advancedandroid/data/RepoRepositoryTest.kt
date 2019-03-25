@@ -3,6 +3,7 @@ package com.nitrosoft.ua.advancedandroid.data
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -39,7 +40,7 @@ class RepoRepositoryTest {
         rxJavaRepo = response.repos[0]
         otherRepo = response.repos[1]
 
-        repository = RepoRepository(repoRequesterProvider)
+        repository = RepoRepository(repoRequesterProvider, Schedulers.trampoline())
     }
 
     @Test
