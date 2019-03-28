@@ -3,6 +3,8 @@ package com.nitrosoft.ua.advancedandroid.ui
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
+import com.nitrosoft.ua.advancedandroid.details.RepoDetailsController
 import com.nitrosoft.ua.advancedandroid.di.ActivityScope
 import javax.inject.Inject
 
@@ -24,5 +26,12 @@ class DefaultScreenNavigator @Inject constructor() : ScreenNavigator {
 
     override fun clear() {
         router = null
+    }
+
+    override fun goToRepoDetails(repoOwner: String, repoName: String) {
+        router?.pushController(RouterTransaction.with(RepoDetailsController.newInstance(repoName, repoOwner))
+                .pushChangeHandler(FadeChangeHandler())
+                .popChangeHandler(FadeChangeHandler())
+        )
     }
 }

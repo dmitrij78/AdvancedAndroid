@@ -11,5 +11,5 @@ interface ScreenNavigator {
 
     fun clear()
 
-    /* fun goToRepoDetails(repoOwner: String, repoName: String)*/
+    fun goToRepoDetails(repoOwner: String, repoName: String)
 }

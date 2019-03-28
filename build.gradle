@@ -46,6 +46,7 @@ ext {
     testRunnerVersion = '1.0.2'
     testRulesVersion = '1.0.2'
     espressoVersion = '3.0.2'
+    glideVersion = '4.9.0'
 }
 
 task clean(type: Delete) {

@@ -4,6 +4,7 @@ import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TrendingReposResponse
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
+import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import org.junit.Before
@@ -20,6 +21,9 @@ class TrendingReposPresenterTest {
 
     @Mock
     lateinit var viewModel: TrendingRepoViewModel
+
+    @Mock
+    lateinit var screenNavigator: ScreenNavigator
 
     @Mock
     lateinit var onErrorConsumer: Consumer<Throwable>
@@ -43,6 +47,14 @@ class TrendingReposPresenterTest {
 
     @Test
     fun onRepoClicked() {
+        val repo = TestUtils.loadJson<Repo>("mock/get_repo.json", Repo::class.java)
+
+        setupSuccess()
+        initializePresenter()
+
+        presenter.onRepoClicked(repo)
+
+        Mockito.verify(screenNavigator).goToRepoDetails(repo.user.login, repo.name)
     }
 
     @Test
@@ -53,7 +65,6 @@ class TrendingReposPresenterTest {
         Mockito.verify(repoRepository).getTrendingRepos()
         Mockito.verify(onSuccessConsumer).accept(repos)
         Mockito.verifyZeroInteractions(onErrorConsumer)
-
     }
 
     @Test
@@ -106,6 +117,6 @@ class TrendingReposPresenterTest {
     }
 
     private fun initializePresenter() {
-        presenter = TrendingReposPresenter(viewModel, repoRepository)
+        presenter = TrendingReposPresenter(viewModel, repoRepository, screenNavigator)
     }
 }
