@@ -45,7 +45,7 @@ class RepoDetailsViewModel @Inject constructor() {
         }
     }
 
-    fun processContibutors(): Consumer<List<Contributor>> {
+    fun processContributors(): Consumer<List<Contributor>> {
         return Consumer { contributors ->
             contributorStateRelay.accept(ContributorState(
                     loading = false,

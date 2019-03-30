@@ -10,8 +10,7 @@ open class MyApplication : Application() {
 
     protected lateinit var component: ApplicationComponent
 
-    @Inject
-    lateinit var activityInjector: ActivityInjector
+    @Inject lateinit var activityInjector: ActivityInjector
 
     override fun onCreate() {
         super.onCreate()

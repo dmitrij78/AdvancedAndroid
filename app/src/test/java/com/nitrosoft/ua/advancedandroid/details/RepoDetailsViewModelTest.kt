@@ -38,7 +38,7 @@ class RepoDetailsViewModelTest {
 
     @Test
     fun contributors() {
-        viewModel.processContibutors().accept(contributors)
+        viewModel.processContributors().accept(contributors)
 
         viewModel.contributors().test().assertValue(
                 ContributorState(

@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
+
 
 abstract class BaseController : Controller {
 
@@ -18,6 +21,8 @@ abstract class BaseController : Controller {
 
     private var injected = false
     private val disposables: CompositeDisposable = CompositeDisposable()
+
+    private var unBinder: Unbinder? = null
 
     constructor() : super()
 
@@ -40,6 +45,7 @@ abstract class BaseController : Controller {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         Timber.tag(tag).d("onCreateView")
         val view = inflater.inflate(layoutRes(), container, false)
+        unBinder = ButterKnife.bind(this, view)
         onViewBound(view)
 
         for (s in subscriptions()) {
@@ -52,6 +58,9 @@ abstract class BaseController : Controller {
     override fun onDestroyView(view: View) {
         Timber.tag(tag).d("onDestroyView")
         disposables.clear()
+
+        unBinder?.unbind()
+        unBinder = null
     }
 
     override fun onDetach(view: View) {

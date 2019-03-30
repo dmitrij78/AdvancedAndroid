@@ -13,11 +13,13 @@ import com.bumptech.glide.Glide
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.models.Contributor
 
-class ContributorAdapter(private val data: MutableList<Contributor>) : RecyclerView.Adapter<ContributorAdapter.ContributorViewHolder>() {
+class ContributorAdapter : RecyclerView.Adapter<ContributorAdapter.ContributorViewHolder>() {
 
     init {
         setHasStableIds(true)
     }
+
+    private val data: MutableList<Contributor> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContributorViewHolder {
         val view = LayoutInflater.from(parent.context)

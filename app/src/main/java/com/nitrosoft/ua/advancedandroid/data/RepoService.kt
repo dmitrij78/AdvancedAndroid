@@ -15,6 +15,6 @@ interface RepoService {
     @GET("/repos/{owner}/{name}")
     fun getRepo(@Path("owner") repoOwner: String, @Path("name") repoName: String): Single<Repo>
 
-    @GET("/repos/{owner}/{name}")
+    @GET
     fun getContributors(@Url url: String): Single<List<Contributor>>
 }

@@ -25,6 +25,6 @@ class RepoDetailsPresenter @Inject constructor(
                 .doOnSuccess(viewModel.processRepo())
                 .doOnError(viewModel.detailsError())
                 .flatMap { repository.getContributors(it.contributorsUrl).doOnError(viewModel.contributorsError()) }
-                .subscribe(viewModel.processContibutors(), Consumer { })
+                .subscribe(viewModel.processContributors(), Consumer { })
     }
 }

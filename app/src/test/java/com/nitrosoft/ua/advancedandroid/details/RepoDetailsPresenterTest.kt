@@ -51,7 +51,7 @@ class RepoDetailsPresenterTest {
         MockitoAnnotations.initMocks(this)
 
         Mockito.`when`(viewModel.processRepo()).thenReturn(repoConsumer)
-        Mockito.`when`(viewModel.processContibutors()).thenReturn(contributorsConsumer)
+        Mockito.`when`(viewModel.processContributors()).thenReturn(contributorsConsumer)
         Mockito.`when`(viewModel.detailsError()).thenReturn(detailsErrorConsumer)
         Mockito.`when`(viewModel.contributorsError()).thenReturn(contributorsErrorConsumer)
 

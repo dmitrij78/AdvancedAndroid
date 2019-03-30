@@ -8,5 +8,10 @@ data class RepoDetailsState(
         @Nullable val description: String? = null,
         @Nullable val createDate: String? = null,
         @Nullable val updateDate: String? = null,
-        @Nullable val errorRes: Int? = null)
+        @Nullable val errorRes: Int? = null) {
+
+    fun isSuccess(): Boolean {
+        return errorRes == null
+    }
+}
 
