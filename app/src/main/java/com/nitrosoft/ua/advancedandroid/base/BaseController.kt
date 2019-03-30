@@ -20,6 +20,7 @@ abstract class BaseController : Controller {
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     constructor() : super()
+
     constructor(args: Bundle?) : super(args)
 
     override fun onContextAvailable(context: Context) {

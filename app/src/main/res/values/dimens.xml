@@ -5,4 +5,5 @@
     <dimen name="list_item_horizontal_padding">8dp</dimen>
     <dimen name="list_item_bottom_margin">8dp</dimen>
     <dimen name="list_item_elevation">4dp</dimen>
+    <dimen name="avatar_image_size">75dp</dimen>
 </resources>
