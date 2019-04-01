@@ -4,40 +4,21 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.R
-import com.nitrosoft.ua.advancedandroid.base.TestApplication
-import com.nitrosoft.ua.advancedandroid.data.TestRepoService
-import com.nitrosoft.ua.advancedandroid.home.MainActivity
+import com.nitrosoft.ua.advancedandroid.test.ControllerTest
 import org.hamcrest.CoreMatchers.allOf
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
-class TrendingReposControllerTest {
-
-    @Inject
-    lateinit var repoService: TestRepoService
-
-    @Suppress("RedundantVisibilityModifier")
-    @Rule
-    @JvmField
-    public val activityTestRule: ActivityTestRule<MainActivity> =
-            ActivityTestRule(MainActivity::class.java, true, false)
-
-    @Before
-    fun setUp() {
-        TestApplication.getComponent().inject(this)
-    }
+class TrendingReposControllerTest : ControllerTest() {
 
     @Test
     fun loadRepos() {
         repoService.sendError = false
-        activityTestRule.launchActivity(null)
+        launch()
 
         onView(withId(R.id.loadingIndicator))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
@@ -53,7 +34,7 @@ class TrendingReposControllerTest {
     @Test
     fun loadReposError() {
         repoService.sendError = true
-        activityTestRule.launchActivity(null)
+        launch()
 
         onView(withId(R.id.loadingIndicator))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
@@ -61,5 +42,9 @@ class TrendingReposControllerTest {
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
         onView(withId(R.id.errorText)).check(matches(allOf(withText(R.string.api_error_repos), withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))))
+    }
+
+    override fun controllerToLaunch(): Controller {
+        return TrendingReposController()
     }
 }

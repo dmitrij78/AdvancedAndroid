@@ -86,4 +86,9 @@ class RepoRepository @Inject constructor(private val repoRequesterProvider: Prov
         return repoRequesterProvider.get().getRepo(repoOwner, repoName)
                 .toMaybe()
     }
+
+    fun clearCache() {
+        cachedTrendingRepos.clear()
+        cachedContributors.clear()
+    }
 }

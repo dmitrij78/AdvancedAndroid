@@ -6,7 +6,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TestScreenNavigator @Inject constructor(defaultScreenNavigator: DefaultScreenNavigator) : ScreenNavigator {
+class TestScreenNavigator @Inject constructor(private val defaultScreenNavigator: DefaultScreenNavigator) : ScreenNavigator {
+
+    private lateinit var router: Router
 
     private var overrideController: Controller? = null
 
@@ -15,18 +17,19 @@ class TestScreenNavigator @Inject constructor(defaultScreenNavigator: DefaultScr
     }
 
     override fun initWithRouter(router: Router, rootScreen: Controller) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val controller: Controller = overrideController ?: rootScreen
+        defaultScreenNavigator.initWithRouter(router, controller)
     }
 
     override fun pop(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun clear() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return defaultScreenNavigator.pop()
     }
 
     override fun goToRepoDetails(repoOwner: String, repoName: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        defaultScreenNavigator.goToRepoDetails(repoOwner, repoName)
+    }
+
+    override fun clear() {
+        defaultScreenNavigator.clear()
     }
 }
