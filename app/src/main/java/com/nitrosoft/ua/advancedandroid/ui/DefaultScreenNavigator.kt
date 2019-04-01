@@ -5,10 +5,8 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsController
-import com.nitrosoft.ua.advancedandroid.di.ActivityScope
 import javax.inject.Inject
 
-@ActivityScope
 class DefaultScreenNavigator @Inject constructor() : ScreenNavigator {
 
     private var router: Router? = null
