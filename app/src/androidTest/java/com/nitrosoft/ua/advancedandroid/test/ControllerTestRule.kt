@@ -15,6 +15,8 @@ class ControllerTestRule<T : Activity>(activityClass: Class<T>) :
     val repoRepository: RepoRepository = TestApplication.getComponent().repoRepository()
 
     fun clearTest() {
+        repoService.clearErrorFlags()
+        repoService.clearHoldFlags()
         repoRepository.clearCache()
     }
 }

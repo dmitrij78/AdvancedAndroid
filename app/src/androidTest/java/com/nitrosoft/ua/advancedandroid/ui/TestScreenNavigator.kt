@@ -8,8 +8,6 @@ import javax.inject.Singleton
 @Singleton
 class TestScreenNavigator @Inject constructor(private val defaultScreenNavigator: DefaultScreenNavigator) : ScreenNavigator {
 
-    private lateinit var router: Router
-
     private var overrideController: Controller? = null
 
     fun overrideInitialController(controller: Controller) {

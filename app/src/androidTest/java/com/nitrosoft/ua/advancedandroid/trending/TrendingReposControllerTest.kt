@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.runner.AndroidJUnit4
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.R
+import com.nitrosoft.ua.advancedandroid.data.TestRepoService
 import com.nitrosoft.ua.advancedandroid.test.ControllerTest
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Test
@@ -17,7 +18,7 @@ class TrendingReposControllerTest : ControllerTest() {
 
     @Test
     fun loadRepos() {
-        repoService.sendError = false
+        repoService.clearErrorFlags()
         launch()
 
         onView(withId(R.id.loadingIndicator))
@@ -33,7 +34,7 @@ class TrendingReposControllerTest : ControllerTest() {
 
     @Test
     fun loadReposError() {
-        repoService.sendError = true
+        repoService.errorFlags = TestRepoService.FLAG_TRENDING_REPO
         launch()
 
         onView(withId(R.id.loadingIndicator))
