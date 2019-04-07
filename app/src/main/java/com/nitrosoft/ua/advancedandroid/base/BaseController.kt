@@ -17,8 +17,6 @@ import timber.log.Timber
 
 abstract class BaseController : Controller {
 
-    private val tag: String = "AdvancedAndroidApp." + BaseController::class.java.simpleName
-
     private var injected = false
     private val disposables: CompositeDisposable = CompositeDisposable()
 
@@ -29,7 +27,7 @@ abstract class BaseController : Controller {
     constructor(args: Bundle?) : super(args)
 
     override fun onContextAvailable(context: Context) {
-        Timber.tag(tag).d("onContextAvailable")
+        Timber.tag(TAG).d("onContextAvailable")
         if (!injected) {
             Injector.inject(this)
             injected = true
@@ -39,11 +37,11 @@ abstract class BaseController : Controller {
 
     override fun onAttach(view: View) {
         super.onAttach(view)
-        Timber.tag(tag).d("onAttach")
+        Timber.tag(TAG).d("onAttach")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        Timber.tag(tag).d("onCreateView")
+        Timber.tag(TAG).d("onCreateView")
         val view = inflater.inflate(layoutRes(), container, false)
         unBinder = ButterKnife.bind(this, view)
         onViewBound(view)
@@ -56,7 +54,7 @@ abstract class BaseController : Controller {
     }
 
     override fun onDestroyView(view: View) {
-        Timber.tag(tag).d("onDestroyView")
+        Timber.tag(TAG).d("onDestroyView")
         disposables.clear()
 
         unBinder?.unbind()
@@ -64,11 +62,11 @@ abstract class BaseController : Controller {
     }
 
     override fun onDetach(view: View) {
-        Timber.tag(tag).d("onDetach")
+        Timber.tag(TAG).d("onDetach")
     }
 
     override fun onDestroy() {
-        Timber.tag(tag).d("onDestroy")
+        Timber.tag(TAG).d("onDestroy")
     }
 
     @LayoutRes
@@ -79,4 +77,8 @@ abstract class BaseController : Controller {
     }
 
     protected open fun onViewBound(view: View) {}
+
+    companion object {
+        private val TAG: String = "AdvancedAndroidApp." + BaseController::class.java.simpleName
+    }
 }

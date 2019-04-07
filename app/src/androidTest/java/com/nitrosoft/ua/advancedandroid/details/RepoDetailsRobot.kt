@@ -1,6 +1,5 @@
 package com.nitrosoft.ua.advancedandroid.details
 
-
 import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
