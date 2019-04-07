@@ -2,6 +2,7 @@ package com.nitrosoft.ua.advancedandroid.home
 
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsComponent
+import com.nitrosoft.ua.advancedandroid.details.RepoDetailsController
 import com.nitrosoft.ua.advancedandroid.di.ControllerKey
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposComponent
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposController
@@ -19,4 +20,9 @@ abstract class TestScreenBindingModule {
     @IntoMap
     @ControllerKey(TrendingReposController::class)
     abstract fun bindTrendingReposInjector(builder: TrendingReposComponent.Builder): AndroidInjector.Factory<out Controller>
+
+    @Binds
+    @IntoMap
+    @ControllerKey(RepoDetailsController::class)
+    abstract fun bindRepoDetailsInjector(builder: RepoDetailsComponent.Builder): AndroidInjector.Factory<out Controller>
 }

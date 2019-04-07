@@ -11,11 +11,8 @@ import javax.inject.Inject
 
 class TrendingReposController : BaseController() {
 
-    @Inject
-    lateinit var presenter: TrendingReposPresenter
-
-    @Inject
-    lateinit var viewModel: TrendingRepoViewModel
+    @Inject lateinit var presenter: TrendingReposPresenter
+    @Inject lateinit var viewModel: TrendingRepoViewModel
 
     override fun layoutRes(): Int {
         return R.layout.view_trending_repo
@@ -28,7 +25,7 @@ class TrendingReposController : BaseController() {
                         .subscribe { loading ->
                             view?.loadingIndicator?.visibility = if (loading) View.VISIBLE else View.GONE
                             view?.repoList?.visibility = if (loading) View.GONE else View.VISIBLE
-                            view?.errorText?.visibility = if (loading) View.GONE else View.VISIBLE
+                            view?.errorText?.visibility = if (loading) View.GONE else view?.errorText?.visibility!!
                         },
                 viewModel.repos()
                         .observeOn(AndroidSchedulers.mainThread())

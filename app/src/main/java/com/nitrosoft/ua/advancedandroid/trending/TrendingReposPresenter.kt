@@ -24,7 +24,9 @@ class TrendingReposPresenter @Inject constructor(
     @SuppressLint("CheckResult")
     private fun loadRepos() {
         repoRepository.getTrendingRepos()
-                .doOnSubscribe { viewModel.loadingUpdated().accept(true) }
+                .doOnSubscribe {
+                    viewModel.loadingUpdated().accept(true)
+                }
                 .doOnEvent { _, _ -> viewModel.loadingUpdated().accept(false) }
                 .subscribe(viewModel.requestUpdated(), viewModel.onError())
     }

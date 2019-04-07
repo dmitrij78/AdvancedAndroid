@@ -4,7 +4,6 @@ import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
 import com.nitrosoft.ua.advancedandroid.data.TestRepoServiceModule
 import com.nitrosoft.ua.advancedandroid.networking.ServiceModule
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposControllerTest
 import com.nitrosoft.ua.advancedandroid.ui.TestNavigationModule
 import com.nitrosoft.ua.advancedandroid.ui.TestScreenNavigator
 import dagger.Component
@@ -19,8 +18,6 @@ import javax.inject.Singleton
     TestNavigationModule::class
 ])
 interface TestApplicationComponent : ApplicationComponent {
-
-    fun inject(myApplication: TrendingReposControllerTest)
 
     fun screenNavigator(): TestScreenNavigator
 

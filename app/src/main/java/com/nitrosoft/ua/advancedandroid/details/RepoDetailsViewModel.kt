@@ -57,6 +57,7 @@ class RepoDetailsViewModel @Inject constructor() {
     fun detailsError(): Consumer<Throwable> {
         return Consumer { throwable ->
             Timber.e(throwable, "Error loading repo details")
+
             detailsStateRelay.accept(RepoDetailsState(
                     loading = false,
                     errorRes = R.string.api_error_single_repo)
@@ -66,7 +67,8 @@ class RepoDetailsViewModel @Inject constructor() {
 
     fun contributorsError(): Consumer<Throwable> {
         return Consumer { throwable ->
-            Timber.e(throwable, "Error loading repo details")
+            Timber.e(throwable, "Error loading contributors")
+
             contributorStateRelay.accept(ContributorState(
                     loading = false,
                     errorRes = R.string.api_error_contributors)
