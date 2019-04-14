@@ -11,8 +11,8 @@ import java.io.IOException
 
 class RepoDetailsViewModelTest {
 
-    private val repo: Repo = TestUtils.loadJson("mock/get_repo.json", Repo::class.java)
-    private val contributors: List<Contributor> = TestUtils.loadJson("mock/get_contributors.json",
+    private val repo: Repo = TestUtils.loadJson("mock/repos/get_repo.json", Repo::class.java)
+    private val contributors: List<Contributor> = TestUtils.loadJson("mock/repos/contributors/get_contributors.json",
             Types.newParameterizedType(List::class.java, Contributor::class.java))
     private lateinit var viewModel: RepoDetailsViewModel
 

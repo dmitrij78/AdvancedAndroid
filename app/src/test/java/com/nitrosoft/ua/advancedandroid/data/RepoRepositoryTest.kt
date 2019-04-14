@@ -32,7 +32,7 @@ class RepoRepositoryTest {
         `when`(repoRequesterProvider.get()).thenReturn(repoRequester)
 
         response = TestUtils.loadJson<TrendingReposResponse>(
-                "mock/get_trending_repo.json",
+                "mock/repos/search/get_trending_repos.json",
                 TrendingReposResponse::class.java
         )
 

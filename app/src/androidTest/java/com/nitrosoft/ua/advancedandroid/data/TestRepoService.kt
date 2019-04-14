@@ -21,7 +21,7 @@ internal constructor(private val testUtils: TestUtils) : RepoService {
     override fun getTrendingRepos(): Single<TrendingReposResponse> {
         if (errorFlags and FLAG_TRENDING_REPOS == 0) {
             val response = testUtils.loadJson<TrendingReposResponse>(
-                    "mock/get_trending_repo.json",
+                    "mock/repos/search/get_trending_repos.json",
                     TrendingReposResponse::class.java)
 
             return if (holdFlags and FLAG_TRENDING_REPOS == FLAG_TRENDING_REPOS) {
@@ -33,7 +33,7 @@ internal constructor(private val testUtils: TestUtils) : RepoService {
 
     override fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
         if (errorFlags and FLAG_GET_REPO == 0) {
-            val repo = testUtils.loadJson<Repo>("mock/get_repo.json", Repo::class.java)
+            val repo = testUtils.loadJson<Repo>("mock/repos/get_repo.json", Repo::class.java)
             return if (holdFlags and FLAG_GET_REPO == FLAG_GET_REPO) {
                 holdingSingle(repo, FLAG_GET_REPO)
             } else Single.just(repo)
@@ -43,7 +43,7 @@ internal constructor(private val testUtils: TestUtils) : RepoService {
 
     override fun getContributors(url: String): Single<List<Contributor>> {
         if (errorFlags and FLAG_GET_CONTRIBUTORS == 0) {
-            val contributors = testUtils.loadJson<List<Contributor>>("mock/get_contributors.json", Types.newParameterizedType(List::class.java, Contributor::class.java))
+            val contributors = testUtils.loadJson<List<Contributor>>("mock/repos/contributors/get_contributors.json", Types.newParameterizedType(List::class.java, Contributor::class.java))
             return if (holdFlags and FLAG_GET_CONTRIBUTORS == FLAG_GET_CONTRIBUTORS) {
                 holdingSingle(contributors, FLAG_GET_CONTRIBUTORS)
             } else Single.just(contributors)

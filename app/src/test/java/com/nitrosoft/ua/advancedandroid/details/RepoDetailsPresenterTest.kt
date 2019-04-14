@@ -16,27 +16,16 @@ import java.io.IOException
 
 class RepoDetailsPresenterTest {
 
-    @Mock
-    private lateinit var repoRepository: RepoRepository
+    @Mock private lateinit var repoRepository: RepoRepository
+    @Mock private lateinit var viewModel: RepoDetailsViewModel
+    @Mock private lateinit var repoConsumer: Consumer<Repo>
+    @Mock private lateinit var contributorsConsumer: Consumer<List<Contributor>>
+    @Mock private lateinit var detailsErrorConsumer: Consumer<Throwable>
+    @Mock private lateinit var contributorsErrorConsumer: Consumer<Throwable>
 
-    @Mock
-    private lateinit var viewModel: RepoDetailsViewModel
-
-    @Mock
-    private lateinit var repoConsumer: Consumer<Repo>
-
-    @Mock
-    private lateinit var contributorsConsumer: Consumer<List<Contributor>>
-
-    @Mock
-    private lateinit var detailsErrorConsumer: Consumer<Throwable>
-
-    @Mock
-    private lateinit var contributorsErrorConsumer: Consumer<Throwable>
-
-    private val repo: Repo = TestUtils.loadJson("mock/get_repo.json", Repo::class.java)
+    private val repo: Repo = TestUtils.loadJson("mock/repos/get_repo.json", Repo::class.java)
     private val contributors: List<Contributor> = TestUtils.loadJson(
-            "mock/get_contributors.json",
+            "mock/repos/contributors/get_contributors.json",
             Types.newParameterizedType(List::class.java, Contributor::class.java))
 
     private val contributorsUrl = repo.contributorsUrl

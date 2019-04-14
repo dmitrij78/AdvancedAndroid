@@ -29,7 +29,7 @@ class TrendingRepoViewModelTest {
     @Test
     fun repos() {
         val trendingReposResponse = TestUtils
-                .loadJson<TrendingReposResponse>("mock/get_trending_repo.json", TrendingReposResponse::class.java)
+                .loadJson<TrendingReposResponse>("mock/repos/search/get_trending_repos.json", TrendingReposResponse::class.java)
         viewModel.requestUpdated().accept(trendingReposResponse.repos)
 
         viewModel.repos().test().assertValue(trendingReposResponse.repos)

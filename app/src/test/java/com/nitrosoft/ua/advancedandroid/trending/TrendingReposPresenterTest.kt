@@ -16,23 +16,12 @@ import java.io.IOException
 
 class TrendingReposPresenterTest {
 
-    @Mock
-    lateinit var repoRepository: RepoRepository
-
-    @Mock
-    lateinit var viewModel: TrendingRepoViewModel
-
-    @Mock
-    lateinit var screenNavigator: ScreenNavigator
-
-    @Mock
-    lateinit var onErrorConsumer: Consumer<Throwable>
-
-    @Mock
-    lateinit var onSuccessConsumer: Consumer<List<Repo>>
-
-    @Mock
-    lateinit var loadingConsumer: Consumer<Boolean>
+    @Mock lateinit var repoRepository: RepoRepository
+    @Mock lateinit var viewModel: TrendingRepoViewModel
+    @Mock lateinit var screenNavigator: ScreenNavigator
+    @Mock lateinit var onErrorConsumer: Consumer<Throwable>
+    @Mock lateinit var onSuccessConsumer: Consumer<List<Repo>>
+    @Mock lateinit var loadingConsumer: Consumer<Boolean>
 
     private lateinit var presenter: TrendingReposPresenter
 
@@ -47,7 +36,7 @@ class TrendingReposPresenterTest {
 
     @Test
     fun onRepoClicked() {
-        val repo = TestUtils.loadJson<Repo>("mock/get_repo.json", Repo::class.java)
+        val repo = TestUtils.loadJson<Repo>("mock/repos/get_repo.json", Repo::class.java)
 
         setupSuccess()
         initializePresenter()
@@ -98,7 +87,7 @@ class TrendingReposPresenterTest {
 
     private fun setupSuccess(): List<Repo> {
         val response = TestUtils.loadJson<TrendingReposResponse>(
-                "mock/get_trending_repo.json",
+                "mock/repos/search/get_trending_repos.json",
                 TrendingReposResponse::class.java
         )
         val repos = response.repos
