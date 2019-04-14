@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -20,11 +21,11 @@ abstract class BaseActivity : AppCompatActivity() {
         const val INSTANCE_ID = "instance_id"
     }
 
-    @Inject
-    lateinit var screenInjector: ScreenInjector
+    @Inject lateinit var screenInjector: ScreenInjector
+    @Inject lateinit var screenNavigator: ScreenNavigator
 
-    @Inject
-    lateinit var screenNavigator: ScreenNavigator
+    @Suppress("unused")
+    @Inject lateinit var appContext: Context
 
     private lateinit var router: Router
     private lateinit var instanceId: String
