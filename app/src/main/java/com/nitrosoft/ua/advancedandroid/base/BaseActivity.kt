@@ -10,6 +10,7 @@ import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.Router
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.di.ScreenInjector
+import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -23,6 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     @Inject lateinit var screenInjector: ScreenInjector
     @Inject lateinit var screenNavigator: ScreenNavigator
+    @Inject lateinit var activityViewInterceptor: ActivityViewInterceptor
 
     @Suppress("unused")
     @Inject lateinit var appContext: Context
@@ -39,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
         Injector.inject(this)
         super.onCreate(savedInstanceState)
 
-        setContentView(layoutRes())
+        activityViewInterceptor.setContentView(this, layoutRes())
 
         router = Conductor.attachRouter(this, screenContainer, savedInstanceState)
         screenNavigator.initWithRouter(router, initialScreen())
@@ -61,12 +63,11 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         screenNavigator.clear()
-
         if (isFinishing) {
             Injector.clear(this)
         }
+        activityViewInterceptor.clear()
     }
 
     override fun onBackPressed() {
