@@ -20,11 +20,11 @@ import dagger.android.AndroidInjector;
 @Singleton
 public class ActivityInjector {
 
-    private final Map<Class<? extends Activity>, Provider<AndroidInjector.Factory<? extends Activity>>> activityInjectors;
-    private final Map<String, AndroidInjector<? extends Activity>> cache = new HashMap<>();
+    private final Map<Class<?>, Provider<AndroidInjector.Factory<?>>> activityInjectors;
+    private final Map<String, AndroidInjector<?>> cache = new HashMap<>();
 
     @Inject
-    ActivityInjector(Map<Class<? extends Activity>, Provider<AndroidInjector.Factory<? extends Activity>>> activityInjectors) {
+    ActivityInjector(Map<Class<?>, Provider<AndroidInjector.Factory<?>>> activityInjectors) {
         this.activityInjectors = activityInjectors;
     }
 

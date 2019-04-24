@@ -1,27 +1,37 @@
 package com.nitrosoft.ua.advancedandroid.details
 
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
-import dagger.BindsInstance
+import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 import javax.inject.Named
 
 @ScreenScope
-@Subcomponent
+@Subcomponent(modules = [RepoDetailsComponent.RepoDetailsModule::class])
 interface RepoDetailsComponent : AndroidInjector<RepoDetailsController> {
 
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<RepoDetailsController>() {
+    @Subcomponent.Factory
+    interface Factory : AndroidInjector.Factory<RepoDetailsController>
 
-        @BindsInstance
-        abstract fun bindRepoOwner(@Named("repo_owner") repoOwner: String)
+    @Module
+    abstract class RepoDetailsModule {
+        @Module
+        companion object {
 
-        @BindsInstance
-        abstract fun bindRepoName(@Named("repo_name") repoName: String)
+            @JvmStatic
+            @Provides
+            @Named("repo_owner")
+            fun providesRepoOwner(instance: RepoDetailsController?): String {
+                return instance?.args?.getString(RepoDetailsController.REPO_OWNER_KEY)!!
+            }
 
-        override fun seedInstance(instance: RepoDetailsController?) {
-            instance?.args?.getString(RepoDetailsController.REPO_NAME_KEY)?.let { bindRepoName(it) }
-            instance?.args?.getString(RepoDetailsController.REPO_OWNER_KEY)?.let { bindRepoOwner(it) }
+            @JvmStatic
+            @Provides
+            @Named("repo_name")
+            fun providesRepoName(instance: RepoDetailsController?): String {
+                return instance?.args?.getString(RepoDetailsController.REPO_NAME_KEY)!!
+            }
         }
     }
 }

@@ -17,11 +17,11 @@ import dagger.android.AndroidInjector;
 @ActivityScope
 public class ScreenInjector {
 
-    private final Map<Class<? extends Controller>, Provider<AndroidInjector.Factory<? extends Controller>>> ControllerInjectors;
-    private final Map<String, AndroidInjector<? extends Controller>> cache = new HashMap<>();
+    private final Map<Class<?>, Provider<AndroidInjector.Factory<?>>> ControllerInjectors;
+    private final Map<String, AndroidInjector<?>> cache = new HashMap<>();
 
     @Inject
-    ScreenInjector(Map<Class<? extends Controller>, Provider<AndroidInjector.Factory<? extends Controller>>> ControllerInjectors) {
+    ScreenInjector(Map<Class<?>, Provider<AndroidInjector.Factory<?>>> ControllerInjectors) {
         this.ControllerInjectors = ControllerInjectors;
     }
 

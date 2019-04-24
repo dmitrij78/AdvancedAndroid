@@ -29,7 +29,7 @@ ext {
     targetSdkVersion = 28
 
     conductorVersion = '2.1.5'
-    daggerVersion = '2.19'
+    daggerVersion = '2.22.1'
     kotshiVersion = '1.0.5'
     moshiVersion = '1.6.0'
     okhttpVersion = '3.14.1'
