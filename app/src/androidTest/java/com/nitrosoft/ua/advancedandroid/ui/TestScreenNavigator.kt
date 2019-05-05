@@ -1,22 +1,28 @@
 package com.nitrosoft.ua.advancedandroid.ui
 
+import androidx.appcompat.app.AppCompatActivity
 import com.bluelinelabs.conductor.Controller
-import com.bluelinelabs.conductor.Router
-import javax.inject.Inject
+import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import javax.inject.Singleton
 
 @Singleton
-class TestScreenNavigator @Inject constructor(private val defaultScreenNavigator: DefaultScreenNavigator) : ScreenNavigator {
+class TestScreenNavigator : ActivityLifecycleTask(), ScreenNavigator {
 
+    private var defaultScreenNavigator: DefaultScreenNavigator = DefaultScreenNavigator()
     private var overrideController: Controller? = null
 
-    fun overrideInitialController(controller: Controller) {
-        this.overrideController = controller
+    override fun onCreate(appCompatActivity: AppCompatActivity) {
+        if (appCompatActivity !is RouterProvider) {
+            throw IllegalArgumentException("Activity must be instance of RouterProvider")
+        }
+
+        val routerProvider = appCompatActivity as RouterProvider
+        val launchController: Controller = overrideController ?: routerProvider.initialScreen()
+        defaultScreenNavigator.initWithRouter(routerProvider.getRouter(), launchController)
     }
 
-    override fun initWithRouter(router: Router, rootScreen: Controller) {
-        val controller: Controller = overrideController ?: rootScreen
-        defaultScreenNavigator.initWithRouter(router, controller)
+    override fun onDestroy(appCompatActivity: AppCompatActivity) {
+        defaultScreenNavigator.onDestroy(appCompatActivity)
     }
 
     override fun pop(): Boolean {
@@ -27,7 +33,7 @@ class TestScreenNavigator @Inject constructor(private val defaultScreenNavigator
         defaultScreenNavigator.goToRepoDetails(repoOwner, repoName)
     }
 
-    override fun clear() {
-        defaultScreenNavigator.clear()
+    fun overrideInitialController(controller: Controller) {
+        this.overrideController = controller
     }
 }

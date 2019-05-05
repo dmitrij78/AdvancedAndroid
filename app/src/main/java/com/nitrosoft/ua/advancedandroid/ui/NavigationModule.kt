@@ -1,13 +1,17 @@
 package com.nitrosoft.ua.advancedandroid.ui
 
-import com.nitrosoft.ua.advancedandroid.di.ActivityScope
+import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import dagger.Binds
 import dagger.Module
+import dagger.multibindings.IntoSet
 
 @Module
 abstract class NavigationModule {
 
     @Binds
-    @ActivityScope
-    abstract fun provideScreenNavigator(navigator: DefaultScreenNavigator): ScreenNavigator
+    abstract fun bindScreenNavigator(navigator: DefaultScreenNavigator): ScreenNavigator
+
+    @Binds
+    @IntoSet
+    abstract fun bindActivityLifecycleTask(navigator: DefaultScreenNavigator): ActivityLifecycleTask
 }
