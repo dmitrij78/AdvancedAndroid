@@ -6,7 +6,7 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseController
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.view_trending_repo.view.*
+import kotlinx.android.synthetic.main.screen_trending_repo.view.*
 import javax.inject.Inject
 
 class TrendingReposController : BaseController() {
@@ -15,7 +15,7 @@ class TrendingReposController : BaseController() {
     @Inject lateinit var viewModel: TrendingRepoViewModel
 
     override fun layoutRes(): Int {
-        return R.layout.view_trending_repo
+        return R.layout.screen_trending_repo
     }
 
     override fun subscriptions(): Array<Disposable> {
