@@ -10,13 +10,8 @@ import javax.inject.Named
 
 @ScreenScope
 class RepoDetailsPresenter @Inject constructor(
-
-        @Named(RepoDetailsController.REPO_OWNER_KEY)
-        private val repoOwner: String,
-
-        @Named(RepoDetailsController.REPO_NAME_KEY)
-        private val repoName: String,
-
+        @Named(RepoDetailsController.REPO_OWNER_KEY) private val repoOwner: String,
+        @Named(RepoDetailsController.REPO_NAME_KEY) private val repoName: String,
         private val repository: RepoRepository,
         private val viewModel: RepoDetailsViewModel) {
 

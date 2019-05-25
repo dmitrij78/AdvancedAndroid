@@ -73,7 +73,7 @@ abstract class BaseController : Controller {
     override fun onChangeStarted(changeHandler: ControllerChangeHandler, changeType: ControllerChangeType) {
         for (screenLifecycleTask in screenLifecycleTasks) {
             if (changeType.isEnter) {
-                screenLifecycleTask.onEnterScope(view)
+                view?.let { screenLifecycleTask.onEnterScope(it) }
             } else {
                 screenLifecycleTask.onExitScope()
             }
