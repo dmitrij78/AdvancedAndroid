@@ -9,10 +9,14 @@ import androidx.annotation.LayoutRes
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.ControllerChangeHandler
+import com.bluelinelabs.conductor.ControllerChangeType
 import com.nitrosoft.ua.advancedandroid.di.Injector
+import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
+import javax.inject.Inject
 
 
 abstract class BaseController : Controller {
@@ -21,6 +25,8 @@ abstract class BaseController : Controller {
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     private var unBinder: Unbinder? = null
+
+    @Inject lateinit var screenLifecycleTasks: Set<@JvmSuppressWildcards ScreenLifecycleTask>
 
     constructor() : super()
 
@@ -33,11 +39,6 @@ abstract class BaseController : Controller {
             injected = true
         }
         super.onContextAvailable(context)
-    }
-
-    override fun onAttach(view: View) {
-        super.onAttach(view)
-        Timber.tag(TAG).d("onAttach")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -61,12 +62,22 @@ abstract class BaseController : Controller {
         unBinder = null
     }
 
-    override fun onDetach(view: View) {
-        Timber.tag(TAG).d("onDetach")
+    override fun onDestroy() {
+        super.onDestroy()
+
+        for (screenLifecycleTask in screenLifecycleTasks) {
+            screenLifecycleTask.onDestroy()
+        }
     }
 
-    override fun onDestroy() {
-        Timber.tag(TAG).d("onDestroy")
+    override fun onChangeStarted(changeHandler: ControllerChangeHandler, changeType: ControllerChangeType) {
+        for (screenLifecycleTask in screenLifecycleTasks) {
+            if (changeType.isEnter) {
+                screenLifecycleTask.onEnterScope(view)
+            } else {
+                screenLifecycleTask.onExitScope()
+            }
+        }
     }
 
     @LayoutRes

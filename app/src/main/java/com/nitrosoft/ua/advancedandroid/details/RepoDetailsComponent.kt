@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.details
 
+import com.nitrosoft.ua.advancedandroid.base.ScreenModule
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import dagger.Module
 import dagger.Provides
@@ -8,7 +9,7 @@ import dagger.android.AndroidInjector
 import javax.inject.Named
 
 @ScreenScope
-@Subcomponent(modules = [RepoDetailsComponent.RepoDetailsModule::class])
+@Subcomponent(modules = [RepoDetailsComponent.RepoDetailsModule::class, ScreenModule::class])
 interface RepoDetailsComponent : AndroidInjector<RepoDetailsController> {
 
     @Subcomponent.Factory
