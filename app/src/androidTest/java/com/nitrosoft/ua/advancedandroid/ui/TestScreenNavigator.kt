@@ -3,10 +3,11 @@ package com.nitrosoft.ua.advancedandroid.ui
 import androidx.appcompat.app.AppCompatActivity
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TestScreenNavigator : ActivityLifecycleTask(), ScreenNavigator {
+class TestScreenNavigator @Inject constructor() : ActivityLifecycleTask(), ScreenNavigator {
 
     private var defaultScreenNavigator: DefaultScreenNavigator = DefaultScreenNavigator()
     private var overrideController: Controller? = null

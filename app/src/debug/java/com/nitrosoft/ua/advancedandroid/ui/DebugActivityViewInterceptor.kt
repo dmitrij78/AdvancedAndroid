@@ -35,7 +35,6 @@ class DebugActivityViewInterceptor @Inject constructor(private val debugPreferen
         activity.setContentView(debugLayout)
     }
 
-
     override fun clear() {
         disposables.clear()
         unBinder.unbind()

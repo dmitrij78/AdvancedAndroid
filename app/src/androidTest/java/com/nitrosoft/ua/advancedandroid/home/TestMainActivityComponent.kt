@@ -5,9 +5,7 @@ import dagger.Subcomponent
 import dagger.android.AndroidInjector
 
 @ActivityScope
-@Subcomponent(modules = [
-    TestScreenBindingModule::class
-])
+@Subcomponent(modules = [TestScreenBindingModule::class])
 interface TestMainActivityComponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Factory

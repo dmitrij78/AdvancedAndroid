@@ -15,7 +15,7 @@ abstract class ScreenLifecycleTask {
     open fun onExitScope() {}
 
     /*
-    * Callback received when a Screen is destroyed and wil not be coming back (except new instance). This should be used to clear any {@link ActivityScope} connections
+    * Callback received when a Screen is destroyed and wil not be coming back (except new instance). This should be used to disposable any {@link ActivityScope} connections
     */
     open fun onDestroy() {}
 }

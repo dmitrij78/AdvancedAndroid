@@ -2,6 +2,7 @@ package com.nitrosoft.ua.advancedandroid.trending
 
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TrendingReposResponse
+import com.nitrosoft.ua.advancedandroid.lifecycle.DisposableManager
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
@@ -106,6 +107,6 @@ class TrendingReposPresenterTest {
     }
 
     private fun initializePresenter() {
-        presenter = TrendingReposPresenter(viewModel, repoRepository, screenNavigator)
+        presenter = TrendingReposPresenter(Mockito.mock(DisposableManager::class.java), viewModel, repoRepository, screenNavigator)
     }
 }

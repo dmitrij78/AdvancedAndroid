@@ -1,6 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.details
 
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
+import com.nitrosoft.ua.advancedandroid.lifecycle.DisposableManager
 import com.nitrosoft.ua.advancedandroid.models.Contributor
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
@@ -82,6 +83,6 @@ class RepoDetailsPresenterTest {
     }
 
     private fun initPresenter() {
-        RepoDetailsPresenter(OWNER, NAME, repoRepository, viewModel)
+        RepoDetailsPresenter(OWNER, NAME, Mockito.mock(DisposableManager::class.java), repoRepository, viewModel)
     }
 }

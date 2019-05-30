@@ -46,7 +46,10 @@ public class ScreenInjector {
     }
 
     void clear(Controller controller) {
-        cache.remove(controller.getInstanceId());
+        AndroidInjector<?> injector = cache.remove(controller.getInstanceId());
+        if (injector instanceof ScreenComponent) {
+            ((ScreenComponent) injector).diposableManager().disposable();
+        }
     }
 
     static ScreenInjector get(Activity activity) {
