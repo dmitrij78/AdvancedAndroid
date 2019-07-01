@@ -15,10 +15,9 @@ import javax.inject.Named
 
 @ScreenScope
 class DetailsUIManger @Inject constructor(
-        private val butterKnifeUtils: ButterKnifeUtils,
         @Named(RepoDetailsController.REPO_NAME_KEY) private val name: String,
-        private val screenNavigator: ScreenNavigator) :
-        ScreenLifecycleTask() {
+        private val butterKnifeUtils: ButterKnifeUtils,
+        private val screenNavigator: ScreenNavigator) : ScreenLifecycleTask() {
 
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
 

@@ -6,6 +6,7 @@ import javax.inject.Named
 
 @Module
 abstract class RepoDetailsModule {
+
     @Module
     companion object {
 

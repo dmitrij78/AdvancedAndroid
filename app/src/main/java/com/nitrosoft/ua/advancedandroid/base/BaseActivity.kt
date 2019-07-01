@@ -30,7 +30,8 @@ abstract class BaseActivity : AppCompatActivity(), RouterProvider {
     @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
 
     @Suppress("unused")
-    @Inject lateinit var appContext: Context
+    @Inject
+    lateinit var appContext: Context
 
     private lateinit var router: Router
     private lateinit var instanceId: String
@@ -108,9 +109,9 @@ abstract class BaseActivity : AppCompatActivity(), RouterProvider {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putString(INSTANCE_ID, instanceId)
+        outState.putString(INSTANCE_ID, instanceId)
     }
 
 
