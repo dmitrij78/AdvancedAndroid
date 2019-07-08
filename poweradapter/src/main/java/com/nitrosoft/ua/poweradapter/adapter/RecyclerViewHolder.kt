@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nitrosoft.ua.poweradapter.item.ItemRenderer
 import com.nitrosoft.ua.poweradapter.item.RecyclerItem
 
-class RecyclerViewHolder(private val renderer: ItemRenderer<RecyclerItem>?,
+class RecyclerViewHolder(private val renderer: ItemRenderer<out RecyclerItem>?,
                          itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: RecyclerItem) {

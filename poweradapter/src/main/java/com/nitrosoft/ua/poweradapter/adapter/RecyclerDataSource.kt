@@ -2,6 +2,7 @@ package com.nitrosoft.ua.poweradapter.adapter
 
 import android.annotation.SuppressLint
 import androidx.annotation.LayoutRes
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nitrosoft.ua.poweradapter.item.ItemRenderer
@@ -10,7 +11,7 @@ import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<RecyclerItem>>) {
+class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<out RecyclerItem>>) {
 
     @SuppressLint("UseSparseArrays")
     private val viewTypeToRendererKeyMap = HashMap<Int, String>()
@@ -35,7 +36,7 @@ class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<Recycle
         adapter?.let { diffResult.dispatchUpdatesTo(it) }
     }
 
-    internal fun rendererForType(viewType: Int): ItemRenderer<RecyclerItem>? {
+    internal fun rendererForType(viewType: Int): ItemRenderer<out RecyclerItem>? {
         return renderers[viewTypeToRendererKeyMap[viewType]]
     }
 
@@ -50,6 +51,12 @@ class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<Recycle
 
     internal fun attachAdapter(adapter: RecyclerView.Adapter<*>) {
         adapterReference = WeakReference(adapter)
+    }
+
+    @VisibleForTesting
+    fun seedData(data: List<RecyclerItem>) {
+        this.data.clear()
+        this.data.addAll(data)
     }
 
 }

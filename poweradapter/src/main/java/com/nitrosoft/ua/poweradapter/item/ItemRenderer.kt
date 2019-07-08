@@ -12,5 +12,5 @@ interface ItemRenderer<T : RecyclerItem> {
 
     fun createView(parent: ViewGroup): View
 
-    fun render(itemView: View, item: T)
+    fun render(itemView: View, item: RecyclerItem)
 }
