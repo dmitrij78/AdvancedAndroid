@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<out RecyclerItem>>) {
+class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<RecyclerItem>>) {
 
     @SuppressLint("UseSparseArrays")
     private val viewTypeToRendererKeyMap = HashMap<Int, String>()
@@ -35,13 +35,13 @@ class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<out Rec
         adapter?.let { diffResult.dispatchUpdatesTo(it) }
     }
 
-    internal fun rendererForType(viewType: Int): ItemRenderer<out RecyclerItem>? {
+    internal fun rendererForType(viewType: Int): ItemRenderer<RecyclerItem>? {
         return renderers[viewTypeToRendererKeyMap[viewType]]
     }
 
     @LayoutRes
     internal fun viewResourceForPosition(position: Int): Int? {
-        return renderers.get(data[position].renderKey())?.layoutRes()
+        return renderers[data[position].renderKey()]?.layoutRes()
     }
 
     internal fun getItem(position: Int): RecyclerItem {
