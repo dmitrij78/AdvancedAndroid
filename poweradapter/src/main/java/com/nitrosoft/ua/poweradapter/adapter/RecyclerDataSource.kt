@@ -58,5 +58,4 @@ class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<out Rec
         this.data.clear()
         this.data.addAll(data)
     }
-
 }
