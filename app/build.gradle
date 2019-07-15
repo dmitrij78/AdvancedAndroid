@@ -37,6 +37,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
+    implementation project(':poweradapter')
+
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
