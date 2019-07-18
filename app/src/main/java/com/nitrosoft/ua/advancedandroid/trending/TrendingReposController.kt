@@ -4,6 +4,8 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseController
+import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdpater
+import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.screen_trending_repo.view.*
@@ -13,6 +15,7 @@ class TrendingReposController : BaseController() {
 
     @Inject lateinit var presenter: TrendingReposPresenter
     @Inject lateinit var viewModel: TrendingRepoViewModel
+    @Inject lateinit var recyclerDataSource: RecyclerDataSource
 
     override fun layoutRes(): Int {
         return R.layout.screen_trending_repo
@@ -27,12 +30,12 @@ class TrendingReposController : BaseController() {
                             view?.repoList?.visibility = if (loading) View.GONE else View.VISIBLE
                             view?.errorText?.visibility = if (loading) View.GONE else view?.errorText?.visibility!!
                         },
-                viewModel.repos()
+/*                viewModel.repos()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { data ->
                             val adapter = view?.repoList?.adapter as RepoAdapter
                             adapter.setData(data.toMutableList())
-                        },
+                        },*/
                 viewModel.error()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { errorStrRes ->
@@ -50,6 +53,6 @@ class TrendingReposController : BaseController() {
 
     override fun onViewBound(view: View) {
         view.repoList.layoutManager = LinearLayoutManager(view.context)
-        view.repoList.adapter = RepoAdapter(presenter)
+        view.repoList.adapter = RecyclerAdpater(recyclerDataSource)
     }
 }
