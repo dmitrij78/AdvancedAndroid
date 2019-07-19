@@ -31,6 +31,7 @@ abstract class TrendingReposScreenModule {
         @Provides
         @ScreenScope
         @JvmStatic
+        @JvmSuppressWildcards
         fun provideRecyclerDataSource(renderers: Map<String, ItemRenderer<out RecyclerItem>>): RecyclerDataSource {
             return RecyclerDataSource(renderers)
         }
