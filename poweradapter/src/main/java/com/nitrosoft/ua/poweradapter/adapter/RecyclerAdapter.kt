@@ -3,10 +3,12 @@ package com.nitrosoft.ua.poweradapter.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerAdpater(private val dataSource: RecyclerDataSource) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclerAdapter(private val dataSource: RecyclerDataSource) :
+        RecyclerView.Adapter<RecyclerViewHolder>() {
 
     init {
         setHasStableIds(true)
+        dataSource.attachAdapter(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {

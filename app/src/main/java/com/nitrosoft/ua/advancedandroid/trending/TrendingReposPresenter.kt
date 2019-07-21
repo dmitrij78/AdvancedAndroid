@@ -6,7 +6,7 @@ import com.nitrosoft.ua.advancedandroid.di.ForScreen
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.lifecycle.DisposableManager
 import com.nitrosoft.ua.advancedandroid.models.Repo
-import com.nitrosoft.ua.advancedandroid.models.RepoItem
+import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,22 +33,15 @@ class TrendingReposPresenter @Inject constructor(
     private fun loadRepos() {
         disposableManager.add(
                 repoRepository.getTrendingRepos()
-                        .doOnSubscribe {
-                            viewModel.loadingUpdated().accept(true)
-                        }
+                        .doOnSubscribe { viewModel.loadingUpdated().accept(true) }
                         .doOnEvent { _, _ -> viewModel.loadingUpdated().accept(false) }
+                        .toObservable()
+                        .flatMapIterable { it }
+                        .map { RepoListItem(it) }
+                        .toList()
+                        .doOnSuccess { viewModel.reposUpdated().run() }
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                Consumer {
-                                    val repoItems: MutableList<RepoItem> = mutableListOf()
-                                    for (repo in it) {
-                                        repoItems.add(RepoItem(repo))
-                                    }
-
-                                    recyclerDataSource.setData(repoItems)
-                                },
-                                viewModel.onError()
-                        )
+                        .subscribe(Consumer { recyclerDataSource.setData(it) }, viewModel.onError())
         )
     }
 }

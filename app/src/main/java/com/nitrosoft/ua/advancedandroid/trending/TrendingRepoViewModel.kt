@@ -3,24 +3,19 @@ package com.nitrosoft.ua.advancedandroid.trending
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
-import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Observable
+import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
 @ScreenScope
 class TrendingRepoViewModel @Inject constructor() {
 
-    private val reposRelay: BehaviorRelay<List<Repo>> = BehaviorRelay.create()
     private val errorRelay: BehaviorRelay<Int> = BehaviorRelay.create()
     private val loadRelay: BehaviorRelay<Boolean> = BehaviorRelay.create()
 
     fun loading(): Observable<Boolean> {
         return loadRelay
-    }
-
-    fun repos(): Observable<List<Repo>> {
-        return reposRelay
     }
 
     fun error(): Observable<Int> {
@@ -31,9 +26,8 @@ class TrendingRepoViewModel @Inject constructor() {
         return loadRelay
     }
 
-    fun requestUpdated(): Consumer<List<Repo>> {
-        errorRelay.accept(-1)
-        return reposRelay
+    fun reposUpdated(): Action {
+        return Action { errorRelay.accept(-1) }
     }
 
     fun onError(): Consumer<Throwable> {
