@@ -5,6 +5,10 @@ import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.di.ForScreen
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.lifecycle.DisposableManager
+import com.nitrosoft.ua.advancedandroid.models.Contributor
+import com.nitrosoft.ua.advancedandroid.models.ContributorListItem
+import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
 import javax.inject.Named
@@ -16,7 +20,8 @@ class RepoDetailsPresenter @Inject constructor(
         @Named(RepoDetailsController.REPO_NAME_KEY) private val repoName: String,
         @ForScreen private val disposableManager: DisposableManager,
         private val repository: RepoRepository,
-        private val viewModel: RepoDetailsViewModel) {
+        private val viewModel: RepoDetailsViewModel,
+        private val contributorDataSource: RecyclerDataSource) {
 
     init {
         loadRepo()
@@ -32,7 +37,13 @@ class RepoDetailsPresenter @Inject constructor(
                             repository.getContributors(it.contributorsUrl)
                                     .doOnError(viewModel.contributorsError())
                         }
-                        .subscribe(viewModel.processContributors(), Consumer { })
+                        .toObservable()
+                        .flatMapIterable { it }
+                        .map { t: Contributor -> ContributorListItem(t) }
+                        .toList()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSuccess { contributorDataSource.setData(it) }
+                        .subscribe(viewModel.contributorsLoaded(), Consumer { })
         )
     }
 }

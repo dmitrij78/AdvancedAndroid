@@ -9,16 +9,19 @@ import butterknife.BindView
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseController
+import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
+import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class RepoDetailsController(bundle: Bundle) : BaseController(bundle) {
 
-    @Inject lateinit var viewModel: RepoDetailsViewModel
-
-    @Suppress("unused")
+    @SuppressWarnings("unused")
     @Inject lateinit var presenter: RepoDetailsPresenter
+
+    @Inject lateinit var viewModel: RepoDetailsViewModel
+    @Inject lateinit var contributorsDataSource: RecyclerDataSource
 
     @BindView(R.id.tv_repo_name) lateinit var repoNameText: TextView
     @BindView(R.id.tv_repo_description) lateinit var repoDescriptionText: TextView
@@ -33,7 +36,7 @@ class RepoDetailsController(bundle: Bundle) : BaseController(bundle) {
 
     override fun onViewBound(view: View) {
         contributorList.layoutManager = LinearLayoutManager(view.context)
-        contributorList.adapter = ContributorAdapter()
+        contributorList.adapter = RecyclerAdapter(contributorsDataSource)
     }
 
     override fun subscriptions(): Array<Disposable> {
@@ -74,7 +77,6 @@ class RepoDetailsController(bundle: Bundle) : BaseController(bundle) {
                         contributorsErrorText.visibility = if (contributorsDetails.isSuccess()) View.GONE else View.VISIBLE
                         if (contributorsDetails.isSuccess()) {
                             contributorsErrorText.text = null
-                            (contributorList.adapter as ContributorAdapter).setData(contributorsDetails.contributors)
                         } else {
                             contributorsErrorText.setText(contributorsDetails.errorRes!!)
                         }

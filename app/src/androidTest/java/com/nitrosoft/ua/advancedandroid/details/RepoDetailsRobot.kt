@@ -69,7 +69,7 @@ internal class RepoDetailsRobot private constructor() {
     }
 
     fun verifyContributorShown(login: String): RepoDetailsRobot {
-        onView(allOf<View>(withId(R.id.tv_user_name), withText(login))).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(allOf<View>(withId(R.id.userNameTv), withText(login))).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         return this
     }
 

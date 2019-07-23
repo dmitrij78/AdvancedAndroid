@@ -54,10 +54,10 @@ class ContributorAdapter : RecyclerView.Adapter<ContributorAdapter.ContributorVi
 
     class ContributorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        @BindView(R.id.tv_user_name)
+        @BindView(R.id.userNameTv)
         lateinit var userNameText: TextView
 
-        @BindView(R.id.iv_avatar)
+        @BindView(R.id.avatarIv)
         lateinit var avatarImageView: ImageView
 
         init {
