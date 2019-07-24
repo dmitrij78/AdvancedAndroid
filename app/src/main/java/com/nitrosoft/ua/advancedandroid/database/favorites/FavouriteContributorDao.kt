@@ -10,11 +10,11 @@ import io.reactivex.Flowable
 interface FavouriteContributorDao {
 
     @Query("SELECT * from favorite_contributors")
-    fun getFavouritedContributors(): Flowable<FavouriteContributor>
+    fun getFavoriteContributors(): Flowable<List<FavouriteContributor>>
 
     @Insert
-    fun addFavotite(favouriteContributor: FavouriteContributor)
+    fun addFavorite(favouriteContributor: FavouriteContributor)
 
     @Delete
-    fun deleteFavotite(favouriteContributor: FavouriteContributor)
+    fun deleteFavorite(favouriteContributor: FavouriteContributor)
 }

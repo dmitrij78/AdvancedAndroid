@@ -4,4 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "favorite_contributors")
-data class FavouriteContributor(@PrimaryKey private val id: Long)
+data class FavouriteContributor(@PrimaryKey val id: Long)
