@@ -31,13 +31,23 @@ android {
 }
 
 dependencies {
+    implementation project(':poweradapter')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
-    implementation project(':poweradapter')
+    implementation "androidx.room:room-runtime:$archComponentVersion"
+    kapt "androidx.room:room-compiler:$archComponentVersion"
+    // For Kotlin use kapt instead of annotationProcessor
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    //implementation "androidx.room:room-ktx:$room_version"
+
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$archComponentVersion"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"

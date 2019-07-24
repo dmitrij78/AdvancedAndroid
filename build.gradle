@@ -54,6 +54,7 @@ ext {
     espressoVersion = '3.2.0'
     glideVersion = '4.9.0'
     butterknifeVersion = '10.1.0'
+    archComponentVersion = '2.2.0-alpha01'
 }
 
 task clean(type: Delete) {

@@ -3,6 +3,7 @@ package com.nitrosoft.ua.advancedandroid.base
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
 import com.nitrosoft.ua.advancedandroid.data.TestRepoServiceModule
+import com.nitrosoft.ua.advancedandroid.database.DatabaseModule
 import com.nitrosoft.ua.advancedandroid.networking.ServiceModule
 import com.nitrosoft.ua.advancedandroid.ui.TestActivityViewInterceptorModule
 import com.nitrosoft.ua.advancedandroid.ui.TestNavigationModule
@@ -17,7 +18,8 @@ import javax.inject.Singleton
     TestRepoServiceModule::class,
     ServiceModule::class,
     TestNavigationModule::class,
-    TestActivityViewInterceptorModule::class
+    TestActivityViewInterceptorModule::class,
+    DatabaseModule::class
 ])
 interface TestApplicationComponent : ApplicationComponent {
 
