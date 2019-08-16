@@ -28,14 +28,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
 
-    testImplementation "junit:junit:4.12"
-
-    androidTestImplementation "androidx.test:runner:1.2.0"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
+    testImplementation "junit:junit:$junitVersion"
 }

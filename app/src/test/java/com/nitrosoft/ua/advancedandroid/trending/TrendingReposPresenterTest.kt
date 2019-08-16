@@ -28,9 +28,10 @@ class TrendingReposPresenterTest {
 
     @Mock lateinit var repoRepository: RepoRepository
     @Mock lateinit var viewModel: TrendingRepoViewModel
+    @Mock lateinit var recyclerDataSource: RecyclerDataSource
+    @Mock lateinit var disposableManager: DisposableManager
     @Mock lateinit var screenNavigator: ScreenNavigator
     @Mock lateinit var onErrorConsumer: Consumer<Throwable>
-    @Mock lateinit var recyclerDataSource: RecyclerDataSource
     @Mock lateinit var loadingConsumer: Consumer<Boolean>
 
     private lateinit var presenter: TrendingReposPresenter
@@ -64,7 +65,7 @@ class TrendingReposPresenterTest {
         initializePresenter()
 
         Mockito.verify(repoRepository).getTrendingRepos()
-        Mockito.verify(recyclerDataSource).seedData(repos.map { repo: Repo -> RepoListItem(repo) })
+        Mockito.verify(recyclerDataSource).setData(repos.map { repo: Repo -> RepoListItem(repo) })
         Mockito.verifyZeroInteractions(onErrorConsumer)
     }
 
@@ -118,7 +119,8 @@ class TrendingReposPresenterTest {
     }
 
     private fun initializePresenter() {
-        presenter = TrendingReposPresenter(Mockito.mock(DisposableManager::class.java),
+        presenter = TrendingReposPresenter(
+                disposableManager,
                 viewModel,
                 repoRepository,
                 screenNavigator,

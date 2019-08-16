@@ -17,7 +17,7 @@ class NetworkModule {
         @JvmStatic
         @Singleton
         @Provides
-        fun provideOkHttp(mockInterceptor: MockIterceptor): Call.Factory {
+        fun provideOkHttp(mockInterceptor: MockInterceptor): Call.Factory {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             return OkHttpClient.Builder()

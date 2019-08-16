@@ -8,13 +8,18 @@ import com.squareup.moshi.Types
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
+import java.util.*
 
 class RepoDetailsViewModelTest {
 
-    private val repo: Repo = TestUtils.loadJson("mock/repos/get_repo.json", Repo::class.java)
-    private val contributors: List<Contributor> = TestUtils.loadJson("mock/repos/contributors/get_contributors.json",
-            Types.newParameterizedType(List::class.java, Contributor::class.java))
+    private val repo: Repo = initRepo()
+    private val contributors: List<Contributor> = initContributors()
+
     private lateinit var viewModel: RepoDetailsViewModel
+
+    init {
+        Locale.setDefault(Locale("ru", "RU"))
+    }
 
     @Before
     fun setUp() {
@@ -42,8 +47,7 @@ class RepoDetailsViewModelTest {
 
         viewModel.contributors().test().assertValue(
                 ContributorState(
-                        loading = false,
-                        contributors = contributors
+                        loading = false
                 )
         )
     }
@@ -69,5 +73,14 @@ class RepoDetailsViewModelTest {
                         errorRes = R.string.api_error_contributors
                 )
         )
+    }
+
+    private fun initContributors(): List<Contributor> {
+        return TestUtils.loadJson("mock/repos/contributors/get_contributors.json",
+                Types.newParameterizedType(List::class.java, Contributor::class.java))
+    }
+
+    private fun initRepo(): Repo {
+        return TestUtils.loadJson("mock/repos/get_repo.json", Repo::class.java)
     }
 }

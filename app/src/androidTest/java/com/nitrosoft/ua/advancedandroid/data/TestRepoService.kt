@@ -12,8 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TestRepoService @Inject
-internal constructor(private val testUtils: TestUtils) : RepoService {
+class TestRepoService @Inject internal constructor(private val testUtils: TestUtils) : RepoService {
 
     private var errorFlags: Int = 0
     private var holdFlags: Int = 0
