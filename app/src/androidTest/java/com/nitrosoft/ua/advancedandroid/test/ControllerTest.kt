@@ -17,12 +17,16 @@ abstract class ControllerTest {
     private var repoRepository: RepoRepository
     private var screenNavigator: TestScreenNavigator
 
+    private val controllerToLaunch: Controller by lazy {
+        controllerToLaunch()
+    }
+
     init {
         repoService = testRule.repoService
         repoRepository = testRule.repoRepository
         screenNavigator = testRule.screenNavigator
 
-        screenNavigator.overrideInitialController(controllerToLaunch())
+        screenNavigator.overrideInitialController(controllerToLaunch)
     }
 
     protected fun launch() {

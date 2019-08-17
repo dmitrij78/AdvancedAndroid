@@ -3,7 +3,6 @@ package com.nitrosoft.ua.advancedandroid.details
 import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.nitrosoft.ua.advancedandroid.R
 import org.hamcrest.Matchers.allOf
@@ -39,7 +38,7 @@ internal class RepoDetailsRobot private constructor() {
         return this
     }
 
-    fun verifyErrorVisibility(visibility: ViewMatchers.Visibility): RepoDetailsRobot {
+    fun verifyErrorVisibility(visibility: Visibility): RepoDetailsRobot {
         onView(withId(R.id.tv_error)).check(matches(withEffectiveVisibility(visibility)))
         return this
     }
@@ -53,27 +52,27 @@ internal class RepoDetailsRobot private constructor() {
         return this
     }
 
-    fun verifyContributorsErrorVisibility(visibility: ViewMatchers.Visibility): RepoDetailsRobot {
+    fun verifyContributorsErrorVisibility(visibility: Visibility): RepoDetailsRobot {
         onView(withId(R.id.tv_contributors_error)).check(matches(withEffectiveVisibility(visibility)))
         return this
     }
 
-    fun verifyLoadingVisibility(visibility: ViewMatchers.Visibility): RepoDetailsRobot {
+    fun verifyLoadingVisibility(visibility: Visibility): RepoDetailsRobot {
         onView(withId(R.id.loading_indicator)).check(matches(withEffectiveVisibility(visibility)))
         return this
     }
 
-    fun verifyContributorsLoadingVisibility(visibility: ViewMatchers.Visibility): RepoDetailsRobot {
+    fun verifyContributorsLoadingVisibility(visibility: Visibility): RepoDetailsRobot {
         onView(withId(R.id.contributor_loading_indicator)).check(matches(withEffectiveVisibility(visibility)))
         return this
     }
 
     fun verifyContributorShown(login: String): RepoDetailsRobot {
-        onView(allOf<View>(withId(R.id.userNameTv), withText(login))).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        onView(allOf<View>(withId(R.id.userNameTv), withText(login))).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         return this
     }
 
-    fun verifyContentVisibility(visibility: ViewMatchers.Visibility): RepoDetailsRobot {
+    fun verifyContentVisibility(visibility: Visibility): RepoDetailsRobot {
         onView(withId(R.id.content)).check(matches(withEffectiveVisibility(visibility)))
         return this
     }

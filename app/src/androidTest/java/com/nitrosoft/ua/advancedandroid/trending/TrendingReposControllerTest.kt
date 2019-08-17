@@ -5,7 +5,6 @@ import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.runner.AndroidJUnit4
 import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
@@ -13,9 +12,7 @@ import com.nitrosoft.ua.advancedandroid.test.ControllerTest
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class TrendingReposControllerTest : ControllerTest() {
 
     @Before

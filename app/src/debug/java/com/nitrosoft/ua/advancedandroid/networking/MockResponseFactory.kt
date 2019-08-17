@@ -12,13 +12,13 @@ class MockResponseFactory @Inject constructor(
     private var startIndex: Int = baseUrl.length
 
     private fun getEndPoint(request: Request): String {
-        val url: String = request.url().toString()
+        val url: String = request.url.toString()
         val queryParamStart = url.indexOf("?")
         return if (queryParamStart == -1) url.substring(startIndex) else url.substring(startIndex, queryParamStart)
     }
 
     fun getMockResponse(request: Request): String? {
         val endpointParts = getEndPoint(request).split("/")
-        return MockResourceLoader.getResponseString(context, request.method(), endpointParts.toTypedArray())
+        return MockResourceLoader.getResponseString(context, request.method, endpointParts.toTypedArray())
     }
 }

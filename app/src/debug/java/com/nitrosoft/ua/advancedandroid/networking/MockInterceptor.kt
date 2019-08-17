@@ -1,10 +1,14 @@
 package com.nitrosoft.ua.advancedandroid.networking
 
 import com.nitrosoft.ua.advancedandroid.settings.DebugPreferences
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.Protocol
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import javax.inject.Inject
 
-class MockIterceptor @Inject constructor(
+class MockInterceptor @Inject constructor(
         private val mockResponseFactory: MockResponseFactory,
         private val debugPreferences: DebugPreferences) : Interceptor {
 
@@ -17,7 +21,7 @@ class MockIterceptor @Inject constructor(
                         .protocol(Protocol.HTTP_1_1)
                         .request(chain.request())
                         .code(200)
-                        .body(ResponseBody.create(MediaType.parse("text/json"), mockResponse))
+                        .body(mockResponse.toResponseBody("text/json".toMediaType()))
                         .build()
             }
         }

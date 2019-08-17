@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.nitrosoft.ua.advancedandroid.database.favorites.FavouriteContributor
 import com.nitrosoft.ua.advancedandroid.database.favorites.FavouriteContributorDao
 
-@Database(entities = [FavouriteContributor::class], version = 1)
+@Database(entities = [FavouriteContributor::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun favoriteContributorDao(): FavouriteContributorDao
