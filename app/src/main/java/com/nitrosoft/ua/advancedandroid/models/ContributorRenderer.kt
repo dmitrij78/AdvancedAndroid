@@ -76,7 +76,6 @@ class ContributorRenderer @Inject constructor(private val favoriteService: Favor
             Glide.with(itemView.context)
                     .load(contributorListItem.contributor.avatarUrl)
                     .into(itemView.avatarIv)
-
         }
     }
 }

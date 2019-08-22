@@ -31,7 +31,7 @@ class RepoRepositoryTest {
         MockitoAnnotations.initMocks(this)
         `when`(repoRequesterProvider.get()).thenReturn(repoRequester)
 
-        response = TestUtils.loadJson<TrendingReposResponse>(
+        response = TestUtils.loadJson(
                 "mock/repos/search/get_trending_repos.json",
                 TrendingReposResponse::class.java
         )
