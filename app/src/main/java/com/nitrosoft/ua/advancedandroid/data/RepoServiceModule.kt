@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.data
 
+import com.nitrosoft.ua.advancedandroid.networking.ServiceModule
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -8,7 +9,7 @@ import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [ServiceModule::class])
 class RepoServiceModule {
 
     @Singleton
