@@ -8,7 +8,8 @@ import javax.inject.Inject
 class RepoRequester @Inject constructor(private val repoService: RepoService) {
 
     fun getTrendingRepos(): Single<List<Repo>> {
-        return repoService.getTrendingRepos()
+        val params = createGetTrendingReposRequestQuery(1, 10)
+        return repoService.getTrendingRepos(params)
                 .map(TrendingReposResponse::repos)
     }
 
@@ -18,5 +19,14 @@ class RepoRequester @Inject constructor(private val repoService: RepoService) {
 
     fun getContributors(url: String): Single<List<Contributor>> {
         return repoService.getContributors(url)
+    }
+
+    private fun createGetTrendingReposRequestQuery(page: Int, pageSize: Int): Map<String, String> {
+        return mapOf(
+                "page" to page.toString(),
+                "per_page" to pageSize.toString(),
+                "q" to "language:java",
+                "order" to "desc",
+                "sort" to "stars")
     }
 }

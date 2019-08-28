@@ -6,5 +6,6 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class TrendingReposResponse(
-        @Json(name = "items") val repos: List<Repo>
+        @Json(name = "items") val repos: List<Repo>,
+        @Json(name = "total_count") val total: Long
 )

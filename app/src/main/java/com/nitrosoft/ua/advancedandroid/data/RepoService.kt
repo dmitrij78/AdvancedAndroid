@@ -5,12 +5,13 @@ import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.QueryMap
 import retrofit2.http.Url
 
 interface RepoService {
 
-    @GET("/search/repositories?q=language:java&order=desc&sort=stars")
-    fun getTrendingRepos(): Single<TrendingReposResponse>
+    @GET("/search/repositories")
+    fun getTrendingRepos(@QueryMap params: Map<String, String>): Single<TrendingReposResponse>
 
     @GET("/repos/{owner}/{name}")
     fun getRepo(@Path("owner") repoOwner: String, @Path("name") repoName: String): Single<Repo>
