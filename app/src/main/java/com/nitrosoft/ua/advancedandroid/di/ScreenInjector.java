@@ -32,12 +32,12 @@ public class ScreenInjector {
 
         String instanceId = controller.getInstanceId();
         if (cache.containsKey(instanceId)) {
-            //noinspection unchecked
+            //noinspection unchecked,ConstantConditions
             ((AndroidInjector<Controller>) cache.get(instanceId)).inject(controller);
             return;
         }
 
-        //noinspection unchecked
+        //noinspection unchecked,ConstantConditions
         AndroidInjector.Factory<Controller> injectorFactory =
                 (AndroidInjector.Factory<Controller>) ControllerInjectors.get(controller.getClass()).get();
         AndroidInjector<Controller> injector = injectorFactory.create(controller);
@@ -48,7 +48,7 @@ public class ScreenInjector {
     void clear(Controller controller) {
         AndroidInjector<?> injector = cache.remove(controller.getInstanceId());
         if (injector instanceof ScreenComponent) {
-            ((ScreenComponent) injector).diposableManager().disposable();
+            ((ScreenComponent) injector).disposableManager().disposable();
         }
     }
 

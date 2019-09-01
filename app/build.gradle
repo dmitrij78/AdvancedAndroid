@@ -37,6 +37,8 @@ dependencies {
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
+    implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
     implementation "androidx.room:room-runtime:$archComponentVersion"
@@ -66,6 +68,7 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBindingsVersion"
 
     implementation "com.bluelinelabs:conductor:$conductorVersion"
+    implementation "com.bluelinelabs:conductor-archlifecycle:$conductorVersion"
 
     implementation "com.jakewharton.timber:timber:$timberVersion"
 

@@ -39,6 +39,7 @@ ext {
     daggerVersion = '2.24'
     glideVersion = '4.9.0'
     kotshiVersion = '2.0.1'
+    lifecycleVersion = '2.2.0-alpha03'
     moshiVersion = '1.6.0'
     okhttpVersion = '4.1.0'
     retrofitVersion = '2.6.1'

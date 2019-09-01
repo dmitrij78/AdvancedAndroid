@@ -9,6 +9,7 @@ import dagger.android.AndroidInjector
 @ActivityScope
 @Subcomponent(modules = [
     MainScreenBindingModule::class,
+    ViewModelModule::class,
     NavigationModule::class,
     ActivityViewInterceptorModule::class
 ])

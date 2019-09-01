@@ -7,7 +7,10 @@ import dagger.Subcomponent
 import dagger.android.AndroidInjector
 
 @ScreenScope
-@Subcomponent(modules = [ScreenModule::class, TrendingReposScreenModule::class])
+@Subcomponent(modules = [
+    ScreenModule::class,
+    TrendingReposScreenModule::class
+])
 interface TrendingReposComponent : ScreenComponent<TrendingReposController> {
 
     @Subcomponent.Factory
