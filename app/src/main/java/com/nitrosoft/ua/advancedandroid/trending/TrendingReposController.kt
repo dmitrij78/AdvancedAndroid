@@ -6,42 +6,46 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseController
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.screen_trending_repo.view.*
 import javax.inject.Inject
 
 class TrendingReposController : BaseController() {
 
-    @Inject lateinit var presenter: TrendingReposPresenter
-    @Inject lateinit var viewModel: TrendingRepoViewModel
+    /*  @Inject lateinit var presenter: TrendingReposPresenter
+      @Inject lateinit var viewModel: TrendingRepoViewModel*/
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
+
+    init {
+
+    }
 
     override fun layoutRes(): Int {
         return R.layout.screen_trending_repo
     }
 
+
     override fun subscriptions(): Array<Disposable> {
         return arrayOf(
-                viewModel.loading()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { loading ->
-                            view?.loadingIndicator?.visibility = if (loading) View.VISIBLE else View.GONE
-                            view?.repoList?.visibility = if (loading) View.GONE else View.VISIBLE
-                            view?.errorText?.visibility = if (loading) View.GONE else view?.errorText?.visibility!!
-                        },
-                viewModel.error()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { errorStrRes ->
-                            if (errorStrRes == -1) {
-                                view?.errorText?.text = null
-                                view?.errorText?.visibility = View.GONE
-                            } else {
-                                view?.errorText?.setText(errorStrRes)
-                                view?.errorText?.visibility = View.VISIBLE
-                                view?.repoList?.visibility = View.GONE
-                            }
-                        }
+                /* viewModel.loading()
+                         .observeOn(AndroidSchedulers.mainThread())
+                         .subscribe { loading ->
+                             view?.loadingIndicator?.visibility = if (loading) View.VISIBLE else View.GONE
+                             view?.repoList?.visibility = if (loading) View.GONE else View.VISIBLE
+                             view?.errorText?.visibility = if (loading) View.GONE else view?.errorText?.visibility!!
+                         },
+                 viewModel.error()
+                         .observeOn(AndroidSchedulers.mainThread())
+                         .subscribe { errorStrRes ->
+                             if (errorStrRes == -1) {
+                                 view?.errorText?.text = null
+                                 view?.errorText?.visibility = View.GONE
+                             } else {
+                                 view?.errorText?.setText(errorStrRes)
+                                 view?.errorText?.visibility = View.VISIBLE
+                                 view?.repoList?.visibility = View.GONE
+                             }
+                         }*/
         )
     }
 
