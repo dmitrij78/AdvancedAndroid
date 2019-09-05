@@ -18,7 +18,7 @@ abstract class DetailsScreenModule {
 
     @Binds
     @IntoSet
-    abstract fun bindUiManager(trendingRepoUIManger: DetailsUIManger): ScreenLifecycleTask
+    abstract fun bindUiManager(uiManager: DetailsUIManger): ScreenLifecycleTask
 
     @Binds
     @IntoMap

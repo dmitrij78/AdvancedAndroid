@@ -35,7 +35,6 @@ abstract class BaseFragment : Fragment() {
         super.onAttach(context)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.tag(TAG).d("onCreateView")
         val view = inflater.inflate(layoutRes(), container, false)
@@ -45,6 +44,10 @@ abstract class BaseFragment : Fragment() {
 
         disposables.addAll(*subscriptions().toTypedArray())
 
+        for (screenLifecycleTask in screenLifecycleTasks) {
+            screenLifecycleTask.onEnterScope(view)
+        }
+
         return view
     }
 
@@ -53,6 +56,10 @@ abstract class BaseFragment : Fragment() {
 
         disposables.clear()
         unBinder?.unbind()
+
+        for (screenLifecycleTask in screenLifecycleTasks) {
+            screenLifecycleTask.onExitScope()
+        }
 
         super.onDestroyView()
     }
