@@ -1,7 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.di
 
 import android.app.Activity
-import com.bluelinelabs.conductor.Controller
+import androidx.fragment.app.Fragment
 
 object Injector {
 
@@ -13,11 +13,12 @@ object Injector {
         ActivityInjector.get(activity).clear(activity)
     }
 
-    fun inject(controller: Controller) {
-        ScreenInjector.get(controller.activity).inject(controller)
+    fun inject(fragment: Fragment) {
+        ScreenFragmentInjector.get(fragment.activity).inject(fragment)
     }
 
-    fun clear(controller: Controller) {
-        ScreenInjector.get(controller.activity).clear(controller)
+    fun clear(fragment: Fragment) {
+        ScreenFragmentInjector.get(fragment.activity).clear(fragment)
     }
+
 }

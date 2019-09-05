@@ -1,9 +1,9 @@
 package com.nitrosoft.ua.advancedandroid.home
 
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsComponent
-import com.nitrosoft.ua.advancedandroid.details.RepoDetailsController
+import com.nitrosoft.ua.advancedandroid.details.RepoDetailsFragment
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposComponent
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposController
+import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.AndroidInjector
@@ -18,11 +18,11 @@ abstract class MainScreenBindingModule {
 
     @Binds
     @IntoMap
-    @ClassKey(TrendingReposController::class)
+    @ClassKey(TrendingReposFragment::class)
     abstract fun bindTrendingReposInjector(factory: TrendingReposComponent.Factory): AndroidInjector.Factory<*>
 
     @Binds
     @IntoMap
-    @ClassKey(RepoDetailsController::class)
+    @ClassKey(RepoDetailsFragment::class)
     abstract fun bindRepoDetailInjector(factory: RepoDetailsComponent.Factory): AndroidInjector.Factory<*>
 }

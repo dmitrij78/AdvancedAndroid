@@ -15,7 +15,7 @@ import javax.inject.Named
 
 @ScreenScope
 class DetailsUIManger @Inject constructor(
-        @Named(RepoDetailsController.REPO_NAME_KEY) private val name: String,
+        @Named(RepoDetailsFragment.REPO_NAME_KEY) private val name: String,
         private val butterKnifeUtils: ButterKnifeUtils,
         private val screenNavigator: ScreenNavigator) : ScreenLifecycleTask() {
 

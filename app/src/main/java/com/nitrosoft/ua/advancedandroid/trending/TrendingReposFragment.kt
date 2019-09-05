@@ -1,28 +1,41 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitrosoft.ua.advancedandroid.R
-import com.nitrosoft.ua.advancedandroid.base.BaseController
+import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.screen_trending_repo.view.*
+import java.util.*
 import javax.inject.Inject
 
-class TrendingReposController : BaseController() {
+class TrendingReposFragment : BaseFragment() {
 
     @Inject lateinit var presenter: TrendingReposPresenter
     @Inject lateinit var viewModel: TrendingRepoViewModel
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
 
+    companion object {
+        fun newInstance(): TrendingReposFragment {
+            val args = Bundle()
+            args.putString("instance_id", UUID.randomUUID().toString())
+            val fragment = TrendingReposFragment()
+            fragment.arguments = args
+
+            return fragment
+        }
+    }
+
     override fun layoutRes(): Int {
         return R.layout.screen_trending_repo
     }
 
-    override fun subscriptions(): Array<Disposable> {
-        return arrayOf(
+    override fun subscriptions(): List<Disposable> {
+        return arrayListOf(
                 viewModel.loading()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { loading ->

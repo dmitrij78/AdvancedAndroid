@@ -16,8 +16,8 @@ import javax.inject.Named
 
 @ScreenScope
 class RepoDetailsPresenter @Inject constructor(
-        @Named(RepoDetailsController.REPO_OWNER_KEY) private val repoOwner: String,
-        @Named(RepoDetailsController.REPO_NAME_KEY) private val repoName: String,
+        @Named(RepoDetailsFragment.REPO_OWNER_KEY) private val repoOwner: String,
+        @Named(RepoDetailsFragment.REPO_NAME_KEY) private val repoName: String,
         @ForScreen private val disposableManager: DisposableManager,
         private val repository: RepoRepository,
         private val viewModel: RepoDetailsViewModel,

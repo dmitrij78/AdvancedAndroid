@@ -8,8 +8,8 @@ import dagger.android.AndroidInjector
 
 @ScreenScope
 @Subcomponent(modules = [RepoDetailsModule::class, ScreenModule::class, DetailsScreenModule::class])
-interface RepoDetailsComponent : ScreenComponent<RepoDetailsController> {
+interface RepoDetailsComponent : ScreenComponent<RepoDetailsFragment> {
 
     @Subcomponent.Factory
-    interface Factory : AndroidInjector.Factory<RepoDetailsController>
+    interface Factory : AndroidInjector.Factory<RepoDetailsFragment>
 }

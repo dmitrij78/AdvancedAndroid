@@ -3,19 +3,20 @@ package com.nitrosoft.ua.advancedandroid.details
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
-import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.R
-import com.nitrosoft.ua.advancedandroid.base.BaseController
+import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import java.util.*
 import javax.inject.Inject
 
-class RepoDetailsController(bundle: Bundle) : BaseController(bundle) {
+class RepoDetailsFragment : BaseFragment() {
 
     @SuppressWarnings("unused")
     @Inject lateinit var presenter: RepoDetailsPresenter
@@ -39,8 +40,8 @@ class RepoDetailsController(bundle: Bundle) : BaseController(bundle) {
         contributorList.adapter = RecyclerAdapter(contributorsDataSource)
     }
 
-    override fun subscriptions(): Array<Disposable> {
-        return arrayOf(viewModel.details()
+    override fun subscriptions(): List<Disposable> {
+        return arrayListOf(viewModel.details()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { details ->
                     if (details.loading) {
@@ -93,11 +94,16 @@ class RepoDetailsController(bundle: Bundle) : BaseController(bundle) {
         const val REPO_NAME_KEY = "repo_name"
         const val REPO_OWNER_KEY = "repo_owner"
 
-        fun newInstance(repoName: String, repoOwner: String): Controller {
-            val bundle = Bundle()
-            bundle.putString(REPO_NAME_KEY, repoName)
-            bundle.putString(REPO_OWNER_KEY, repoOwner)
-            return RepoDetailsController(bundle)
+        fun newInstance(repoName: String, repoOwner: String): Fragment {
+            val args = Bundle()
+            args.putString(REPO_NAME_KEY, repoName)
+            args.putString(REPO_OWNER_KEY, repoOwner)
+            args.putString("instance_id", UUID.randomUUID().toString())
+
+            val fragment = RepoDetailsFragment()
+            fragment.arguments = args
+
+            return fragment
         }
     }
 }

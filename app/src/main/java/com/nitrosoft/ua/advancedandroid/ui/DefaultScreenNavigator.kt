@@ -1,11 +1,10 @@
 package com.nitrosoft.ua.advancedandroid.ui
 
 import androidx.appcompat.app.AppCompatActivity
-import com.bluelinelabs.conductor.Controller
-import com.bluelinelabs.conductor.Router
-import com.bluelinelabs.conductor.RouterTransaction
-import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
-import com.nitrosoft.ua.advancedandroid.details.RepoDetailsController
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.nitrosoft.ua.advancedandroid.R
+import com.nitrosoft.ua.advancedandroid.details.RepoDetailsFragment
 import com.nitrosoft.ua.advancedandroid.di.ActivityScope
 import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import javax.inject.Inject
@@ -13,36 +12,38 @@ import javax.inject.Inject
 @ActivityScope
 class DefaultScreenNavigator @Inject constructor() : ActivityLifecycleTask(), ScreenNavigator {
 
-    private var router: Router? = null
+    private var fragmentManager: FragmentManager? = null
 
     override fun onCreate(appCompatActivity: AppCompatActivity) {
-        if (appCompatActivity !is RouterProvider) {
-            throw IllegalArgumentException("Activity must be instance of RouterProvider")
-        }
+        require(appCompatActivity is FragmentProvider) { "Activity must be instance of FragmentProvider" }
 
-        val routerProvider = appCompatActivity as RouterProvider
-        initWithRouter(routerProvider.getRouter(), routerProvider.initialScreen())
+        val fragmentManager = appCompatActivity.supportFragmentManager
+        val fragmentProvider = appCompatActivity as FragmentProvider
+        init(fragmentManager, fragmentProvider.initialFragment())
     }
 
     override fun onDestroy(appCompatActivity: AppCompatActivity) {
-        router = null
+        fragmentManager = null
+    }
+
+    private fun init(fragmentManager: FragmentManager, initialFragment: Fragment) {
+        this.fragmentManager = fragmentManager
+        if (fragmentManager.fragments.isEmpty()) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.screenContainer, initialFragment)
+                    .addToBackStack(null)
+                    .commit()
+        }
     }
 
     override fun pop(): Boolean {
-        return router != null && router!!.handleBack()
+        return fragmentManager != null && fragmentManager!!.popBackStackImmediate()
     }
 
     override fun goToRepoDetails(repoOwner: String, repoName: String) {
-        router?.pushController(RouterTransaction.with(RepoDetailsController.newInstance(repoName, repoOwner))
-                .pushChangeHandler(FadeChangeHandler())
-                .popChangeHandler(FadeChangeHandler())
-        )
-    }
-
-    fun initWithRouter(router: Router, rootScreen: Controller) {
-        this.router = router
-        if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(rootScreen))
-        }
+        fragmentManager?.beginTransaction()
+                ?.replace(R.id.screenContainer, RepoDetailsFragment.newInstance(repoName, repoOwner))
+                ?.addToBackStack(null)
+                ?.commit()
     }
 }

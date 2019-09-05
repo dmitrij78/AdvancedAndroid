@@ -63,8 +63,6 @@ dependencies {
     implementation "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxBindingsVersion"
 
-    implementation "com.bluelinelabs:conductor:$conductorVersion"
-
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     implementation "com.jakewharton:butterknife:$butterknifeVersion"

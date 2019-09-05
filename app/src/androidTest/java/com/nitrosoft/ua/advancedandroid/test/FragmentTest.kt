@@ -1,14 +1,14 @@
 package com.nitrosoft.ua.advancedandroid.test
 
 import android.content.Intent
-import com.bluelinelabs.conductor.Controller
+import androidx.fragment.app.Fragment
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
 import com.nitrosoft.ua.advancedandroid.home.MainActivity
 import com.nitrosoft.ua.advancedandroid.ui.TestScreenNavigator
 import org.junit.Rule
 
-abstract class ControllerTest {
+abstract class FragmentTest {
 
     @JvmField
     @Rule val testRule: ControllerTestRule<MainActivity> = ControllerTestRule(MainActivity::class.java)
@@ -17,7 +17,7 @@ abstract class ControllerTest {
     private var repoRepository: RepoRepository
     private var screenNavigator: TestScreenNavigator
 
-    private val controllerToLaunch: Controller by lazy {
+    private val controllerToLaunch: Fragment by lazy {
         controllerToLaunch()
     }
 
@@ -26,7 +26,7 @@ abstract class ControllerTest {
         repoRepository = testRule.repoRepository
         screenNavigator = testRule.screenNavigator
 
-        screenNavigator.overrideInitialController(controllerToLaunch)
+        screenNavigator.overrideInitialFragment(controllerToLaunch)
     }
 
     protected fun launch() {
@@ -37,5 +37,5 @@ abstract class ControllerTest {
         testRule.launchActivity(intent)
     }
 
-    protected abstract fun controllerToLaunch(): Controller
+    protected abstract fun controllerToLaunch(): Fragment
 }

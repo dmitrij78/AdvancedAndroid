@@ -1,14 +1,14 @@
 package com.nitrosoft.ua.advancedandroid.home
 
-import com.bluelinelabs.conductor.Controller
+import androidx.fragment.app.Fragment
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseActivity
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposController
+import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
 
 open class MainActivity : BaseActivity() {
 
-    override fun initialScreen(): Controller {
-        return TrendingReposController()
+    override fun initialFragment(): Fragment {
+        return TrendingReposFragment.newInstance()
     }
 
     override fun layoutRes(): Int {

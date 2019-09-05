@@ -12,16 +12,16 @@ abstract class RepoDetailsModule {
 
         @JvmStatic
         @Provides
-        @Named(RepoDetailsController.REPO_OWNER_KEY)
-        fun providesRepoOwner(instance: RepoDetailsController?): String {
-            return instance?.args?.getString(RepoDetailsController.REPO_OWNER_KEY)!!
+        @Named(RepoDetailsFragment.REPO_OWNER_KEY)
+        fun providesRepoOwner(instance: RepoDetailsFragment?): String {
+            return instance?.arguments?.getString(RepoDetailsFragment.REPO_OWNER_KEY)!!
         }
 
         @JvmStatic
         @Provides
-        @Named(RepoDetailsController.REPO_NAME_KEY)
-        fun providesRepoName(instance: RepoDetailsController?): String {
-            return instance?.args?.getString(RepoDetailsController.REPO_NAME_KEY)!!
+        @Named(RepoDetailsFragment.REPO_NAME_KEY)
+        fun providesRepoName(instance: RepoDetailsFragment?): String {
+            return instance?.arguments?.getString(RepoDetailsFragment.REPO_NAME_KEY)!!
         }
     }
 }

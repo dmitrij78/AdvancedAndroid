@@ -1,14 +1,14 @@
 package com.nitrosoft.ua.advancedandroid.details
 
+import androidx.fragment.app.Fragment
 import androidx.test.espresso.matcher.ViewMatchers
-import com.bluelinelabs.conductor.Controller
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
-import com.nitrosoft.ua.advancedandroid.test.ControllerTest
+import com.nitrosoft.ua.advancedandroid.test.FragmentTest
 import org.junit.Before
 import org.junit.Test
 
-class RepoDetailsControllerTest : ControllerTest() {
+class RepoDetailsControllerTest : FragmentTest() {
 
     @Before
     fun setUp() {
@@ -71,7 +71,7 @@ class RepoDetailsControllerTest : ControllerTest() {
         RepoDetailsRobot.init().verifyContributorsLoadingVisibility(ViewMatchers.Visibility.VISIBLE)
     }
 
-    override fun controllerToLaunch(): Controller {
-        return RepoDetailsController.newInstance("ReactiveX", "RxJava")
+    override fun controllerToLaunch(): Fragment {
+        return RepoDetailsFragment.newInstance("ReactiveX", "RxJava")
     }
 }
