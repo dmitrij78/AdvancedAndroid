@@ -65,7 +65,7 @@ public class ScreenFragmentInjector {
 
     private String getInstanceId(Fragment fragment) {
         Bundle arguments = fragment.getArguments();
-        if (arguments == null || !arguments.containsKey("instance_id")) {
+        if (arguments == null || !arguments.containsKey(BaseFragment.FRAGMENT_INSTANCE_ID_KEY)) {
             throw new IllegalArgumentException("Fragment must contains args and has instance_id string in it");
         }
 

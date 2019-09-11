@@ -13,11 +13,14 @@ import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
 
     companion object {
+        const val FRAGMENT_INSTANCE_ID_KEY = "instance_id"
+
         private val TAG: String = "AdvancedAndroidApp." + BaseFragment::class.java.simpleName
     }
 
@@ -26,6 +29,17 @@ abstract class BaseFragment : Fragment() {
     private var unBinder: Unbinder? = null
 
     @Inject lateinit var screenLifecycleTasks: Set<@JvmSuppressWildcards ScreenLifecycleTask>
+
+    init {
+        if (this.arguments == null) {
+            this.arguments = Bundle()
+        }
+
+        val arguments = this.arguments
+        arguments?.putString(FRAGMENT_INSTANCE_ID_KEY, UUID.randomUUID().toString())
+
+        this.arguments = arguments
+    }
 
     override fun onAttach(context: Context) {
         Timber.tag(TAG).d("onAttach")

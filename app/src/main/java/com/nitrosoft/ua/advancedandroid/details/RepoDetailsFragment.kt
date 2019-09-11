@@ -13,7 +13,6 @@ import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import java.util.*
 import javax.inject.Inject
 
 class RepoDetailsFragment : BaseFragment() {
@@ -34,6 +33,22 @@ class RepoDetailsFragment : BaseFragment() {
     @BindView(R.id.content) lateinit var contentContainer: View
     @BindView(R.id.tv_error) lateinit var errorText: TextView
     @BindView(R.id.tv_contributors_error) lateinit var contributorsErrorText: TextView
+
+    companion object {
+        const val REPO_NAME_KEY = "repo_name"
+        const val REPO_OWNER_KEY = "repo_owner"
+
+        fun newInstance(repoName: String, repoOwner: String): Fragment {
+            val args = Bundle()
+            args.putString(REPO_NAME_KEY, repoName)
+            args.putString(REPO_OWNER_KEY, repoOwner)
+
+            val fragment = RepoDetailsFragment()
+            fragment.arguments?.putAll(args)
+
+            return fragment
+        }
+    }
 
     override fun onViewBound(view: View) {
         contributorList.layoutManager = LinearLayoutManager(view.context)
@@ -87,23 +102,5 @@ class RepoDetailsFragment : BaseFragment() {
 
     override fun layoutRes(): Int {
         return R.layout.screen_repo_details
-    }
-
-    companion object {
-
-        const val REPO_NAME_KEY = "repo_name"
-        const val REPO_OWNER_KEY = "repo_owner"
-
-        fun newInstance(repoName: String, repoOwner: String): Fragment {
-            val args = Bundle()
-            args.putString(REPO_NAME_KEY, repoName)
-            args.putString(REPO_OWNER_KEY, repoOwner)
-            args.putString("instance_id", UUID.randomUUID().toString())
-
-            val fragment = RepoDetailsFragment()
-            fragment.arguments = args
-
-            return fragment
-        }
     }
 }

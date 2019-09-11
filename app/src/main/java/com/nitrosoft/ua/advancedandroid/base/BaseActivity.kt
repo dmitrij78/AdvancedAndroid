@@ -17,7 +17,7 @@ import javax.inject.Inject
 abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
 
     companion object {
-        const val INSTANCE_ID = "instance_id"
+        const val ACTIVITY_INSTANCE_ID_KEY = "instance_id"
     }
 
     @Inject lateinit var screenInjector: ScreenFragmentInjector
@@ -30,7 +30,7 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         instanceId = when (savedInstanceState) {
             null -> UUID.randomUUID().toString()
-            else -> savedInstanceState.getString(INSTANCE_ID) ?: ""
+            else -> savedInstanceState.getString(ACTIVITY_INSTANCE_ID_KEY) ?: ""
         }
         Injector.inject(this)
         super.onCreate(savedInstanceState)
@@ -93,7 +93,7 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(INSTANCE_ID, instanceId)
+        outState.putString(ACTIVITY_INSTANCE_ID_KEY, instanceId)
     }
 
     fun getInstanceId(): String {

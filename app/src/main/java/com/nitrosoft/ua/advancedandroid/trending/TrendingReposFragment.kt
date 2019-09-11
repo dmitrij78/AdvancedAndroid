@@ -1,6 +1,5 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitrosoft.ua.advancedandroid.R
@@ -10,7 +9,6 @@ import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.screen_trending_repo.view.*
-import java.util.*
 import javax.inject.Inject
 
 class TrendingReposFragment : BaseFragment() {
@@ -21,12 +19,7 @@ class TrendingReposFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): TrendingReposFragment {
-            val args = Bundle()
-            args.putString("instance_id", UUID.randomUUID().toString())
-            val fragment = TrendingReposFragment()
-            fragment.arguments = args
-
-            return fragment
+            return TrendingReposFragment()
         }
     }
 
