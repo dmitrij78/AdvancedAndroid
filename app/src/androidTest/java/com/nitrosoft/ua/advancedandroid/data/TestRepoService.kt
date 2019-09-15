@@ -83,9 +83,8 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
     }
 
     companion object {
-
-        val FLAG_TRENDING_REPOS = 1
-        val FLAG_GET_REPO = 2
-        val FLAG_GET_CONTRIBUTORS = 4
+        const val FLAG_TRENDING_REPOS = 1
+        const val FLAG_GET_REPO = 2
+        const val FLAG_GET_CONTRIBUTORS = 4
     }
 }
