@@ -26,7 +26,7 @@ class DefaultScreenNavigator @Inject constructor() : ActivityLifecycleTask(), Sc
         fragmentManager = null
     }
 
-    private fun init(fragmentManager: FragmentManager, initialFragment: Fragment) {
+    fun init(fragmentManager: FragmentManager, initialFragment: Fragment) {
         this.fragmentManager = fragmentManager
         if (fragmentManager.fragments.isEmpty()) {
             fragmentManager.beginTransaction()

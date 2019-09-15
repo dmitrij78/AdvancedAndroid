@@ -10,14 +10,14 @@ import javax.inject.Singleton
 class TestScreenNavigator @Inject constructor() : ActivityLifecycleTask(), ScreenNavigator {
 
     private var defaultScreenNavigator: DefaultScreenNavigator = DefaultScreenNavigator()
-    private var overrideController: Fragment? = null
+    private var overrideFragment: Fragment? = null
 
     override fun onCreate(appCompatActivity: AppCompatActivity) {
         require(appCompatActivity is FragmentProvider) { "Activity must be instance of FragmentProvider" }
 
         val routerProvider = appCompatActivity as FragmentProvider
-        val launchController: Fragment = overrideController ?: routerProvider.initialFragment()
-        //defaultScreenNavigator.initWithRouter(routerProvider.getRouter(), launchController)
+        val launchFragment: Fragment = overrideFragment ?: routerProvider.initialFragment()
+        defaultScreenNavigator.init(appCompatActivity.supportFragmentManager, launchFragment)
     }
 
     override fun onDestroy(appCompatActivity: AppCompatActivity) {
@@ -33,6 +33,6 @@ class TestScreenNavigator @Inject constructor() : ActivityLifecycleTask(), Scree
     }
 
     fun overrideInitialFragment(fragment: Fragment) {
-        this.overrideController = fragment
+        this.overrideFragment = fragment
     }
 }
