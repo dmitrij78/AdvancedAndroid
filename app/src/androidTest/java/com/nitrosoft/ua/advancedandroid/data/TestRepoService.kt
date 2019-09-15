@@ -23,7 +23,7 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
                     "mock/repos/search/get_trending_repos.json",
                     TrendingReposResponse::class.java)
 
-            return if (holdFlags and FLAG_TRENDING_REPOS == FLAG_TRENDING_REPOS) {
+            return if ((holdFlags and FLAG_TRENDING_REPOS) == FLAG_TRENDING_REPOS) {
                 holdingSingle(response, FLAG_TRENDING_REPOS)
             } else Single.just(response)
         }
