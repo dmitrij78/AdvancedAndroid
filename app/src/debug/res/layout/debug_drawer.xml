@@ -39,6 +39,7 @@
             android:padding="8dp"
             android:text="Mock Responses"
             android:textColor="@color/debug_drawer_text_color" />
+
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

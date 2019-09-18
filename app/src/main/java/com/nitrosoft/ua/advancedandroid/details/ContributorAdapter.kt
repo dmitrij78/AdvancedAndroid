@@ -3,15 +3,12 @@ package com.nitrosoft.ua.advancedandroid.details
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.models.Contributor
+import kotlinx.android.synthetic.main.view_user_list_item.view.*
 
 class ContributorAdapter : RecyclerView.Adapter<ContributorAdapter.ContributorViewHolder>() {
 
@@ -54,21 +51,11 @@ class ContributorAdapter : RecyclerView.Adapter<ContributorAdapter.ContributorVi
 
     class ContributorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        @BindView(R.id.userNameTv)
-        lateinit var userNameText: TextView
-
-        @BindView(R.id.avatarIv)
-        lateinit var avatarImageView: ImageView
-
-        init {
-            ButterKnife.bind(this, view)
-        }
-
         fun bind(contributor: Contributor) {
-            userNameText.text = contributor.login
-            Glide.with(avatarImageView.context)
+            itemView.userNameTv.text = contributor.login
+            Glide.with(itemView.avatarIv.context)
                     .load(contributor.avatarUrl)
-                    .into(avatarImageView)
+                    .into(itemView.avatarIv)
         }
     }
 }

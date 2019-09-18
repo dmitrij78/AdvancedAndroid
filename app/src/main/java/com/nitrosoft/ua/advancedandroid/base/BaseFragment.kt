@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import io.reactivex.disposables.CompositeDisposable
@@ -25,8 +23,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     private val disposables: CompositeDisposable = CompositeDisposable()
-
-    private var unBinder: Unbinder? = null
 
     @Inject lateinit var screenLifecycleTasks: Set<@JvmSuppressWildcards ScreenLifecycleTask>
 
@@ -52,7 +48,6 @@ abstract class BaseFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.tag(TAG).d("onCreateView")
         val view = inflater.inflate(layoutRes(), container, false)
-        unBinder = ButterKnife.bind(this, view)
 
         onViewBound(view)
 
@@ -69,7 +64,6 @@ abstract class BaseFragment : Fragment() {
         Timber.tag(TAG).d("onDestroyView")
 
         disposables.clear()
-        unBinder?.unbind()
 
         for (screenLifecycleTask in screenLifecycleTasks) {
             screenLifecycleTask.onExitScope()

@@ -5,9 +5,6 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Switch
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.settings.DebugPreferences
@@ -16,16 +13,14 @@ import javax.inject.Inject
 
 class DebugActivityViewInterceptor @Inject constructor(private val debugPreferences: DebugPreferences) : ActivityViewInterceptor {
 
-    @BindView(R.id.sw_mock_responses) lateinit var mockResponsesSwitch: Switch
+    private lateinit var mockResponsesSwitch: Switch
 
     private val disposables = CompositeDisposable()
-
-    private lateinit var unBinder: Unbinder
 
     @SuppressLint("InflateParams")
     override fun setContentView(activity: Activity, layoutRes: Int) {
         val debugLayout = LayoutInflater.from(activity).inflate(R.layout.debug_drawer, null)
-        unBinder = ButterKnife.bind(this, debugLayout)
+        mockResponsesSwitch = debugLayout.findViewById(R.id.sw_mock_responses)
 
         initializePrefs()
 
@@ -37,7 +32,6 @@ class DebugActivityViewInterceptor @Inject constructor(private val debugPreferen
 
     override fun clear() {
         disposables.clear()
-        unBinder.unbind()
     }
 
     private fun initializePrefs() {
