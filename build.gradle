@@ -29,12 +29,12 @@ ext {
     targetSdkVersion = 29
 
     androidxVersion = '1.2.0-alpha04'
-    cardViewVersion = '1.0.0'
-    recylerViewVersion = '1.1.0-beta04'
-    materialVersion = '1.1.0-alpha10'
-
     archComponentVersion = '2.2.0-rc01'
-    butterknifeVersion = '10.1.0'
+    cardViewVersion = '1.0.0'
+    lifecycleVersion = '2.1.0'
+    materialVersion = '1.1.0-alpha10'
+    recylerViewVersion = '1.1.0-beta04'
+
     daggerVersion = '2.24'
     glideVersion = '4.9.0'
     kotshiVersion = '2.0.1'
