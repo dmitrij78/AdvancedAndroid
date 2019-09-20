@@ -79,7 +79,7 @@ abstract class BaseFragment : Fragment() {
             screenLifecycleTask.onDestroy()
         }
 
-        if (activity?.isChangingConfigurations!!) {
+        if (!activity?.isChangingConfigurations!!) {
             Injector.clear(this)
         }
     }
