@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import io.reactivex.disposables.CompositeDisposable
@@ -60,6 +61,12 @@ abstract class BaseFragment : Fragment() {
         return view
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        observeVewModel(viewLifecycleOwner)
+    }
+
     override fun onDestroyView() {
         Timber.tag(TAG).d("onDestroyView")
 
@@ -87,6 +94,8 @@ abstract class BaseFragment : Fragment() {
     abstract fun layoutRes(): Int
 
     protected open fun onViewBound(view: View) {}
+
+    protected open fun observeVewModel(lifecycleOwner: LifecycleOwner) {}
 
     protected open fun subscriptions(): List<Disposable> {
         return emptyList()

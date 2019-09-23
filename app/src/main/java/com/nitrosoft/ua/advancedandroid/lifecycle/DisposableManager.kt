@@ -11,7 +11,7 @@ class DisposableManager {
         compositeDisposable.addAll(*disposables)
     }
 
-    fun disposable() {
+    fun dispose() {
         compositeDisposable.clear()
     }
 }

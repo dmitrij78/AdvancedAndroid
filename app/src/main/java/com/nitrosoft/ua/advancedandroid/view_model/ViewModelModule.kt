@@ -1,7 +1,6 @@
-package com.nitrosoft.ua.advancedandroid.base
+package com.nitrosoft.ua.advancedandroid.view_model
 
 import androidx.lifecycle.ViewModel
-import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.Multibinds

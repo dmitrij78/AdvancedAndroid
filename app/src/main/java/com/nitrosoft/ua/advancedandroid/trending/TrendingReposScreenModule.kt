@@ -1,7 +1,9 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
+import androidx.lifecycle.ViewModel
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
+import com.nitrosoft.ua.advancedandroid.view_model.ViewModelKey
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import com.nitrosoft.ua.poweradapter.item.ItemRenderer
 import com.nitrosoft.ua.poweradapter.item.RecyclerItem
@@ -24,6 +26,11 @@ abstract class TrendingReposScreenModule {
     @IntoMap
     @RenderKey("REPO")
     abstract fun bindRepoRenderer(repoRenderer: RepoRenderer): ItemRenderer<out RecyclerItem>
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TrendingRepoViewModel2::class)
+    abstract fun bindViewModel2(viewModel2: TrendingRepoViewModel2): ViewModel
 
     @Module
     companion object {

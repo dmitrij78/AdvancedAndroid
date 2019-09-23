@@ -43,7 +43,6 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
         for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onCreate(this)
         }
-
     }
 
     override fun onStart() {

@@ -59,7 +59,7 @@ public class ScreenFragmentInjector {
     void clear(Fragment fragment) {
         AndroidInjector<?> injector = cache.remove(getInstanceId(fragment));
         if (injector instanceof ScreenComponent) {
-            ((ScreenComponent) injector).diposableManager().disposable();
+            ((ScreenComponent) injector).disposableManager().dispose();
         }
     }
 

@@ -30,8 +30,7 @@ class DefaultScreenNavigator @Inject constructor() : ActivityLifecycleTask(), Sc
         this.fragmentManager = fragmentManager
         if (fragmentManager.fragments.isEmpty()) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.screenContainer, initialFragment)
-                    .addToBackStack(null)
+                    .add(R.id.screenContainer, initialFragment)
                     .commit()
         }
     }
