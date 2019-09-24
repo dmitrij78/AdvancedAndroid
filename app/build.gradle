@@ -38,13 +38,16 @@ dependencies {
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
+    // optional - ReactiveStreams support for LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
-    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycleVersion" // For Kotlin use lifecycle-reactivestreams-ktx
 
     implementation "androidx.room:room-runtime:$archComponentVersion"
     kapt "androidx.room:room-compiler:$archComponentVersion"
 
     implementation "androidx.room:room-rxjava2:$archComponentVersion"
+
+    implementation "com.google.android.material:material:$materialVersion"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"

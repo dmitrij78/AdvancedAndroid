@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
+import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
@@ -61,12 +65,6 @@ abstract class BaseFragment : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        observeVewModel(viewLifecycleOwner)
-    }
-
     override fun onDestroyView() {
         Timber.tag(TAG).d("onDestroyView")
 
@@ -95,9 +93,15 @@ abstract class BaseFragment : Fragment() {
 
     protected open fun onViewBound(view: View) {}
 
-    protected open fun observeVewModel(lifecycleOwner: LifecycleOwner) {}
-
     protected open fun subscriptions(): List<Disposable> {
         return emptyList()
+    }
+
+    fun <T> observeLiveData(liveData: LiveData<T>, observer: Observer<T>) {
+        liveData.observe(viewLifecycleOwner, observer)
+    }
+
+    inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
+        return ViewModelProviders.of(this, viewModelFactory)[T::class.java]
     }
 }

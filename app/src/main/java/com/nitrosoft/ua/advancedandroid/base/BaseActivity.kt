@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.di.ScreenFragmentInjector
@@ -11,6 +13,7 @@ import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.FragmentProvider
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
+import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import java.util.*
 import javax.inject.Inject
 
@@ -102,4 +105,9 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
     abstract fun layoutRes(): Int
 
     abstract override fun initialFragment(): Fragment
+
+    @Suppress("unused")
+    inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
+        return ViewModelProviders.of(this, viewModelFactory)[T::class.java]
+    }
 }
