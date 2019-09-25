@@ -101,7 +101,7 @@ abstract class BaseFragment : Fragment() {
         liveData.observe(viewLifecycleOwner, observer)
     }
 
-    inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
+    protected inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
         return ViewModelProviders.of(this, viewModelFactory)[T::class.java]
     }
 }

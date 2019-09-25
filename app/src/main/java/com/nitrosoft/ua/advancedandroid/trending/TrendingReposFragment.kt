@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class TrendingReposFragment : BaseFragment() {
 
-    @Inject lateinit var presenter: TrendingReposPresenter
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
     @Inject lateinit var viewModelFactory: ViewModelFactory
 
@@ -31,7 +30,7 @@ class TrendingReposFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val viewModel: TrendingRepoViewModel2 = createViewModel(viewModelFactory)
+        val viewModel: TrendingRepoViewModel = createViewModel(viewModelFactory)
         observeViewModel(viewModel)
     }
 
@@ -40,7 +39,7 @@ class TrendingReposFragment : BaseFragment() {
         view.repoList.adapter = RecyclerAdapter(recyclerDataSource)
     }
 
-    private fun observeViewModel(viewModel: TrendingRepoViewModel2) {
+    private fun observeViewModel(viewModel: TrendingRepoViewModel) {
         observeLiveData(viewModel.onRepoListUpdate(), Observer { repoListItems ->
             recyclerDataSource.setData(repoListItems)
         })

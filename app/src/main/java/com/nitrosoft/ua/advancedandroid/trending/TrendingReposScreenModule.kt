@@ -29,8 +29,8 @@ abstract class TrendingReposScreenModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(TrendingRepoViewModel2::class)
-    abstract fun bindViewModel2(viewModel2: TrendingRepoViewModel2): ViewModel
+    @ViewModelKey(TrendingRepoViewModel::class)
+    abstract fun bindViewModel(viewModel: TrendingRepoViewModel): ViewModel
 
     @Module
     companion object {

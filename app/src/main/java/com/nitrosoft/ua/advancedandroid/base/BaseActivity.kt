@@ -107,7 +107,7 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
     abstract override fun initialFragment(): Fragment
 
     @Suppress("unused")
-    inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
+    protected inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
         return ViewModelProviders.of(this, viewModelFactory)[T::class.java]
     }
 }

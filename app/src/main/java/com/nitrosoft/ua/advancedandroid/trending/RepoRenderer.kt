@@ -12,7 +12,7 @@ import java.text.NumberFormat
 import javax.inject.Inject
 import javax.inject.Provider
 
-class RepoRenderer @Inject constructor(private val presenterProvider: Provider<TrendingReposPresenter>) : ItemRenderer<RepoListItem> {
+class RepoRenderer @Inject constructor(private val viewModelProvider: Provider<TrendingRepoViewModel>) : ItemRenderer<RepoListItem> {
 
     override fun layoutRes(): Int {
         return R.layout.view_repo_list_item
@@ -20,7 +20,7 @@ class RepoRenderer @Inject constructor(private val presenterProvider: Provider<T
 
     override fun createView(parent: ViewGroup): View {
         val view = LayoutInflater.from(parent.context).inflate(layoutRes(), parent, false)
-        view.tag = ViewBinder(view, presenterProvider.get())
+        view.tag = ViewBinder(view, viewModelProvider.get())
 
         return view
     }
@@ -31,13 +31,13 @@ class RepoRenderer @Inject constructor(private val presenterProvider: Provider<T
     }
 
     class ViewBinder(private val itemView: View,
-                     private val presenter: TrendingReposPresenter) {
+                     private val viewModel: TrendingRepoViewModel) {
 
         private lateinit var repoListItem: RepoListItem
 
         init {
             itemView.setOnClickListener {
-                presenter.onRepoClicked(repoListItem.repo)
+                viewModel.onRepoClicked(repoListItem.repo)
             }
         }
 
