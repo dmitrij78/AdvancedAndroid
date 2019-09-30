@@ -18,17 +18,16 @@ class TrendingRepoViewModel @Inject constructor(
         private val repoRepository: RepoRepository,
         private val screenNavigator: ScreenNavigator
 ) : ViewModel() {
-    private val repoList: MutableLiveData<Resource<List<RepoListItem>>> = MutableLiveData()
+    private val repoList: MutableLiveData<Resource<List<RepoListItem>>> by lazy {
+        return@lazy MutableLiveData<Resource<List<RepoListItem>>>().also {
+            fetchRepos(it)
+        }
+    }
 
     private var disposables = CompositeDisposable()
 
     companion object {
         val TAG: String = "AdvancedAndroidApp." + TrendingRepoViewModel::class.java.simpleName
-    }
-
-    init {
-        Timber.tag(TAG).d("init")
-        fetchRepos()
     }
 
     override fun onCleared() {
@@ -44,16 +43,16 @@ class TrendingRepoViewModel @Inject constructor(
         screenNavigator.goToRepoDetails(repo.user.login, repo.name)
     }
 
-    private fun fetchRepos() {
+    private fun fetchRepos(liveData: MutableLiveData<Resource<List<RepoListItem>>>) {
         Timber.tag(TAG).d("fetchRepos")
         disposables.add(
                 repoRepository.getTrendingRepos()
-                        .doOnSubscribe { repoList.postValue(Resource.Loading()) }
+                        .doOnSubscribe { liveData.postValue(Resource.Loading()) }
                         .toObservable()
                         .flatMapIterable { it }
                         .map { RepoListItem(it) }
                         .toList()
-                        .subscribe({ repoList.postValue(Resource.Success(it)) }, { repoList.postValue(Resource.Error(throwable = it)) })
+                        .subscribe({ liveData.postValue(Resource.Success(it)) }, { liveData.postValue(Resource.Error(throwable = it)) })
         )
     }
 }

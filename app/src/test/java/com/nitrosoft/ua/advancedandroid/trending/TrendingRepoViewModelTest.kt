@@ -10,17 +10,16 @@ import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import io.reactivex.Single
+import org.hamcrest.CoreMatchers.hasItem
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import java.io.IOException
 
@@ -30,40 +29,45 @@ class TrendingRepoViewModelTest {
     @Mock lateinit var screenNavigator: ScreenNavigator
     @Mock lateinit var testObserver: Observer<Resource<List<RepoListItem>>>
 
-    @Captor lateinit var successCaptor: ArgumentCaptor<Resource<List<RepoListItem>>>
-
-    private var holdFlags: Int = 0
+    @Captor lateinit var dataCaptor: ArgumentCaptor<Resource<List<RepoListItem>>>
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
-
-    companion object {
-        const val DELAY_MILLIS = 10000L
-    }
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
     }
 
-    @After
-    fun tearDown() {
-        holdFlags = 0
-    }
-
     @Test
-    fun onRepoListUpdate() {
-        holdFlags = 1
+    fun onRepoListUpdateSuccess() {
         setupSuccess()
 
         initViewModel().onRepoListUpdate().observeForever(testObserver)
 
-        verify(testObserver).onChanged(successCaptor.capture())
-        assertThat(successCaptor.value, instanceOf(Resource.Loading::class.java))
+        verify(testObserver, atMost(2)).onChanged(dataCaptor.capture())
+        assertThat(dataCaptor.allValues, hasItem(instanceOf(Resource.Success::class.java)))
+    }
+
+    @Test
+    fun onRepoListUpdateError() {
+        setupError()
+        initViewModel().onRepoListUpdate().observeForever(testObserver)
+
+        verify(testObserver, atMost(2)).onChanged(dataCaptor.capture())
+        assertThat(dataCaptor.allValues, hasItem(instanceOf(Resource.Error::class.java)))
     }
 
     @Test
     fun onRepoClicked() {
+        val repo = loadRepo()
+        initViewModel().onRepoClicked(repo)
+
+        verify(screenNavigator).goToRepoDetails(repo.user.login, repo.name)
+    }
+
+    private fun loadRepo(): Repo {
+        return TestUtils.loadJson<Repo>("mock/repos/get_repo.json", Repo::class.java)
     }
 
     private fun setupSuccess(): List<Repo> {
@@ -72,19 +76,7 @@ class TrendingRepoViewModelTest {
                 TrendingReposResponse::class.java
         )
         val repos = response.repos
-        if (holdFlags != 0) {
-            `when`(repoRepository.getTrendingRepos()).thenReturn(Single.create { emitter ->
-                Thread(Runnable {
-                    while (holdFlags != 0) {
-                        Thread.sleep(50)
-                    }
-                    emitter.onSuccess(repos)
-                }).start()
-            })
-        } else {
-            `when`(repoRepository.getTrendingRepos()).thenReturn(Single.just(repos))
-        }
-
+        `when`(repoRepository.getTrendingRepos()).thenReturn(Single.just(repos))
 
         return repos
     }
