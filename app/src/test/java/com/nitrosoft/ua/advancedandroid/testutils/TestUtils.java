@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
+import kotlin.jvm.JvmStatic;
+
 public class TestUtils {
 
     private static final TestUtils INSTANCE = new TestUtils();
@@ -23,6 +25,7 @@ public class TestUtils {
     }
 
     @SuppressWarnings({"unchecked", "unused"})
+    @JvmStatic
     public static <T> T loadJson(String path, Type type) {
         try {
             String json = getFileString(path);
@@ -33,6 +36,7 @@ public class TestUtils {
     }
 
     @SuppressWarnings("unchecked")
+    @JvmStatic
     public static <T> T loadJson(String path, Class clazz) {
         try {
             String json = getFileString(path);

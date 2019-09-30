@@ -95,7 +95,10 @@ class RepoDetailsPresenterTest {
         RepoDetailsPresenter(
                 OWNER,
                 NAME,
-                Mockito.mock(DisposableManager::class.java), repoRepository, viewModel, recyclerDataSource
+                Mockito.mock(DisposableManager::class.java),
+                repoRepository,
+                viewModel,
+                recyclerDataSource
         )
     }
 }

@@ -11,9 +11,10 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class RepoRepository @Inject constructor(private val repoRequesterProvider: Provider<RepoRequester>,
-                                         @Named("network_scheduler") private val scheduler: Scheduler) {
-
+class RepoRepository @Inject constructor(
+        private val repoRequesterProvider: Provider<RepoRequester>,
+        @Named("network_scheduler") private val scheduler: Scheduler
+) {
     private val cachedTrendingRepos: MutableList<Repo> = arrayListOf()
     private val cachedContributors: MutableMap<String, List<Contributor>> = mutableMapOf()
 
@@ -54,7 +55,7 @@ class RepoRepository @Inject constructor(private val repoRequesterProvider: Prov
 
     private fun cachedTrendingRepos(): Maybe<List<Repo>> {
         return Maybe.create {
-            if (!cachedTrendingRepos.isEmpty()) {
+            if (cachedTrendingRepos.isNotEmpty()) {
                 it.onSuccess(cachedTrendingRepos)
             }
             it.onComplete()

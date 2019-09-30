@@ -75,6 +75,7 @@ dependencies {
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
 
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
