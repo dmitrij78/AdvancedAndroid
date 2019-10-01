@@ -5,6 +5,11 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
+
+    init {
+
+    }
+
     // Called to save the result of the API response into the database
     @WorkerThread
     protected abstract fun saveCallResult(item: RequestType)

@@ -4,6 +4,7 @@ import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import org.threeten.bp.ZonedDateTime
 
+@Suppress("unused")
 class ZoneDatetimeAdapter {
 
     @FromJson
