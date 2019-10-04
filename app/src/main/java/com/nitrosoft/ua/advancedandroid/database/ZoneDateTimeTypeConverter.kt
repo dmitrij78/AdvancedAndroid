@@ -4,14 +4,16 @@ import androidx.room.TypeConverter
 import org.threeten.bp.ZonedDateTime
 
 
-class ZoneDateTimeTypeConverter {
+object ZoneDateTimeTypeConverter {
 
     @TypeConverter
+    @JvmStatic
     fun fromString(str: String): ZonedDateTime {
         return ZonedDateTime.parse(str)
     }
 
     @TypeConverter
+    @JvmStatic
     fun toString(value: ZonedDateTime?): String? {
         return value?.toString()
     }
