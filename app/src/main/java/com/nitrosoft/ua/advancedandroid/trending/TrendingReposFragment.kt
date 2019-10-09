@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseFragment
-import com.nitrosoft.ua.advancedandroid.data.Resource
+import com.nitrosoft.ua.advancedandroid.data.DataResource
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
@@ -44,16 +44,16 @@ class TrendingReposFragment : BaseFragment() {
     private fun observeViewModel(viewModel: TrendingRepoViewModel) {
         observeLiveData(viewModel.onRepoListUpdate(), Observer { resource ->
             when (resource) {
-                is Resource.Success -> {
+                is DataResource.Success -> {
                     onLoading(false)
                     onError(-1)
                     onSuccess(resource.data)
                 }
-                is Resource.Error -> {
+                is DataResource.Error -> {
                     onLoading(false)
                     onError(R.string.api_error_repos)
                 }
-                is Resource.Loading -> onLoading(true)
+                is DataResource.Loading -> onLoading(true)
             }
         })
     }

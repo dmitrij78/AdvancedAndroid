@@ -10,8 +10,8 @@ import io.reactivex.Flowable
 interface RepositoriesDao {
 
     @Query("SELECT * from repositories")
-    fun getRepositories(): Flowable<List<Repository>>
+    fun getRepositories(): Flowable<List<RepoEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRepos(repos: List<Repository>)
+    fun insertRepos(repos: List<RepoEntity>)
 }

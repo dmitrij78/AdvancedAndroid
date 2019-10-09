@@ -12,13 +12,15 @@ import javax.inject.Singleton
 class RepoLiveRepository @Inject constructor(
         private val repoRequesterProvider: Provider<RepoRequester>,
         @Named("network_scheduler") private val scheduler: Scheduler,
-        private val rateLimiter: RateLimiter<String>
+        private val rateLimiter: RateLimiter<String>) {
 
-) {
-
-    fun getTrendingRepos(): LiveData<List<Repo>> {
+    fun getTrendingRepos(): NetworkBoundResource<List<Repo>, TrendingReposResponse> {
         return object : NetworkBoundResource<List<Repo>, TrendingReposResponse>() {
-            override fun saveCallResult(item: TrendingReposResponse) {
+            override fun loadFromDb(): LiveData<List<Repo>> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun saveCallResult(item: TrendingReposResponse?) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
@@ -26,14 +28,10 @@ class RepoLiveRepository @Inject constructor(
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun loadFromDb(): LiveData<List<Repo>> {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
             override fun createCall(): LiveData<TrendingReposResponse> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
-        }.asLiveData()
-    }
 
+        }
+    }
 }

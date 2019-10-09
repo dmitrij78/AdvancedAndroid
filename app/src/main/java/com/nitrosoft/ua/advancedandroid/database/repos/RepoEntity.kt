@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import org.threeten.bp.ZonedDateTime
 
 @Entity(tableName = "repositories")
-data class Repository(
+data class RepoEntity(
         @PrimaryKey val id: Long,
         val name: String,
         val description: String,
