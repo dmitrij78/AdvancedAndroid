@@ -10,8 +10,9 @@ import javax.inject.Singleton
 
 @Singleton
 class RepoLiveRepository @Inject constructor(
-        private val repoRequesterProvider: Provider<RepoRequester>,
+
         @Named("network_scheduler") private val scheduler: Scheduler,
+        private val repoRequesterProvider: Provider<RepoRequester>,
         private val rateLimiter: RateLimiter<String>) {
 
     fun getTrendingRepos(): NetworkBoundResource<List<Repo>, TrendingReposResponse> {
