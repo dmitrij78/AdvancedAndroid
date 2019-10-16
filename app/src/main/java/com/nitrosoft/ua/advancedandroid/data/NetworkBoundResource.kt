@@ -15,7 +15,12 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             if (shouldFetch(data)) {
                 result.value = DataResource.Loading()
                 val apiCall = createCall()
+                result.addSource(dbData) { newData ->
+                    DataResource.Loading(newData)
+                }
                 result.addSource(apiCall) { response ->
+                    result.removeSource(dbData)
+                    result.removeSource(apiCall)
                     when (response) {
                         is ApiResource.Success<*> -> {
                             @Suppress("UNCHECKED_CAST")
@@ -44,21 +49,12 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         }
     }
 
-    // Called to get the cached data from the database.
-    //@MainThread
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
-    // Called to save the result of the API response into the database
-    //@WorkerThread
     protected abstract fun saveCallResult(item: RequestType?)
 
-    // Called with the data in the database to decide whether to fetch
-    // potentially updated data from the network.
-    //@MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    // Called to create the API call.
-    //@MainThread
     protected abstract fun createCall(): LiveData<RequestType>
 
     // Called when the fetch fails. The child class may want to reset components
