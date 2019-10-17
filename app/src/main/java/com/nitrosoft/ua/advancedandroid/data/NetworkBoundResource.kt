@@ -51,7 +51,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
-    protected abstract fun saveCallResult(item: RequestType?)
+    protected abstract fun saveCallResult(requestType: RequestType?)
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 

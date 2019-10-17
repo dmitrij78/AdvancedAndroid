@@ -9,7 +9,6 @@ class RateLimiter<in KEY> constructor(
     private val timeOut: Long = timeUnit.toMillis(timeOut.toLong())
     private val timeStamps = ArrayMap<KEY, Long>()
 
-
     @Synchronized
     fun shouldFetch(key: KEY): Boolean {
         var result = false
