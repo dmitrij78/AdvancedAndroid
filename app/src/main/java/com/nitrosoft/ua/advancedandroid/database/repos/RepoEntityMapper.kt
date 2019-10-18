@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RepositoryMapper @Inject constructor() : Mapper<RepoEntity, Repo> {
+class RepoEntityMapper @Inject constructor() : Mapper<RepoEntity, Repo> {
 
     override fun mapFromEntity(entity: RepoEntity): Repo {
         return Repo(
