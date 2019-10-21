@@ -1,6 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.nitrosoft.ua.advancedandroid.BuildConfig
 import com.nitrosoft.ua.advancedandroid.di.ActivityInjector
 import timber.log.Timber
@@ -20,6 +21,7 @@ open class MyApplication : Application() {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
+            Stetho.initializeWithDefaults(this)
         }
     }
 

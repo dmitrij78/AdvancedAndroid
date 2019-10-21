@@ -49,7 +49,7 @@ class RepoLiveRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<Repo>?): Boolean {
-                return data == null || rateLimiter.shouldFetch(REPO_LIST_KEY)
+                return data == null || data.isEmpty() || rateLimiter.shouldFetch(REPO_LIST_KEY)
             }
 
             override fun saveCallResult(requestType: ApiResource<List<Repo>>?) {

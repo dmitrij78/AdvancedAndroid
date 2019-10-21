@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.networking
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Call
@@ -23,6 +24,7 @@ class NetworkModule {
             return OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
                     .addInterceptor(mockInterceptor)
+                    .addInterceptor(StethoInterceptor())
                     .build()
         }
 

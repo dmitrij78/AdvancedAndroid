@@ -8,34 +8,26 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     private val result = MediatorLiveData<DataResource<ResultType>>()
 
     init {
-        setLoading(null)
+        result.value = DataResource.Loading()
 
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
-        result.addSource(dbSource) { data ->
+        result.addSource(dbSource) { initialData ->
             result.removeSource(dbSource)
 
-            if (shouldFetch(data)) {
+            if (shouldFetch(initialData)) {
                 fetchData(dbSource)
             } else {
-                result.addSource(loadFromDb()) { newData ->
-                    setSuccess(newData)
+                result.addSource(loadFromDb()) { data ->
+                    result.value = DataResource.Success(data)
                 }
             }
         }
     }
 
-    private fun setLoading(data: ResultType?) {
-        result.value = DataResource.Loading()
-    }
-
-    private fun setSuccess(data: ResultType) {
-        result.value = DataResource.Success(data)
-    }
-
     private fun fetchData(dbData: LiveData<ResultType>) {
-        result.addSource(dbData) { dbResult ->
-            setLoading(dbResult)
+        result.addSource(dbData) {
+            result.value = DataResource.Loading(it)
         }
 
         val apiCall = createCall()

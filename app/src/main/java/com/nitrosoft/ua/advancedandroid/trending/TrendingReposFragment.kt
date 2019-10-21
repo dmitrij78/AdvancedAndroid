@@ -75,18 +75,23 @@ class TrendingReposFragment : BaseFragment() {
                 is DataResource.Success -> {
                     onLoading(false)
                     onError(-1)
-                    onSuccess(resource.data)
+                    updateRepos(resource.data)
                 }
                 is DataResource.Error -> {
                     onLoading(false)
                     onError(R.string.api_error_repos)
                 }
-                is DataResource.Loading -> onLoading(true)
+                is DataResource.Loading -> {
+                    if (resource.data != null) {
+
+                    }
+                    onLoading(true)
+                }
             }
         })
     }
 
-    private fun onSuccess(items: List<Repo>?) {
+    private fun updateRepos(items: List<Repo>?) {
         if (items != null) {
             repoListRelay.accept(items)
         }
