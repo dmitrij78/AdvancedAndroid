@@ -2,8 +2,8 @@ package com.nitrosoft.ua.advancedandroid.trending
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.nitrosoft.ua.advancedandroid.data.DataResource
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
+import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.data.TrendingReposResponse
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
@@ -27,9 +27,9 @@ class TrendingRepoViewModelTest {
 
     @Mock lateinit var repoRepository: RepoRepository
     @Mock lateinit var screenNavigator: ScreenNavigator
-    @Mock lateinit var testObserver: Observer<DataResource<List<RepoListItem>>>
+    @Mock lateinit var testObserver: Observer<RepoState<List<RepoListItem>>>
 
-    @Captor lateinit var dataCaptor: ArgumentCaptor<DataResource<List<RepoListItem>>>
+    @Captor lateinit var dataCaptor: ArgumentCaptor<RepoState<List<RepoListItem>>>
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -46,7 +46,7 @@ class TrendingRepoViewModelTest {
         initViewModel().onRepoListUpdate().observeForever(testObserver)
 
         verify(testObserver, atMost(2)).onChanged(dataCaptor.capture())
-        assertThat(dataCaptor.allValues, hasItem(instanceOf(DataResource.Success::class.java)))
+        assertThat(dataCaptor.allValues, hasItem(instanceOf(RepoState.Success::class.java)))
     }
 
     @Test
@@ -55,7 +55,7 @@ class TrendingRepoViewModelTest {
         initViewModel().onRepoListUpdate().observeForever(testObserver)
 
         verify(testObserver, atMost(2)).onChanged(dataCaptor.capture())
-        assertThat(dataCaptor.allValues, hasItem(instanceOf(DataResource.Error::class.java)))
+        assertThat(dataCaptor.allValues, hasItem(instanceOf(RepoState.Error::class.java)))
     }
 
     @Test

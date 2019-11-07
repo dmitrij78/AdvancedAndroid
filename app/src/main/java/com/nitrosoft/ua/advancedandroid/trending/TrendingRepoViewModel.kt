@@ -2,8 +2,8 @@ package com.nitrosoft.ua.advancedandroid.trending
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.nitrosoft.ua.advancedandroid.data.DataResource
 import com.nitrosoft.ua.advancedandroid.data.RepoLiveRepository
+import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
@@ -15,7 +15,7 @@ class TrendingRepoViewModel @Inject constructor(
         private val repoRepository: RepoLiveRepository,
         private val screenNavigator: ScreenNavigator
 ) : ViewModel() {
-    val repoList: LiveData<DataResource<List<Repo>>> by lazy {
+    val repoList: LiveData<RepoState<List<Repo>>> by lazy {
         return@lazy repoRepository.getTrendingRepos()
     }
 
