@@ -13,14 +13,15 @@ abstract class DataSourceBinder<ResultType, RequestType> {
     }
 
     init {
+        result.postValue(RepoState.Loading(null))
+
         @Suppress("LeakingThis")
         val dbSource: LiveData<DataResource<ResultType>> = loadFromDb()
-        result.addSource(dbSource) { initialDataResource ->
+        result.addSource(dbSource) { dbDataResource ->
             result.removeSource(dbSource)
-            result.value = RepoState.Loading(initialDataResource.data)
 
-            if (shouldFetch(initialDataResource.data)) {
-
+            if (shouldFetch(dbDataResource.data)) {
+                fetchFromNetwork(dbSource)
             } else {
                 result.addSource(loadFromDb()) { dataResource ->
                     if (dataResource is DataResource.Error) {
@@ -40,6 +41,20 @@ abstract class DataSourceBinder<ResultType, RequestType> {
                 }
             }*/
         }
+    }
+
+    private fun fetchFromNetwork(dbSource: LiveData<DataResource<ResultType>>) {
+
+        val netSource = createCall()
+
+        result.addSource(dbSource) { dataResource ->
+            result.value = RepoState.Loading(dataResource.data)
+        }
+
+        result.addSource(netSource) {
+            result.removeSource(netSource)
+        }
+
     }
 
     private fun fetchData(dbData: LiveData<ResultType>) {
