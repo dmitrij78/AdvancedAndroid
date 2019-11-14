@@ -35,16 +35,18 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
 
     implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataVersion"
 
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
     // optional - ReactiveStreams support for LiveData
+    // For Kotlin use lifecycle-reactivestreams-ktx
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycleVersion"
-    // For Kotlin use lifecycle-reactivestreams-ktx
 
     implementation "androidx.room:room-runtime:$archComponentVersion"
     kapt "androidx.room:room-compiler:$archComponentVersion"

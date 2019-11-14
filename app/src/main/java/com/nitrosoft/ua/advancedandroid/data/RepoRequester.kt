@@ -19,6 +19,10 @@ class RepoRequester @Inject constructor(private val repoService: RepoService) {
                 })
     }
 
+    suspend fun getTrendingRepoCoroutine(): List<Repo> {
+        return repoService.getTrendingReposCoroutine().repos
+    }
+
     fun getTrendingRepos(): Single<List<Repo>> {
         return repoService.getTrendingRepos()
                 .map(TrendingReposResponse::repos)

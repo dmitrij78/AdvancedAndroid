@@ -24,6 +24,10 @@ class RepoRepository @Inject constructor(
                 .subscribeOn(scheduler)
     }
 
+    suspend fun getTrendingReposCoroutine(): List<Repo> {
+        return repoRequesterProvider.get().getTrendingRepoCoroutine()
+    }
+
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {
         return Maybe.concat(cachedRepo(repoOwner, repoName), apiRepo(repoOwner, repoName))
                 .firstOrError()

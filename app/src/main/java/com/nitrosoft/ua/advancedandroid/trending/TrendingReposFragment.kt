@@ -65,8 +65,8 @@ class TrendingReposFragment : BaseFragment() {
 
     private fun observeViewModel(viewModel: TrendingRepoViewModel) {
         observeLiveData(viewModel.repoList, Observer { resource ->
-            when (resource) {
-                is RepoState.Success -> {
+            /* when (resource) {
+                 *//*is RepoState.Success -> {
                     onResourceSuccess(resource)
                 }
                 is RepoState.Error -> {
@@ -74,8 +74,9 @@ class TrendingReposFragment : BaseFragment() {
                 }
                 is RepoState.Loading -> {
                     onResourceLoading(resource)
-                }
-            }
+                }*//*
+            }*/
+            updateRepos(resource)
         })
     }
 

@@ -12,6 +12,11 @@ interface RepoService {
     @GET("/search/repositories?q=language:java&order=desc&sort=stars")
     fun getTrendingRepos(): Single<TrendingReposResponse>
 
+
+    @GET("/search/repositories?q=language:java&order=desc&sort=stars")
+    suspend fun getTrendingReposCoroutine(): TrendingReposResponse
+
+
     @GET("/repos/{owner}/{name}")
     fun getRepo(@Path("owner") repoOwner: String, @Path("name") repoName: String): Single<Repo>
 
