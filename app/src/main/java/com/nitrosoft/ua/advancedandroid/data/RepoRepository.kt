@@ -1,10 +1,20 @@
 package com.nitrosoft.ua.advancedandroid.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.nitrosoft.ua.advancedandroid.base.createTag
+import com.nitrosoft.ua.advancedandroid.database.AppDatabase
+import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
+import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
 import com.nitrosoft.ua.advancedandroid.models.Contributor
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Maybe
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Provider
@@ -13,10 +23,21 @@ import javax.inject.Singleton
 @Singleton
 class RepoRepository @Inject constructor(
         private val repoRequesterProvider: Provider<RepoRequester>,
+        private val database: AppDatabase,
+        private val entityConverter: RepoEntityConverter,
         @Named("network_scheduler") private val scheduler: Scheduler
 ) {
     private val cachedTrendingRepos: MutableList<Repo> = arrayListOf()
     private val cachedContributors: MutableMap<String, List<Contributor>> = mutableMapOf()
+
+    companion object {
+        private val TAG: String = createTag(RepoRepository::class.java.simpleName)
+
+        const val REPO_UPDATE_LIMIT = 10
+        const val REPO_LIST_KEY = "repo_list"
+    }
+
+    private val rateLimiter = RateLimiter<String>(REPO_UPDATE_LIMIT, TimeUnit.SECONDS)
 
     fun getTrendingRepos(): Single<List<Repo>> {
         return Maybe.concat(cachedTrendingRepos(), apiTrendingRepos())
@@ -24,8 +45,41 @@ class RepoRepository @Inject constructor(
                 .subscribeOn(scheduler)
     }
 
-    suspend fun getTrendingReposCoroutine(): List<Repo> {
-        return repoRequesterProvider.get().getTrendingRepoCoroutine()
+    fun getTrendingReposCoroutine(): LiveData<ResultWrapper<List<Repo>>> {
+        return object : RemoteDataSourceBinderCoroutine<List<Repo>>(Dispatchers.IO) {
+
+            override suspend fun loadFromDb(): Flow<List<Repo>> {
+                return database.repositoriesDao().getRepositoriesFlow()
+                        .map { entities -> entities.map { entityConverter.mapFromEntity(it) } }
+            }
+
+            override suspend fun createDataSourceCall(): List<Repo> {
+                return repoRequesterProvider.get().getTrendingRepoCoroutine()
+            }
+
+            override suspend fun saveRequest(data: List<Repo>?) {
+                if (data != null && data.isNotEmpty()) {
+                    database.repositoriesDao().insertRepos(data.map { entityConverter.mapToEntity(it) })
+                }
+            }
+
+            override fun shouldFetch(data: List<Repo>?): Boolean {
+                return data == null || rateLimiter.shouldFetch(REPO_LIST_KEY)
+            }
+
+            override fun onFetchFailed() {
+                rateLimiter.reset(REPO_LIST_KEY)
+            }
+        }.asLiveData()
+    }
+
+    private fun loadFromDb(): LiveData<List<Repo>> {
+        val repoDbLive = database.repositoriesDao().getRepositoriesLive()
+        return Transformations.map(repoDbLive) { entities -> convertEntitiesToRepos(entities) }
+    }
+
+    private fun convertEntitiesToRepos(entities: List<RepoEntity>?): List<Repo> {
+        return entities?.map { entityConverter.mapFromEntity(it) } ?: emptyList()
     }
 
     fun getRepo(repoOwner: String, repoName: String): Single<Repo> {

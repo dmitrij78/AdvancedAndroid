@@ -52,6 +52,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$archComponentVersion"
 
     implementation "androidx.room:room-rxjava2:$archComponentVersion"
+    implementation "androidx.room:room-ktx:$archComponentVersion"
 
     implementation "com.google.android.material:material:$materialVersion"
 

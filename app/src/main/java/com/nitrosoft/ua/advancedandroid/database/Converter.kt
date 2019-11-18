@@ -1,6 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.database
 
-interface Mapper<E, D> {
+interface Converter<E, D> {
 
     fun mapFromEntity(entity: E): D
 

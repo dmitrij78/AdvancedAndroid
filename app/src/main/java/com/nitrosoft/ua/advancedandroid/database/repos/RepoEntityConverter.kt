@@ -1,13 +1,13 @@
 package com.nitrosoft.ua.advancedandroid.database.repos
 
-import com.nitrosoft.ua.advancedandroid.database.Mapper
+import com.nitrosoft.ua.advancedandroid.database.Converter
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.models.User
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RepoEntityMapper @Inject constructor() : Mapper<RepoEntity, Repo> {
+class RepoEntityConverter @Inject constructor() : Converter<RepoEntity, Repo> {
 
     override fun mapFromEntity(entity: RepoEntity): Repo {
         return Repo(
