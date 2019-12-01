@@ -1,5 +1,6 @@
-package com.nitrosoft.ua.advancedandroid.data
+package com.nitrosoft.ua.advancedandroid.repository
 
+import com.nitrosoft.ua.advancedandroid.data.RepoService
 import com.nitrosoft.ua.advancedandroid.networking.ServiceModule
 import dagger.Module
 import dagger.Provides

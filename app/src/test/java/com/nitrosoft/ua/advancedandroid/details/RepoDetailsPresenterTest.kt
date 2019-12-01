@@ -1,10 +1,10 @@
 package com.nitrosoft.ua.advancedandroid.details
 
-import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.lifecycle.DisposableManager
 import com.nitrosoft.ua.advancedandroid.models.Contributor
 import com.nitrosoft.ua.advancedandroid.models.ContributorListItem
 import com.nitrosoft.ua.advancedandroid.models.Repo
+import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import com.squareup.moshi.Types

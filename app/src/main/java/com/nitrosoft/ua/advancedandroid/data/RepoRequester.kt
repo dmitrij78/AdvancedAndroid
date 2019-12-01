@@ -8,14 +8,14 @@ import javax.inject.Inject
 
 class RepoRequester @Inject constructor(private val repoService: RepoService) {
 
-    fun getTrendingReposLive(): Single<DataResource<List<Repo>>> {
+    fun getTrendingReposLive(): Single<ResultWrapper<List<Repo>>> {
         return repoService.getTrendingRepos()
-                .map(Function<TrendingReposResponse, DataResource<List<Repo>>> { response ->
+                .map(Function<TrendingReposResponse, ResultWrapper<List<Repo>>> { response ->
                     val repos = response.repos
-                    return@Function DataResource.Success(repos)
+                    return@Function ResultWrapper.Success(repos)
                 })
                 .onErrorReturn(Function { t ->
-                    return@Function DataResource.Error<List<Repo>>(t)
+                    return@Function ResultWrapper.Error<List<Repo>>(t)
                 })
     }
 

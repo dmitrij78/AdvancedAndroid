@@ -2,9 +2,9 @@ package com.nitrosoft.ua.advancedandroid.test
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
 import com.nitrosoft.ua.advancedandroid.home.MainActivity
+import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
 import com.nitrosoft.ua.advancedandroid.ui.TestScreenNavigator
 import org.junit.Rule
 

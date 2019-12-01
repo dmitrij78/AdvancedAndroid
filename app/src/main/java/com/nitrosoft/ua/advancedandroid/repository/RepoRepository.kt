@@ -1,8 +1,10 @@
-package com.nitrosoft.ua.advancedandroid.data
+package com.nitrosoft.ua.advancedandroid.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.nitrosoft.ua.advancedandroid.base.createTag
+import com.nitrosoft.ua.advancedandroid.data.RateLimiter
+import com.nitrosoft.ua.advancedandroid.data.RepoRequester
 import com.nitrosoft.ua.advancedandroid.database.AppDatabase
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
@@ -45,8 +47,8 @@ class RepoRepository @Inject constructor(
                 .subscribeOn(scheduler)
     }
 
-    fun getTrendingReposCoroutine(): LiveData<ResultWrapper<List<Repo>>> {
-        return object : RemoteDataSourceBinderCoroutine<List<Repo>>(Dispatchers.IO) {
+    fun getTrendingReposCoroutine(): LiveData<RepoState<List<Repo>>> {
+        return object : RepoNetworkDataSourceBinder<List<Repo>>(Dispatchers.IO) {
 
             override suspend fun loadFromDb(): Flow<List<Repo>> {
                 return database.repositoriesDao().getRepositoriesFlow()
