@@ -1,6 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.data
 
 import com.nitrosoft.ua.advancedandroid.models.Repo
+import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

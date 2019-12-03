@@ -3,8 +3,8 @@ package com.nitrosoft.ua.advancedandroid.test
 import android.app.Activity
 import androidx.test.rule.ActivityTestRule
 import com.nitrosoft.ua.advancedandroid.base.TestApplication
-import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
+import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
 import com.nitrosoft.ua.advancedandroid.ui.TestScreenNavigator
 
 class ControllerTestRule<T : Activity>(activityClass: Class<T>) :

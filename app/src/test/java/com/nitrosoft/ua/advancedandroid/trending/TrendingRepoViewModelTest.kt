@@ -2,11 +2,10 @@ package com.nitrosoft.ua.advancedandroid.trending
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.nitrosoft.ua.advancedandroid.data.RepoRepository
-import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.data.TrendingReposResponse
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
+import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
 import com.nitrosoft.ua.advancedandroid.testutils.TestUtils
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import io.reactivex.Single
