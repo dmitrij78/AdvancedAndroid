@@ -3,24 +3,17 @@ package com.nitrosoft.ua.advancedandroid.data
 import com.nitrosoft.ua.advancedandroid.models.Contributor
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Single
-import io.reactivex.functions.Function
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RepoRequester @Inject constructor(private val repoService: RepoService) {
 
-    fun getTrendingReposLive(): Single<DataResource<List<Repo>>> {
-        return repoService.getTrendingRepos()
-                .map(Function<TrendingReposResponse, DataResource<List<Repo>>> { response ->
-                    val repos = response.repos
-                    return@Function DataResource.Success(repos)
-                })
-                .onErrorReturn(Function { t ->
-                    return@Function DataResource.Error<List<Repo>>(t)
-                })
-    }
-
-    suspend fun getTrendingRepoCoroutine(): List<Repo> {
-        return repoService.getTrendingReposCoroutine().repos
+    suspend fun getTrendingRepoCoroutine(): DataResource<List<Repo>> {
+        return safeApiCall(Dispatchers.IO) {
+            repoService.getTrendingReposCoroutine().repos
+        }
     }
 
     fun getTrendingRepos(): Single<List<Repo>> {
@@ -33,5 +26,15 @@ class RepoRequester @Inject constructor(private val repoService: RepoService) {
 
     fun getContributors(url: String): Single<List<Contributor>> {
         return repoService.getContributors(url)
+    }
+
+    private suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): DataResource<T> {
+        return withContext(dispatcher) {
+            try {
+                DataResource.Success(apiCall.invoke())
+            } catch (throwable: Throwable) {
+                DataResource.Error<T>(throwable)
+            }
+        }
     }
 }

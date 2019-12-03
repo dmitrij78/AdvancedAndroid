@@ -9,7 +9,6 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.advancedandroid.base.createTag
 import com.nitrosoft.ua.advancedandroid.data.RepoState
-import com.nitrosoft.ua.advancedandroid.data.ResultWrapper
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
@@ -67,10 +66,10 @@ class TrendingReposFragment : BaseFragment() {
     private fun observeViewModel(viewModel: TrendingRepoViewModel) {
         observeLiveData(viewModel.repoList, Observer { resource ->
             when (resource) {
-                is ResultWrapper.Loading -> {
+                is RepoState.Loading -> {
                     onResourceLoading(resource)
                 }
-                is ResultWrapper.Success -> {
+                is RepoState.Success -> {
                     onResourceSuccess(resource)
                 }
             }
@@ -89,16 +88,16 @@ class TrendingReposFragment : BaseFragment() {
         })
     }
 
-    private fun onResourceSuccess(resource: ResultWrapper.Success<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.value.size}")
+    private fun onResourceSuccess(resource: RepoState.Success<List<Repo>>) {
+        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.data?.size}")
         onLoading(false)
         onError(-1)
-        updateRepos(resource.value)
+        updateRepos(resource.data)
     }
 
-    private fun onResourceLoading(resource: ResultWrapper.Loading<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceLoading. data.size=${resource.value?.size}")
-        val data = resource.value
+    private fun onResourceLoading(resource: RepoState.Loading<List<Repo>>) {
+        Timber.tag(TAG).d("onResourceLoading. data.size=${resource.data?.size}")
+        val data = resource.data
         if (data == null || data.isEmpty()) {
             onLoading(true)
         } else {
@@ -109,7 +108,7 @@ class TrendingReposFragment : BaseFragment() {
     }
 
     private fun onResourceError(resource: RepoState.Error<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceError. throwable=${resource.throwable?.message}")
+        Timber.tag(TAG).d("onResourceError. throwable=${resource.error?.message}")
         onLoading(false)
         onError(R.string.api_error_repos)
     }
