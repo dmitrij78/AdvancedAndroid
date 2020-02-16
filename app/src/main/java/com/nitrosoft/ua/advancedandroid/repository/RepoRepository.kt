@@ -87,7 +87,7 @@ class RepoRepository @Inject constructor(
                 }*//*
             }*/
 
-            }
+        }
     }
 
     private fun convertEntitiesToRepos(entities: List<RepoEntity>?): List<Repo> {
