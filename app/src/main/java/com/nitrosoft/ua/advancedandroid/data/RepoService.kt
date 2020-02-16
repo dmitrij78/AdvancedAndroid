@@ -9,12 +9,9 @@ import retrofit2.http.Url
 
 interface RepoService {
 
-    @GET("/search/repositories?q=language:java&order=desc&sort=stars")
-    fun getTrendingRepos(): Single<TrendingReposResponse>
-
 
     @GET("/search/repositories?q=language:java&order=desc&sort=stars")
-    suspend fun getTrendingReposCoroutine(): TrendingReposResponse
+    suspend fun getTrendingRepos(): TrendingReposResponse
 
 
     @GET("/repos/{owner}/{name}")

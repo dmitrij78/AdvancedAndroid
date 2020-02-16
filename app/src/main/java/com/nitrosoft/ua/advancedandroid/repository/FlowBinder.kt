@@ -1,6 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.repository
 
-import com.nitrosoft.ua.advancedandroid.data.ResultWrapper
+import com.nitrosoft.ua.advancedandroid.data.DataWrapper
 import com.nitrosoft.ua.advancedandroid.data.fetchData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -26,10 +26,10 @@ abstract class RepoNetworkDataSourceBinderFlow<ResultType, NetworkRequestType>(d
                 }
 
                 when (networkResult) {
-                    is ResultWrapper.Success -> {
+                    is DataWrapper.Success -> {
                         saveRequest(networkResult.data)
                     }
-                    is ResultWrapper.Error -> {
+                    is DataWrapper.Error -> {
 
                     }
                 }

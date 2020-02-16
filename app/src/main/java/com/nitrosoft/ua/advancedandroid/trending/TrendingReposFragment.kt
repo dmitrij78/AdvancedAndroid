@@ -8,9 +8,9 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.advancedandroid.base.createTag
-import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
+import com.nitrosoft.ua.advancedandroid.repository.RepoState
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
@@ -89,15 +89,15 @@ class TrendingReposFragment : BaseFragment() {
     }
 
     private fun onResourceSuccess(resource: RepoState.Success<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.data?.size}")
+        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.value.size}")
         onLoading(false)
         onError(-1)
-        updateRepos(resource.data)
+        updateRepos(resource.value)
     }
 
     private fun onResourceLoading(resource: RepoState.Loading<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceLoading. data.size=${resource.data?.size}")
-        val data = resource.data
+        Timber.tag(TAG).d("onResourceLoading. data.size=${resource.value?.size}")
+        val data = resource.value
         if (data == null || data.isEmpty()) {
             onLoading(true)
         } else {
@@ -105,12 +105,6 @@ class TrendingReposFragment : BaseFragment() {
             onError(-1)
             updateRepos(data)
         }
-    }
-
-    private fun onResourceError(resource: RepoState.Error<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceError. throwable=${resource.error?.message}")
-        onLoading(false)
-        onError(R.string.api_error_repos)
     }
 
 

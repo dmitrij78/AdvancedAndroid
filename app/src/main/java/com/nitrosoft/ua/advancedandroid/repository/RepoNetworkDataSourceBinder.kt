@@ -2,7 +2,7 @@ package com.nitrosoft.ua.advancedandroid.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.nitrosoft.ua.advancedandroid.data.ResultWrapper
+import com.nitrosoft.ua.advancedandroid.data.DataWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -53,7 +53,7 @@ abstract class RepoNetworkDataSourceBinder<DataType, NetworkRequestType>(dispatc
 
     protected abstract suspend fun getDatabaseData(): Flow<DataType>
 
-    protected abstract suspend fun getNetworkData(): ResultWrapper<NetworkRequestType>
+    protected abstract suspend fun getNetworkData(): DataWrapper<NetworkRequestType>
 
     protected abstract suspend fun saveRequest(request: NetworkRequestType)
 
