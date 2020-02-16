@@ -33,12 +33,12 @@ android {
 dependencies {
     implementation project(':poweradapter')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
 
     implementation "androidx.core:core-ktx:$ktxVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
@@ -48,11 +48,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycleVersion"
 
-    implementation "androidx.room:room-runtime:$archComponentVersion"
-    kapt "androidx.room:room-compiler:$archComponentVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
-    implementation "androidx.room:room-rxjava2:$archComponentVersion"
-    implementation "androidx.room:room-ktx:$archComponentVersion"
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
 
     implementation "com.google.android.material:material:$materialVersion"
 
@@ -85,7 +85,7 @@ dependencies {
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
+    testImplementation "androidx.arch.core:core-testing:$archVersion"
 
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
