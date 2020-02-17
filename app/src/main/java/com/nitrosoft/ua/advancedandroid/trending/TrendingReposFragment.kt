@@ -14,7 +14,7 @@ import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
-import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.screen_trending_repo.*
 import kotlinx.android.synthetic.main.screen_trending_repo.view.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,7 +24,6 @@ class TrendingReposFragment : BaseFragment() {
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
     @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var converter: RepoEntityConverter
-
 
     companion object {
         private val TAG: String = createTag(TrendingReposFragment::class.java.simpleName)
@@ -46,94 +45,76 @@ class TrendingReposFragment : BaseFragment() {
     }
 
     override fun onViewBound(view: View) {
-        view.repoList.layoutManager = LinearLayoutManager(view.context)
-        view.repoList.adapter = RecyclerAdapter(recyclerDataSource)
+        initList(view)
     }
 
-    override fun subscriptions(): List<Disposable> {
-        return arrayListOf(
-                /*repoListRelay
-                        .subscribeOn(Schedulers.io())
-                        .flatMapIterable { it }
-                        .map { RepoListItem(it) }
-                        .toList()
-                        .toFlowable()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ data -> updateRepoList(data) }, { })*/
-        )
+    private fun initList(view: View) {
+        view.repoList.layoutManager = LinearLayoutManager(view.context)
+        view.repoList.adapter = RecyclerAdapter(recyclerDataSource)
     }
 
     private fun observeViewModel(viewModel: TrendingRepoViewModel) {
         observeLiveData(viewModel.repoList, Observer { resource ->
             when (resource) {
-                is RepoState.Loading -> {
-                    onResourceLoading(resource)
-                }
                 is RepoState.Success -> {
-                    onResourceSuccess(resource)
-                }
-            }
-            /* when (resource) {
-                 *//*is RepoState.Success -> {
-                    onResourceSuccess(resource)
+                    updateOnSuccess(resource.data)
                 }
                 is RepoState.Error -> {
-                    onResourceError(resource)
+                    updateOnError(resource.error)
                 }
                 is RepoState.Loading -> {
-                    onResourceLoading(resource)
-                }*//*
-            }*/
-            //updateRepos(resource)
+                    showLoader(resource.isLoading)
+                }
+                is RepoState.Syncing -> {
+                    onStartSyncing(resource.isSyncing)
+                }
+            }
         })
     }
 
-    private fun onResourceSuccess(resource: RepoState.Success<List<RepoEntity>>) {
-        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.data?.size}")
-        onLoading(false)
-        onError(-1)
-        updateRepos(resource.data)
+    private fun onStartSyncing(isSyncing: Boolean) {
+        Timber.tag(TAG).d("onStartSyncing. isSyncing: $isSyncing")
     }
 
-    private fun onResourceLoading(resource: RepoState.Loading<List<RepoEntity>>) {
-        val data = resource.data
+    private fun updateOnError(throwable: Throwable) {
+        Timber.tag(TAG).d("updateOnError. message: ${throwable.message}")
+    }
+
+    private fun updateOnSuccess(data: List<RepoEntity>) {
+        Timber.tag(TAG).d("onResourceSuccess. data.size=${data.size}")
+/*        onLoading(false)
+        onError(-1)*/
+        recyclerDataSource.setData(data.map { RepoListItem(it) })
+    }
+
+    private fun showLoader(isLoading: Boolean) {
+        Timber.tag(TAG).d("showLoader. isLoading: $isLoading")
+        /*val data = resource.data
         if (data == null || data.isEmpty()) {
             onLoading(true)
         } else {
             onLoading(false)
             onError(-1)
             updateRepos(data)
-        }
-    }
-
-
-    private fun updateRepos(items: List<RepoEntity>?) {
-        Timber.tag(TAG).d("updateRepos. items: ${items?.size ?: "null"}")
-        if (items != null) {
-            val listItems: MutableList<RepoListItem> = mutableListOf()
-            for (item in items) {
-                listItems.add(RepoListItem((item)))
-            }
-            recyclerDataSource.setData(listItems)
-        }
+        }*/
     }
 
     private fun onError(errorStrRes: Int) {
         Timber.tag(TAG).d("onError. errorStrRes: %d", errorStrRes)
         if (errorStrRes == -1) {
-            view?.errorText?.text = null
-            view?.errorText?.visibility = View.GONE
+            errorText.text = null
+            errorText.visibility = View.GONE
         } else {
-            view?.errorText?.setText(errorStrRes)
-            view?.errorText?.visibility = View.VISIBLE
-            view?.repoList?.visibility = View.GONE
+            errorText.setText(errorStrRes)
+            errorText.visibility = View.VISIBLE
+            repoList.visibility = View.GONE
         }
     }
 
     private fun onLoading(show: Boolean) {
         Timber.tag(TAG).d("onLoading. show: ${if (show) "true" else "false"}")
-        view?.loadingIndicator?.visibility = if (show) View.VISIBLE else View.GONE
-        view?.repoList?.visibility = if (show) View.GONE else View.VISIBLE
-        view?.errorText?.visibility = if (show) View.GONE else view?.errorText?.visibility!!
+        loadingIndicator.visibility = if (show) View.VISIBLE else View.GONE
+        repoList.visibility = if (show) View.GONE else View.VISIBLE
+        errorText.visibility = if (show) View.GONE else errorText?.visibility!!
     }
 }

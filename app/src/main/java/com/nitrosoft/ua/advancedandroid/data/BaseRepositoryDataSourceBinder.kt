@@ -14,7 +14,7 @@ abstract class BaseRepositoryDataSourceBinder<Data, ResponseModel> : DataSourceB
         emit(RepoState.Success(storedData))
 
         if (shouldFetch(storedData)) {
-            emit(RepoState.Syncing())
+            emit(RepoState.Syncing(true))
             when (val newData = fetchData()) {
                 is DataWrapper.Success -> {
                     saveRequest(newData.data)
@@ -24,10 +24,11 @@ abstract class BaseRepositoryDataSourceBinder<Data, ResponseModel> : DataSourceB
                     emit(RepoState.Error(newData.throwable!!))
                 }
             }
-            emit(RepoState.Syncing())
+            emit(RepoState.Syncing(false))
         }
 
         emit(RepoState.Loading(false))
+
         loadFromDb().collect {
             emit(RepoState.Success(it))
         }

@@ -7,7 +7,7 @@ import com.nitrosoft.ua.advancedandroid.di.ActivityInjector
 import timber.log.Timber
 import javax.inject.Inject
 
-open class MyApplication : Application() {
+open class App : Application() {
 
     protected lateinit var component: ApplicationComponent
 

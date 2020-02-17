@@ -8,6 +8,6 @@ import javax.inject.Singleton
 class RateLimiter @Inject constructor() : BaseRateLimiter<String>(TIME_OUT, TimeUnit.SECONDS) {
 
     companion object {
-        const val TIME_OUT = 10
+        const val TIME_OUT = 60
     }
 }

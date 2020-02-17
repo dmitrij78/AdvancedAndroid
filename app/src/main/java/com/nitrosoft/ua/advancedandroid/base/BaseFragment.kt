@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
@@ -23,8 +23,7 @@ abstract class BaseFragment : Fragment() {
 
     companion object {
         const val FRAGMENT_INSTANCE_ID_KEY = "instance_id"
-
-        private val TAG: String = "AdvancedAndroidApp." + BaseFragment::class.java.simpleName
+        private val TAG: String = createTag(BaseFragment::class.java.simpleName)
     }
 
     private val disposables: CompositeDisposable = CompositeDisposable()
@@ -56,7 +55,7 @@ abstract class BaseFragment : Fragment() {
 
         onViewBound(view)
 
-        disposables.addAll(*subscriptions().toTypedArray())
+        disposables.addAll(*emptyList().toTypedArray())
 
         for (screenLifecycleTask in screenLifecycleTasks) {
             screenLifecycleTask.onEnterScope(view)
@@ -93,6 +92,7 @@ abstract class BaseFragment : Fragment() {
 
     protected open fun onViewBound(view: View) {}
 
+    @Deprecated("Method wil be removes", ReplaceWith("emptyList()"))
     protected open fun subscriptions(): List<Disposable> {
         return emptyList()
     }
@@ -102,6 +102,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
-        return ViewModelProviders.of(this, viewModelFactory)[T::class.java]
+        return ViewModelProvider(this, viewModelFactory)[T::class.java]
     }
 }
