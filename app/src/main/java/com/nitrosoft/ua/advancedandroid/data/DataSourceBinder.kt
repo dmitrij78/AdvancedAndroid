@@ -2,13 +2,13 @@ package com.nitrosoft.ua.advancedandroid.data
 
 import kotlinx.coroutines.flow.Flow
 
-interface DataSourceBinder<Data, Request> {
+interface DataSourceBinder<Data, Response> {
 
     suspend fun loadFromDb(): Flow<Data>
 
-    suspend fun fetchData(): DataResource<Request>
+    suspend fun fetchData(): DataWrapper<Response>
 
-    suspend fun saveRequest(request: Request?)
+    suspend fun saveRequest(response: Response?)
 
     fun shouldFetch(data: Data?): Boolean
 

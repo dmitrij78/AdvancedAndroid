@@ -1,7 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.data
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
 sealed class DataWrapper<T>(
         val data: T? = null,
@@ -10,8 +10,8 @@ sealed class DataWrapper<T>(
     class Error<T>(throwable: Throwable) : DataWrapper<T>(null, throwable)
 }
 
-suspend fun <T> fetchData(dispatcher: CoroutineDispatcher, block: suspend () -> T): DataWrapper<T> {
-    return withContext(dispatcher) {
+suspend fun <T> fetchData(coroutineContext: CoroutineContext, block: suspend () -> T): DataWrapper<T> {
+    return withContext(coroutineContext) {
         try {
             DataWrapper.Success(block.invoke())
         } catch (throwable: Throwable) {

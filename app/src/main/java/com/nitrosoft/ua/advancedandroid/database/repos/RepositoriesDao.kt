@@ -1,9 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.database.repos
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -14,4 +11,13 @@ interface RepositoriesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepos(repos: List<RepoEntity>)
+
+    @Query("DELETE from repositories")
+    suspend fun deleteAllRepos()
+
+    @Transaction
+    suspend fun insertNewData(repos: List<RepoEntity>) {
+        deleteAllRepos()
+        insertRepos(repos)
+    }
 }

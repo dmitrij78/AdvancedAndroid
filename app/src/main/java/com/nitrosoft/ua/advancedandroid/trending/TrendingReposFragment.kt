@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jakewharton.rxrelay2.BehaviorRelay
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.advancedandroid.base.createTag
-import com.nitrosoft.ua.advancedandroid.models.Repo
+import com.nitrosoft.ua.advancedandroid.data.RepoState
+import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
+import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
-import com.nitrosoft.ua.advancedandroid.repository.RepoState
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
@@ -23,8 +23,8 @@ class TrendingReposFragment : BaseFragment() {
 
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
     @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var converter: RepoEntityConverter
 
-    private val repoListRelay = BehaviorRelay.create<List<Repo>>()
 
     companion object {
         private val TAG: String = createTag(TrendingReposFragment::class.java.simpleName)
@@ -88,16 +88,15 @@ class TrendingReposFragment : BaseFragment() {
         })
     }
 
-    private fun onResourceSuccess(resource: RepoState.Success<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.value.size}")
+    private fun onResourceSuccess(resource: RepoState.Success<List<RepoEntity>>) {
+        Timber.tag(TAG).d("onResourceSuccess. data.size=${resource.data?.size}")
         onLoading(false)
         onError(-1)
-        updateRepos(resource.value)
+        updateRepos(resource.data)
     }
 
-    private fun onResourceLoading(resource: RepoState.Loading<List<Repo>>) {
-        Timber.tag(TAG).d("onResourceLoading. data.size=${resource.value?.size}")
-        val data = resource.value
+    private fun onResourceLoading(resource: RepoState.Loading<List<RepoEntity>>) {
+        val data = resource.data
         if (data == null || data.isEmpty()) {
             onLoading(true)
         } else {
@@ -108,7 +107,7 @@ class TrendingReposFragment : BaseFragment() {
     }
 
 
-    private fun updateRepos(items: List<Repo>?) {
+    private fun updateRepos(items: List<RepoEntity>?) {
         Timber.tag(TAG).d("updateRepos. items: ${items?.size ?: "null"}")
         if (items != null) {
             val listItems: MutableList<RepoListItem> = mutableListOf()

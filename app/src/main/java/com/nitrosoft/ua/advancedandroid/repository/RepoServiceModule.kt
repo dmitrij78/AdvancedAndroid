@@ -20,6 +20,7 @@ class RepoServiceModule {
     }
 
     @Provides
+    @Singleton
     @Named("network_scheduler")
     fun provideNetworkScheduler(): Scheduler {
         return Schedulers.io()

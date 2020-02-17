@@ -1,10 +1,8 @@
 package com.nitrosoft.ua.advancedandroid.repository
 
 import com.nitrosoft.ua.advancedandroid.base.createTag
-import com.nitrosoft.ua.advancedandroid.data.DataWrapper
-import com.nitrosoft.ua.advancedandroid.data.RateLimiter
 import com.nitrosoft.ua.advancedandroid.data.RepoRequester
-import com.nitrosoft.ua.advancedandroid.data.fetchData
+import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.database.AppDatabase
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
@@ -13,13 +11,7 @@ import com.nitrosoft.ua.advancedandroid.models.Repo
 import io.reactivex.Maybe
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Provider
@@ -30,6 +22,7 @@ class RepoRepository @Inject constructor(
         private val requesterProvider: Provider<RepoRequester>,
         private val database: AppDatabase,
         private val entityConverter: RepoEntityConverter,
+        private val dataSourceBinder: RepoDataSourceBinder,
         @Named("network_scheduler") private val scheduler: Scheduler
 ) {
     private val cachedTrendingRepos: MutableList<Repo> = arrayListOf()
@@ -39,55 +32,10 @@ class RepoRepository @Inject constructor(
         private val TAG: String = createTag(RepoRepository::class.java.simpleName)
 
         const val REPO_UPDATE_LIMIT = 10
-        const val REPO_LIST_KEY = "repo_list"
     }
 
-    private val rateLimiter = RateLimiter<String>(REPO_UPDATE_LIMIT, TimeUnit.SECONDS)
-
-    /*fun getTrendingRepos(): Single<List<Repo>> {
-        return Maybe.concat(cachedTrendingRepos(), apiTrendingRepos())
-                .firstOrError()
-                .subscribeOn(scheduler)
-    }*/
-    fun getTrendingRepos(): Flow<RepoState<List<Repo>>> {
-        return flow {
-            Timber.tag("RepoRepository").d("getTrendingRepos. startFlow")
-
-            val firstPage = database.repositoriesDao().getRepositories()
-                    .map { entities -> convertEntitiesToRepos(entities) }
-                    .first()
-
-            if (firstPage.isEmpty() || rateLimiter.shouldFetch(REPO_LIST_KEY)) {
-                emit(RepoState.Loading(firstPage))
-                val requestProvider = requesterProvider.get()
-                val newData = fetchData(Dispatchers.IO) { requestProvider.getTrendingRepos() }
-                if (newData is DataWrapper.Success) {
-
-                    //database.repositoriesDao().insertRepos()
-                }
-            }
-/*
-            if (rateLimiter.shouldFetch(REPO_LIST_KEY)) {
-                emit(RepoState.Loading(firstPage))
-                val requestProvider = requesterProvider.get()
-                val fetchData = fetchData(Dispatchers.IO) { requestProvider.getTrendingRepos() }
-                when (fetchData) {
-                    is DataWrapper.Success -> {
-
-                    }
-                    is DataWrapper.Error -> {
-                        emit(RepoState.Error(fetchData.throwable))
-                    }
-
-                }
-                Timber.tag("RepoRepository").d("getTrendingRepos. endFlow")
-
-                *//*dbFlow.collect { repos ->
-
-                }*//*
-            }*/
-
-        }
+    fun getTrendingRepos(): Flow<RepoState<List<RepoEntity>>> {
+        return dataSourceBinder.getData()
     }
 
     private fun convertEntitiesToRepos(entities: List<RepoEntity>?): List<Repo> {
