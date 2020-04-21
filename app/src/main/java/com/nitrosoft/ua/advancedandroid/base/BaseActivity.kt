@@ -8,22 +8,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.Injector
-import com.nitrosoft.ua.advancedandroid.di.ScreenFragmentInjector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.FragmentProvider
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import java.util.*
 import javax.inject.Inject
 
-abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
+abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentProvider {
 
     companion object {
         const val ACTIVITY_INSTANCE_ID_KEY = "instance_id"
     }
 
-    @Inject lateinit var screenInjector: ScreenFragmentInjector
+    @Inject lateinit var screenInjector: DispatchingAndroidInjector<Any>
     @Inject lateinit var screenNavigator: ScreenNavigator
     @Inject lateinit var activityViewInterceptor: ActivityViewInterceptor
     @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
@@ -78,9 +80,6 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (isFinishing) {
-            Injector.clear(this)
-        }
         activityViewInterceptor.clear()
         for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onDestroy(this)
@@ -109,5 +108,9 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
     @Suppress("unused")
     protected inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
         return ViewModelProvider(this, viewModelFactory)[T::class.java]
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return screenInjector
     }
 }

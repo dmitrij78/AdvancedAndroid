@@ -55,9 +55,9 @@ abstract class BaseFragment : Fragment() {
 
         onViewBound(view)
 
-        disposables.addAll(*emptyList)
+        disposables.addAll(*emptyList<Disposable>().toTypedArray())
         for (screenLifecycleTask in screenLifecycleTasks) {
-            screenLifecycleTask.onEnterScope(view)+0+0BN/
+            screenLifecycleTask.onEnterScope(view)
         }
         return view
     }
@@ -79,10 +79,6 @@ abstract class BaseFragment : Fragment() {
 
         for (screenLifecycleTask in screenLifecycleTasks) {
             screenLifecycleTask.onDestroy()
-        }
-
-        if (!activity?.isChangingConfigurations!!) {
-            Injector.clear(this)
         }
     }
 

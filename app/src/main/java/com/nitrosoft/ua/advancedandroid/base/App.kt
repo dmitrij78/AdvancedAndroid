@@ -3,15 +3,17 @@ package com.nitrosoft.ua.advancedandroid.base
 import android.app.Application
 import com.facebook.stetho.Stetho
 import com.nitrosoft.ua.advancedandroid.BuildConfig
-import com.nitrosoft.ua.advancedandroid.di.ActivityInjector
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import timber.log.Timber
 import javax.inject.Inject
 
-open class App : Application() {
+open class App : Application(), HasAndroidInjector {
 
     protected lateinit var component: ApplicationComponent
 
-    @Inject lateinit var activityInjector: ActivityInjector
+    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
@@ -29,5 +31,9 @@ open class App : Application() {
         return DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return androidInjector
     }
 }
