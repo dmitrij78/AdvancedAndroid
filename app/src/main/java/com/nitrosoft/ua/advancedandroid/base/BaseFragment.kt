@@ -55,12 +55,10 @@ abstract class BaseFragment : Fragment() {
 
         onViewBound(view)
 
-        disposables.addAll(*emptyList().toTypedArray())
-
+        disposables.addAll(*emptyList)
         for (screenLifecycleTask in screenLifecycleTasks) {
-            screenLifecycleTask.onEnterScope(view)
+            screenLifecycleTask.onEnterScope(view)+0+0BN/
         }
-
         return view
     }
 
