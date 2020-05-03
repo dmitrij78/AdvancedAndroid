@@ -16,7 +16,6 @@ import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import java.util.*
 import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentProvider {
@@ -28,15 +27,10 @@ abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentP
     @Inject lateinit var screenInjector: DispatchingAndroidInjector<Any>
     @Inject lateinit var screenNavigator: ScreenNavigator
     @Inject lateinit var activityViewInterceptor: ActivityViewInterceptor
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
 
-    private lateinit var instanceId: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        instanceId = when (savedInstanceState) {
-            null -> UUID.randomUUID().toString()
-            else -> savedInstanceState.getString(ACTIVITY_INSTANCE_ID_KEY) ?: ""
-        }
         Injector.inject(this)
         super.onCreate(savedInstanceState)
 
@@ -92,21 +86,12 @@ abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentP
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(ACTIVITY_INSTANCE_ID_KEY, instanceId)
-    }
-
-    fun getInstanceId(): String {
-        return instanceId
-    }
-
     abstract fun layoutRes(): Int
 
     abstract override fun initialFragment(): Fragment
 
     @Suppress("unused")
-    protected inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
+    protected inline fun <reified T : ViewModel> createViewModel(): T {
         return ViewModelProvider(this, viewModelFactory)[T::class.java]
     }
 

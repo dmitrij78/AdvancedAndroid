@@ -11,7 +11,6 @@ import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
-import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
 import kotlinx.android.synthetic.main.screen_trending_repo.*
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class TrendingReposFragment : BaseFragment() {
 
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
-    @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var converter: RepoEntityConverter
 
     companion object {
@@ -40,7 +38,7 @@ class TrendingReposFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val viewModel: TrendingRepoViewModel = createViewModel(viewModelFactory)
+        val viewModel: TrendingRepoViewModel = createViewModel()
         observeViewModel(viewModel)
     }
 

@@ -28,6 +28,7 @@ abstract class BaseFragment : Fragment() {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var screenLifecycleTasks: Set<@JvmSuppressWildcards ScreenLifecycleTask>
 
     init {
@@ -95,7 +96,7 @@ abstract class BaseFragment : Fragment() {
         liveData.observe(viewLifecycleOwner, observer)
     }
 
-    protected inline fun <reified T : ViewModel> createViewModel(viewModelFactory: ViewModelFactory): T {
+    protected inline fun <reified T : ViewModel> createViewModel(): T {
         return ViewModelProvider(this, viewModelFactory)[T::class.java]
     }
 }
