@@ -28,9 +28,7 @@ open class App : Application(), HasAndroidInjector {
     }
 
     protected open fun initComponent(): ApplicationComponent {
-        return DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
+        return DaggerApplicationComponent.factory().create(this)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

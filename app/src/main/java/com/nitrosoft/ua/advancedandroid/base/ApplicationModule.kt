@@ -2,16 +2,14 @@ package com.nitrosoft.ua.advancedandroid.base
 
 import android.app.Application
 import android.content.Context
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import io.reactivex.schedulers.Schedulers
+import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val app: Application) {
+abstract class ApplicationModule {
 
-    @Provides
-    fun provideApplicationContext(): Context {
-        Schedulers.io()
-        return app
-    }
+    @Singleton
+    @Binds
+    abstract fun provideApplicationContext(app: Application): Context
 }
