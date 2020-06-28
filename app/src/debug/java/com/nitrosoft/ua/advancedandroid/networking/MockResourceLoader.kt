@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.Nullable
 import timber.log.Timber
 import java.io.IOException
+import java.util.*
 
 class MockResourceLoader {
 
@@ -22,7 +23,7 @@ class MockResourceLoader {
 
                 var finalPath: String? = null
                 for (path in mockList) {
-                    if (path.contains(method.toLowerCase())) {
+                    if (path.contains(method.toLowerCase(Locale.ROOT))) {
                         finalPath = "$currentPath/$path"
                         break
                     }

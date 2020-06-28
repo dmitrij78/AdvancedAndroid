@@ -11,12 +11,10 @@ import dagger.multibindings.Multibinds
 @Module
 abstract class ScreenModule {
 
-    @Module
     companion object {
 
         @Provides
         @ScreenScope
-        @JvmStatic
         @ForScreen
         fun provideDisposableManger(): DisposableManager {
             return DisposableManager()

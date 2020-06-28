@@ -10,17 +10,14 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    @Module
     companion object {
 
-        @JvmStatic
         @Singleton
         @Provides
         fun provideOkHttp(): Call.Factory {
             return OkHttpClient.Builder().build()
         }
 
-        @JvmStatic
         @Singleton
         @Provides
         @Named("base_url")

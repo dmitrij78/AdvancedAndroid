@@ -12,10 +12,8 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    @Module
     companion object {
 
-        @JvmStatic
         @Singleton
         @Provides
         fun provideOkHttp(mockInterceptor: MockInterceptor): Call.Factory {
@@ -28,7 +26,6 @@ class NetworkModule {
                     .build()
         }
 
-        @JvmStatic
         @Singleton
         @Provides
         @Named("base_url")

@@ -15,10 +15,8 @@ import javax.inject.Singleton
 @Module(includes = [NetworkModule::class])
 class ServiceModule {
 
-    @Module
     companion object {
 
-        @JvmStatic
         @Singleton
         @Provides
         fun provideMoshi(): Moshi {
@@ -28,7 +26,6 @@ class ServiceModule {
                     .build()
         }
 
-        @JvmStatic
         @Singleton
         @Provides
         fun provideRetrofit(moshi: Moshi, callFactory: Call.Factory, @Named("base_url") baseUrl: String): Retrofit {

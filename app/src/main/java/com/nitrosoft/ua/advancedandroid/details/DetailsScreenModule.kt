@@ -25,12 +25,10 @@ abstract class DetailsScreenModule {
     @RenderKey("CONTRIBUTOR")
     abstract fun bindContributorRenderer(repoRenderer: ContributorRenderer): ItemRenderer<out RecyclerItem>
 
-    @Module
     companion object {
 
         @Provides
         @ScreenScope
-        @JvmStatic
         @JvmSuppressWildcards
         fun provideRecyclerDataSource(renderers: Map<String, ItemRenderer<out RecyclerItem>>): RecyclerDataSource {
             return RecyclerDataSource(renderers)

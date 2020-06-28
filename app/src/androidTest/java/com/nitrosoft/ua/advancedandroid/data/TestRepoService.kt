@@ -17,8 +17,8 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
     private var errorFlags: Int = 0
     private var holdFlags: Int = 0
 
-    override fun getTrendingRepos(): Single<TrendingReposResponse> {
-        if (errorFlags and FLAG_TRENDING_REPOS == 0) {
+    override suspend fun getTrendingRepos(): TrendingReposResponse {
+        /*if (errorFlags and FLAG_TRENDING_REPOS == 0) {
             val response = testUtils.loadJson<TrendingReposResponse>(
                     "mock/repos/search/get_trending_repos.json",
                     TrendingReposResponse::class.java)
@@ -26,8 +26,10 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
             return if ((holdFlags and FLAG_TRENDING_REPOS) == FLAG_TRENDING_REPOS) {
                 holdingSingle(response, FLAG_TRENDING_REPOS)
             } else Single.just(response)
-        }
-        return Single.error(IOException())
+        }*/
+        return testUtils.loadJson(
+                "mock/repos/search/get_trending_repos.json",
+                TrendingReposResponse::class.java)
     }
 
     override fun getRepo(repoOwner: String, repoName: String): Single<Repo> {

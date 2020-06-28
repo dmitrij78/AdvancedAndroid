@@ -6,11 +6,9 @@ import dagger.Provides
 @Module
 abstract class TestActivityViewInterceptorModule {
 
-    @Module
     companion object {
 
         @Provides
-        @JvmStatic
         fun provideActivityViewInterceptor(): ActivityViewInterceptor {
             return ActivityViewInterceptor.DEFAULT
         }
