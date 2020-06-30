@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.base
 
+/*
 import com.nitrosoft.ua.advancedandroid.di.ForScreen
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.lifecycle.DisposableManager
@@ -23,4 +24,4 @@ abstract class ScreenModule {
 
     @Multibinds
     abstract fun screenLifecycleTasks(): Set<ScreenLifecycleTask>
-}
+}*/

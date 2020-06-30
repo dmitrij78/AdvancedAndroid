@@ -1,19 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
-import androidx.lifecycle.ViewModel
-import com.nitrosoft.ua.advancedandroid.di.ScreenScope
-import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
-import com.nitrosoft.ua.advancedandroid.view_model.ViewModelKey
-import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
-import com.nitrosoft.ua.poweradapter.item.ItemRenderer
-import com.nitrosoft.ua.poweradapter.item.RecyclerItem
-import com.nitrosoft.ua.poweradapter.item.RenderKey
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.IntoSet
-
+/*
 @Module
 @SuppressWarnings("unused")
 abstract class TrendingReposScreenModule {
@@ -41,4 +28,4 @@ abstract class TrendingReposScreenModule {
             return RecyclerDataSource(renderers)
         }
     }
-}
+}*/

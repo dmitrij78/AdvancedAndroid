@@ -4,34 +4,27 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nitrosoft.ua.advancedandroid.R
-import com.nitrosoft.ua.advancedandroid.di.Injector
-import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.FragmentProvider
-import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
-import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentProvider {
+abstract class BaseActivity : AppCompatActivity(), /*HasAndroidInjector,*/ FragmentProvider {
 
     companion object {
         const val ACTIVITY_INSTANCE_ID_KEY = "instance_id"
     }
 
-    @Inject lateinit var screenInjector: DispatchingAndroidInjector<Any>
-    @Inject lateinit var screenNavigator: ScreenNavigator
     @Inject lateinit var activityViewInterceptor: ActivityViewInterceptor
+
+/*    @Inject lateinit var screenInjector: DispatchingAndroidInjector<Any>
+    @Inject lateinit var screenNavigator: ScreenNavigator
+
     @Inject lateinit var viewModelFactory: ViewModelFactory
-    @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
+    @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Injector.inject(this)
+        //Injector.inject(this)
         super.onCreate(savedInstanceState)
 
         activityViewInterceptor.setContentView(this, layoutRes())
@@ -39,12 +32,12 @@ abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentP
         findViewById<View>(R.id.screenContainer)
                 ?: throw NullPointerException("Activity must have a view with id: screen_container")
 
-        for (activityLifecycleTask in activityLifecycleTasks) {
+/*        for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onCreate(this)
-        }
+        }*/
     }
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onStart(this)
@@ -84,18 +77,18 @@ abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector, FragmentP
         if (!screenNavigator.pop()) {
             super.onBackPressed()
         }
-    }
+    }*/
 
     abstract fun layoutRes(): Int
 
     abstract override fun initialFragment(): Fragment
 
-    @Suppress("unused")
+    /*@Suppress("unused")
     protected inline fun <reified T : ViewModel> createViewModel(): T {
         return ViewModelProvider(this, viewModelFactory)[T::class.java]
-    }
+    }*/
 
-    override fun androidInjector(): AndroidInjector<Any> {
+/*    override fun androidInjector(): AndroidInjector<Any> {
         return screenInjector
-    }
+    }*/
 }

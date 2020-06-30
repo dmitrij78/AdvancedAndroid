@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.view_model
 
+/*
 import androidx.lifecycle.ViewModel
 import dagger.Module
 import dagger.Provides
@@ -21,3 +22,4 @@ abstract class ViewModelModule {
         }
     }
 }
+*/

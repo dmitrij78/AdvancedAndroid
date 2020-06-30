@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.ui
 
+/*
 import dagger.Module
 import dagger.Provides
 
@@ -13,4 +14,4 @@ abstract class ActivityViewInterceptorModule {
             return ActivityViewInterceptor.DEFAULT
         }
     }
-}
+}*/

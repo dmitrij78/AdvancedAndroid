@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.networking
 
+/*
 import com.nitrosoft.ua.advancedandroid.models.ApplicationJsonAdapterFactory
 import com.nitrosoft.ua.advancedandroid.models.ZoneDatetimeAdapter
 import com.squareup.moshi.Moshi
@@ -37,4 +38,4 @@ class ServiceModule {
                     .build()
         }
     }
-}
+}*/

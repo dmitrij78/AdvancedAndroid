@@ -10,7 +10,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
@@ -45,7 +44,7 @@ abstract class BaseFragment : Fragment() {
     override fun onAttach(context: Context) {
         Timber.tag(TAG).d("onAttach")
 
-        Injector.inject(this)
+/*        Injector.inject(this)*/
 
         super.onAttach(context)
     }

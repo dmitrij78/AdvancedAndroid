@@ -4,7 +4,9 @@ import androidx.fragment.app.Fragment
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseActivity
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 open class MainActivity : BaseActivity() {
 
     override fun initialFragment(): Fragment {

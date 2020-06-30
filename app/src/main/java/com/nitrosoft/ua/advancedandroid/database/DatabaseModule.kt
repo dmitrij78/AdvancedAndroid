@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.database
 
+/*
 import android.content.Context
 import androidx.room.Room
 import dagger.Module
@@ -24,4 +25,4 @@ class DatabaseModule {
     fun provideDatabaseScheduler(): Scheduler {
         return Schedulers.io()
     }
-}
+}*/

@@ -1,6 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.base
 
-import com.nitrosoft.ua.advancedandroid.home.MainActivity
+/*import com.nitrosoft.ua.advancedandroid.home.MainActivity
 import com.nitrosoft.ua.advancedandroid.home.MainActivityComponent
 import dagger.Binds
 import dagger.Module
@@ -15,4 +15,4 @@ internal abstract class ActivityBindingModule {
     @IntoMap
     @ClassKey(MainActivity::class)
     internal abstract fun provideMainActivityInjector(factory: MainActivityComponent.Factory): AndroidInjector.Factory<*>
-}
+}*/

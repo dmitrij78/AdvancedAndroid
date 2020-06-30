@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.base
 
+/*
 import android.app.Application
 import android.content.Context
 import dagger.Binds
@@ -12,4 +13,4 @@ abstract class ApplicationModule {
     @Singleton
     @Binds
     abstract fun provideApplicationContext(app: Application): Context
-}
+}*/

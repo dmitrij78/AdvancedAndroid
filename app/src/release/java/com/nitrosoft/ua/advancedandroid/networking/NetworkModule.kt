@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.networking
 
+/*
 import dagger.Module
 import dagger.Provides
 import okhttp3.Call
@@ -25,4 +26,4 @@ class NetworkModule {
             return "https://api.github.com"
         }
     }
-}
+}*/

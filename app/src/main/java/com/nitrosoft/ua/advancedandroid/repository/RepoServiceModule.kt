@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.repository
 
+/*
 import com.nitrosoft.ua.advancedandroid.data.RepoService
 import com.nitrosoft.ua.advancedandroid.networking.ServiceModule
 import dagger.Module
@@ -9,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
+
 
 @Module(includes = [ServiceModule::class])
 class RepoServiceModule {
@@ -25,4 +27,4 @@ class RepoServiceModule {
     fun provideNetworkScheduler(): Scheduler {
         return Schedulers.io()
     }
-}
+}*/

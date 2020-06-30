@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.home
 
+/*
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsComponent
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsFragment
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposComponent
@@ -24,4 +25,4 @@ abstract class TestScreenBindingModule {
     @IntoMap
     @ClassKey(RepoDetailsFragment::class)
     abstract fun bindRepoDetailsInjector(factory: RepoDetailsComponent.Factory): AndroidInjector.Factory<*>
-}
+}*/

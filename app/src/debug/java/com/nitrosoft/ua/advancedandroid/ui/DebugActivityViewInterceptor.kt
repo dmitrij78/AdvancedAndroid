@@ -11,7 +11,9 @@ import com.nitrosoft.ua.advancedandroid.settings.DebugPreferences
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class DebugActivityViewInterceptor @Inject constructor(private val debugPreferences: DebugPreferences) : ActivityViewInterceptor {
+class DebugActivityViewInterceptor @Inject constructor(
+        private val debugPreferences: DebugPreferences
+) : ActivityViewInterceptor {
 
     private lateinit var mockResponsesSwitch: Switch
 

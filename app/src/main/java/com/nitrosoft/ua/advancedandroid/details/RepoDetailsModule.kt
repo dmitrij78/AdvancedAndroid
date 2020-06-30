@@ -1,8 +1,10 @@
 package com.nitrosoft.ua.advancedandroid.details
 
+/*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
+
 
 @Module
 abstract class RepoDetailsModule {
@@ -21,4 +23,4 @@ abstract class RepoDetailsModule {
             return instance?.arguments?.getString(RepoDetailsFragment.REPO_NAME_KEY)!!
         }
     }
-}
+}*/

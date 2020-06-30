@@ -1,14 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.networking
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
-import dagger.Module
-import dagger.Provides
-import okhttp3.Call
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import javax.inject.Named
-import javax.inject.Singleton
-
+/*
 @Module
 class NetworkModule {
 
@@ -33,4 +25,4 @@ class NetworkModule {
             return "https://api.github.com"
         }
     }
-}
+}*/

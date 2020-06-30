@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.base
 
+/*
 import android.app.Application
 import com.nitrosoft.ua.advancedandroid.database.DatabaseModule
 import com.nitrosoft.ua.advancedandroid.repository.RepoServiceModule
@@ -27,4 +28,4 @@ interface ApplicationComponent {
 
         fun create(@BindsInstance app: Application): ApplicationComponent
     }
-}
+}*/

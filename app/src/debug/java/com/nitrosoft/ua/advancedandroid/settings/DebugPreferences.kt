@@ -2,11 +2,14 @@ package com.nitrosoft.ua.advancedandroid.settings
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DebugPreferences @Inject constructor(context: Context) {
+class DebugPreferences @Inject constructor(
+        @ApplicationContext context: Context
+) {
 
     private val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("debug_settings", Context.MODE_PRIVATE)
@@ -19,7 +22,7 @@ class DebugPreferences @Inject constructor(context: Context) {
         return sharedPreferences.getBoolean(MOCK_RESPONSES_KEY, false)
     }
 
-    fun setUseMockResponse(useMockReponses: Boolean) {
-        sharedPreferences.edit().putBoolean(MOCK_RESPONSES_KEY, useMockReponses).apply()
+    fun setUseMockResponse(useMockResponses: Boolean) {
+        sharedPreferences.edit().putBoolean(MOCK_RESPONSES_KEY, useMockResponses).apply()
     }
 }
