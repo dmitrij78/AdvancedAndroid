@@ -6,6 +6,8 @@ import com.nitrosoft.ua.advancedandroid.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+const val TAG = "AdvancedApp"
+
 @HiltAndroidApp
 open class App : Application() {
 

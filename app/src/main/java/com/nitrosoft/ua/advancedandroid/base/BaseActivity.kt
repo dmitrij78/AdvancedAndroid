@@ -5,8 +5,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.nitrosoft.ua.advancedandroid.R
+import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.FragmentProvider
+import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity(), /*HasAndroidInjector,*/ FragmentProvider {
@@ -16,6 +18,8 @@ abstract class BaseActivity : AppCompatActivity(), /*HasAndroidInjector,*/ Fragm
     }
 
     @Inject lateinit var activityViewInterceptor: ActivityViewInterceptor
+    @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
+    @Inject lateinit var screenNavigator: ScreenNavigator
 
 /*    @Inject lateinit var screenInjector: DispatchingAndroidInjector<Any>
     @Inject lateinit var screenNavigator: ScreenNavigator
@@ -32,12 +36,12 @@ abstract class BaseActivity : AppCompatActivity(), /*HasAndroidInjector,*/ Fragm
         findViewById<View>(R.id.screenContainer)
                 ?: throw NullPointerException("Activity must have a view with id: screen_container")
 
-/*        for (activityLifecycleTask in activityLifecycleTasks) {
+        for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onCreate(this)
-        }*/
+        }
     }
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onStart(this)
@@ -77,7 +81,7 @@ abstract class BaseActivity : AppCompatActivity(), /*HasAndroidInjector,*/ Fragm
         if (!screenNavigator.pop()) {
             super.onBackPressed()
         }
-    }*/
+    }
 
     abstract fun layoutRes(): Int
 

@@ -7,8 +7,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TestScreenNavigator @Inject constructor() : ActivityLifecycleTask(), ScreenNavigator {
-
+class TestScreenNavigator @Inject constructor() :
+        ActivityLifecycleTask(), ScreenNavigator {
     private var defaultScreenNavigator: DefaultScreenNavigator = DefaultScreenNavigator()
     private var overrideFragment: Fragment? = null
 
