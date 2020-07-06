@@ -1,5 +1,5 @@
 package com.nitrosoft.ua.advancedandroid.trending
-
+/*
 
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -46,3 +46,4 @@ class TrendingReposControllerTest : FragmentTest() {
         return TrendingReposFragment()
     }
 }
+*/

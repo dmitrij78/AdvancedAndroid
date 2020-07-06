@@ -3,15 +3,13 @@ package com.nitrosoft.ua.advancedandroid.ui
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.TAG
-import com.nitrosoft.ua.advancedandroid.details.RepoDetailsFragment
 import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import timber.log.Timber
 import javax.inject.Inject
 
 class DefaultScreenNavigator @Inject constructor() :
-        ActivityLifecycleTask(), ScreenNavigator {
+    ActivityLifecycleTask(), ScreenNavigator {
 
     private var fragmentManager: FragmentManager? = null
 
@@ -20,9 +18,9 @@ class DefaultScreenNavigator @Inject constructor() :
 
         Timber.tag(TAG).d("DefaultScreenNavigator.onCreate")
 
-        /*val fragmentManager = appCompatActivity.supportFragmentManager
+        val fragmentManager = appCompatActivity.supportFragmentManager
         val fragmentProvider = appCompatActivity as FragmentProvider
-        init(fragmentManager, fragmentProvider.initialFragment())*/
+        init(fragmentManager, fragmentProvider.initialFragment())
     }
 
     override fun onDestroy(appCompatActivity: AppCompatActivity) {
@@ -30,12 +28,12 @@ class DefaultScreenNavigator @Inject constructor() :
     }
 
     fun init(fragmentManager: FragmentManager, initialFragment: Fragment) {
-        this.fragmentManager = fragmentManager
-        if (fragmentManager.fragments.isEmpty()) {
-            fragmentManager.beginTransaction()
-                    .add(R.id.screenContainer, initialFragment)
-                    .commit()
-        }
+        /*     this.fragmentManager = fragmentManager
+             if (fragmentManager.fragments.isEmpty()) {
+                 fragmentManager.beginTransaction()
+                     .add(R.id.screenContainer, initialFragment)
+                     .commit()
+             }*/
     }
 
     override fun pop(): Boolean {
@@ -43,9 +41,9 @@ class DefaultScreenNavigator @Inject constructor() :
     }
 
     override fun goToRepoDetails(repoOwner: String, repoName: String) {
-        fragmentManager?.beginTransaction()
-                ?.replace(R.id.screenContainer, RepoDetailsFragment.newInstance(repoName, repoOwner))
-                ?.addToBackStack(null)
-                ?.commit()
+        /*fragmentManager?.beginTransaction()
+            ?.replace(R.id.screenContainer, RepoDetailsFragment.newInstance(repoName, repoOwner))
+            ?.addToBackStack(null)
+            ?.commit()*/
     }
 }

@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.details
 
+/*
 import androidx.fragment.app.Fragment
 import androidx.test.espresso.matcher.ViewMatchers
 import com.nitrosoft.ua.advancedandroid.R
@@ -74,4 +75,4 @@ class RepoDetailsControllerTest : FragmentTest() {
     override fun controllerToLaunch(): Fragment {
         return RepoDetailsFragment.newInstance("ReactiveX", "RxJava")
     }
-}
+}*/

@@ -1,31 +1,35 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
-/*
+import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
+import com.nitrosoft.ua.poweradapter.item.ItemRenderer
+import com.nitrosoft.ua.poweradapter.item.RecyclerItem
+import com.nitrosoft.ua.poweradapter.item.RenderKey
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
+import dagger.multibindings.IntoMap
+
 @Module
-@SuppressWarnings("unused")
+@InstallIn(FragmentComponent::class)
 abstract class TrendingReposScreenModule {
 
-    @Binds
+    /*@Binds
     @IntoSet
-    abstract fun bindUiManager(trendingRepoUIManger: TrendingRepoUIManger): ScreenLifecycleTask
+    abstract fun bindUiManager(trendingRepoUIManger: TrendingRepoUIManger): ScreenLifecycleTask*/
 
     @Binds
     @IntoMap
     @RenderKey("REPO")
     abstract fun bindRepoRenderer(repoRenderer: RepoRenderer): ItemRenderer<out RecyclerItem>
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(TrendingRepoViewModel::class)
-    abstract fun bindViewModel(viewModel: TrendingRepoViewModel): ViewModel
-
     companion object {
 
         @Provides
-        @ScreenScope
         @JvmSuppressWildcards
         fun provideRecyclerDataSource(renderers: Map<String, ItemRenderer<out RecyclerItem>>): RecyclerDataSource {
             return RecyclerDataSource(renderers)
         }
     }
-}*/
+}

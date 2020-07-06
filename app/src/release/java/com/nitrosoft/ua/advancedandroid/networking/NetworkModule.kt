@@ -1,6 +1,5 @@
 package com.nitrosoft.ua.advancedandroid.networking
 
-/*
 import dagger.Module
 import dagger.Provides
 import okhttp3.Call
@@ -9,6 +8,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class NetworkModule {
 
     companion object {
@@ -26,4 +26,4 @@ class NetworkModule {
             return "https://api.github.com"
         }
     }
-}*/
+}

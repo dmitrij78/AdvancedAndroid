@@ -7,12 +7,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DebugPreferences @Inject constructor(
-        @ApplicationContext context: Context
-) {
+class DebugPreferences @Inject constructor(@ApplicationContext context: Context) {
 
     private val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences("debug_settings", Context.MODE_PRIVATE)
+        context.getSharedPreferences("debug_settings", Context.MODE_PRIVATE)
 
     companion object {
         const val MOCK_RESPONSES_KEY = "mock_response"

@@ -1,4 +1,5 @@
 package com.nitrosoft.ua.advancedandroid.data
+/*
 
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
@@ -66,4 +67,4 @@ class RepoRepositoryTest {
     }
 
 
-}
+}*/

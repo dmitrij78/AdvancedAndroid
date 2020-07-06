@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.trending
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -9,11 +10,10 @@ import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
 import com.nitrosoft.ua.advancedandroid.repository.RepoRepository
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import timber.log.Timber
-import javax.inject.Inject
 
-class TrendingRepoViewModel @Inject constructor(
-        private val repoRepository: RepoRepository,
-        private val screenNavigator: ScreenNavigator
+class TrendingRepoViewModel @ViewModelInject constructor(
+    private val repoRepository: RepoRepository,
+    private val screenNavigator: ScreenNavigator
 ) : ViewModel() {
     init {
         Timber.tag(TAG).d("init")

@@ -7,12 +7,16 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.poweradapter.item.ItemRenderer
 import com.nitrosoft.ua.poweradapter.item.RecyclerItem
-import kotlinx.android.synthetic.main.view_repo_list_item.view.*
+import kotlinx.android.synthetic.main.view_repo_list_item.view.forkCount
+import kotlinx.android.synthetic.main.view_repo_list_item.view.repoDescription
+import kotlinx.android.synthetic.main.view_repo_list_item.view.repoName
+import kotlinx.android.synthetic.main.view_repo_list_item.view.starCount
 import java.text.NumberFormat
 import javax.inject.Inject
-import javax.inject.Provider
 
-class RepoRenderer @Inject constructor(private val viewModelProvider: Provider<TrendingRepoViewModel>) : ItemRenderer<RepoListItem> {
+class RepoRenderer @Inject constructor(
+    /*private val viewModelProvider: Provider<TrendingRepoViewModel>*/
+) : ItemRenderer<RepoListItem> {
 
     override fun layoutRes(): Int {
         return R.layout.view_repo_list_item
@@ -20,7 +24,7 @@ class RepoRenderer @Inject constructor(private val viewModelProvider: Provider<T
 
     override fun createView(parent: ViewGroup): View {
         val view = LayoutInflater.from(parent.context).inflate(layoutRes(), parent, false)
-        view.tag = ViewBinder(view, viewModelProvider.get())
+        view.tag = ViewBinder(view/*, viewModelProvider.get()*/)
 
         return view
     }
@@ -30,14 +34,16 @@ class RepoRenderer @Inject constructor(private val viewModelProvider: Provider<T
         viewBinder.bind(item as RepoListItem)
     }
 
-    class ViewBinder(private val itemView: View,
-                     private val viewModel: TrendingRepoViewModel) {
+    class ViewBinder(
+        private val itemView: View/*,
+        private val viewModel: TrendingRepoViewModel*/
+    ) {
 
         private lateinit var repoListItem: RepoListItem
 
         init {
             itemView.setOnClickListener {
-                viewModel.onRepoClicked(repoListItem.repo)
+                //viewModel.onRepoClicked(repoListItem.repo)
             }
         }
 
@@ -46,8 +52,10 @@ class RepoRenderer @Inject constructor(private val viewModelProvider: Provider<T
 
             itemView.repoName.text = this.repoListItem.repo.name
             itemView.repoDescription.text = this.repoListItem.repo.description
-            itemView.starCount.text = NumberFormat.getInstance().format(this.repoListItem.repo.starGazersCount)
-            itemView.forkCount.text = NumberFormat.getInstance().format(this.repoListItem.repo.forksCount)
+            itemView.starCount.text =
+                NumberFormat.getInstance().format(this.repoListItem.repo.starGazersCount)
+            itemView.forkCount.text =
+                NumberFormat.getInstance().format(this.repoListItem.repo.forksCount)
         }
     }
 }

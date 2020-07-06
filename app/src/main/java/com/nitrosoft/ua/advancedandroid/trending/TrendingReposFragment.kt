@@ -2,6 +2,7 @@ package com.nitrosoft.ua.advancedandroid.trending
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitrosoft.ua.advancedandroid.R
@@ -9,19 +10,24 @@ import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.advancedandroid.base.createTag
 import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
-import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
-import kotlinx.android.synthetic.main.screen_trending_repo.*
-import kotlinx.android.synthetic.main.screen_trending_repo.view.*
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.screen_trending_repo.errorText
+import kotlinx.android.synthetic.main.screen_trending_repo.loadingIndicator
+import kotlinx.android.synthetic.main.screen_trending_repo.repoList
+import kotlinx.android.synthetic.main.screen_trending_repo.view.repoList
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TrendingReposFragment : BaseFragment() {
 
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
-    @Inject lateinit var converter: RepoEntityConverter
+    // @Inject lateinit var converter: RepoEntityConverter
+
+    private val viewModel: TrendingRepoViewModel by viewModels()
 
     companion object {
         private val TAG: String = createTag(TrendingReposFragment::class.java.simpleName)
@@ -35,24 +41,14 @@ class TrendingReposFragment : BaseFragment() {
         return R.layout.screen_trending_repo
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val viewModel: TrendingRepoViewModel = createViewModel()
-        observeViewModel(viewModel)
-    }
-
     override fun onViewBound(view: View) {
         initList(view)
     }
 
-    private fun initList(view: View) {
-        view.repoList.layoutManager = LinearLayoutManager(view.context)
-        view.repoList.adapter = RecyclerAdapter(recyclerDataSource)
-    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-    private fun observeViewModel(viewModel: TrendingRepoViewModel) {
-        observeLiveData(viewModel.repoList, Observer { resource ->
+        viewModel.repoList.observe(viewLifecycleOwner, Observer { resource ->
             when (resource) {
                 is RepoState.Success -> {
                     updateOnSuccess(resource.data)
@@ -70,6 +66,30 @@ class TrendingReposFragment : BaseFragment() {
         })
     }
 
+    private fun initList(view: View) {
+        view.repoList.layoutManager = LinearLayoutManager(requireContext())
+        view.repoList.adapter = RecyclerAdapter(recyclerDataSource)
+    }
+
+    private fun observeViewModel(viewModel: TrendingRepoViewModel) {
+        /*observeLiveData(viewModel.repoList, Observer { resource ->
+            when (resource) {
+                is RepoState.Success -> {
+                    updateOnSuccess(resource.data)
+                }
+                is RepoState.Error -> {
+                    updateOnError(resource.error)
+                }
+                is RepoState.Loading -> {
+                    showLoader(resource.isLoading)
+                }
+                is RepoState.Syncing -> {
+                    onStartSyncing(resource.isSyncing)
+                }
+            }
+        })*/
+    }
+
     private fun onStartSyncing(isSyncing: Boolean) {
         Timber.tag(TAG).d("onStartSyncing. isSyncing: $isSyncing")
     }
@@ -80,8 +100,8 @@ class TrendingReposFragment : BaseFragment() {
 
     private fun updateOnSuccess(data: List<RepoEntity>) {
         Timber.tag(TAG).d("onResourceSuccess. data.size=${data.size}")
-/*        onLoading(false)
-        onError(-1)*/
+        onLoading(false)
+        onError(-1)
         recyclerDataSource.setData(data.map { RepoListItem(it) })
     }
 
@@ -95,6 +115,8 @@ class TrendingReposFragment : BaseFragment() {
             onError(-1)
             updateRepos(data)
         }*/
+
+        onLoading(isLoading)
     }
 
     private fun onError(errorStrRes: Int) {

@@ -1,6 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.test
 
-import android.app.Activity
+/*import android.app.Activity
 import androidx.test.rule.ActivityTestRule
 import com.nitrosoft.ua.advancedandroid.base.TestApplication
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
@@ -19,4 +19,4 @@ class ControllerTestRule<T : Activity>(activityClass: Class<T>) :
         repoService.clearHoldFlags()
         repoRepository.clearCache()
     }
-}
+}*/

@@ -1,4 +1,5 @@
 package com.nitrosoft.ua.advancedandroid.test
+/*
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
@@ -39,3 +40,4 @@ abstract class FragmentTest {
 
     protected abstract fun controllerToLaunch(): Fragment
 }
+*/

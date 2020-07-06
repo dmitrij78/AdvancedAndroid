@@ -1,18 +1,18 @@
 package com.nitrosoft.ua.advancedandroid.repository
 
-/*
 import com.nitrosoft.ua.advancedandroid.data.RepoService
-import com.nitrosoft.ua.advancedandroid.networking.ServiceModule
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
 
-
-@Module(includes = [ServiceModule::class])
+@Module
+@InstallIn(ApplicationComponent::class)
 class RepoServiceModule {
 
     @Singleton
@@ -27,4 +27,4 @@ class RepoServiceModule {
     fun provideNetworkScheduler(): Scheduler {
         return Schedulers.io()
     }
-}*/
+}

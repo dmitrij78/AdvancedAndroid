@@ -1,10 +1,8 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
 import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.FragmentProvider
@@ -33,8 +31,8 @@ abstract class BaseActivity : AppCompatActivity(), /*HasAndroidInjector,*/ Fragm
 
         activityViewInterceptor.setContentView(this, layoutRes())
 
-        findViewById<View>(R.id.screenContainer)
-                ?: throw NullPointerException("Activity must have a view with id: screen_container")
+        /*findViewById<View>(R.id.screenContainer)
+                ?: throw NullPointerException("Activity must have a view with id: screen_container")*/
 
         for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onCreate(this)

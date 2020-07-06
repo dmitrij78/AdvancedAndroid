@@ -6,17 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
-import com.nitrosoft.ua.advancedandroid.view_model.ViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
-import java.util.*
-import javax.inject.Inject
+import java.util.UUID
 
 abstract class BaseFragment : Fragment() {
 
@@ -27,8 +20,8 @@ abstract class BaseFragment : Fragment() {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    @Inject lateinit var viewModelFactory: ViewModelFactory
-    @Inject lateinit var screenLifecycleTasks: Set<@JvmSuppressWildcards ScreenLifecycleTask>
+    /*@Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var screenLifecycleTasks: Set<@JvmSuppressWildcards ScreenLifecycleTask>*/
 
     init {
         if (this.arguments == null) {
@@ -56,9 +49,9 @@ abstract class BaseFragment : Fragment() {
         onViewBound(view)
 
         disposables.addAll(*emptyList<Disposable>().toTypedArray())
-        for (screenLifecycleTask in screenLifecycleTasks) {
+/*        for (screenLifecycleTask in screenLifecycleTasks) {
             screenLifecycleTask.onEnterScope(view)
-        }
+        }*/
         return view
     }
 
@@ -67,19 +60,13 @@ abstract class BaseFragment : Fragment() {
 
         disposables.clear()
 
+/*
         for (screenLifecycleTask in screenLifecycleTasks) {
             screenLifecycleTask.onExitScope()
         }
+*/
 
         super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        for (screenLifecycleTask in screenLifecycleTasks) {
-            screenLifecycleTask.onDestroy()
-        }
     }
 
     abstract fun layoutRes(): Int
@@ -90,12 +77,12 @@ abstract class BaseFragment : Fragment() {
     protected open fun subscriptions(): List<Disposable> {
         return emptyList()
     }
-
+/*
     fun <T> observeLiveData(liveData: LiveData<T>, observer: Observer<T>) {
         liveData.observe(viewLifecycleOwner, observer)
     }
 
     protected inline fun <reified T : ViewModel> createViewModel(): T {
         return ViewModelProvider(this, viewModelFactory)[T::class.java]
-    }
+    }*/
 }

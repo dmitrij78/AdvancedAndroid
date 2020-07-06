@@ -1,19 +1,16 @@
 package com.nitrosoft.ua.advancedandroid.home
 
-import androidx.fragment.app.Fragment
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.nitrosoft.ua.advancedandroid.R
-import com.nitrosoft.ua.advancedandroid.base.BaseActivity
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-open class MainActivity : BaseActivity() {
+open class MainActivity : AppCompatActivity() {
 
-    override fun initialFragment(): Fragment {
-        return TrendingReposFragment.newInstance()
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun layoutRes(): Int {
-        return R.layout.activity_main
+        setContentView(R.layout.activity_main)
     }
 }
