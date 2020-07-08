@@ -33,6 +33,7 @@ dependencies {
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
 
     testImplementation "junit:junit:$junitVersion"
 }

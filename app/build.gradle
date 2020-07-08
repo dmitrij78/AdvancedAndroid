@@ -65,7 +65,6 @@ dependencies {
 
     implementation "com.google.android.material:material:$materialVersion"
 
-
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltCompilerVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
@@ -100,11 +99,12 @@ dependencies {
 
     androidTestImplementation "androidx.test:core:$testCoreVersion"
 
-    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
-
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test:rules:$testRulesVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }
 
 def mockCopySpec = copySpec {
