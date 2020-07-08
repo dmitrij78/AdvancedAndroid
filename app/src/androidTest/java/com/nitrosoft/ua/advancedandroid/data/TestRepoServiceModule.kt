@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.data
 
+/*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,4 +24,4 @@ abstract class TestRepoServiceModule {
             return Schedulers.trampoline()
         }
     }
-}
+}*/

@@ -1,17 +1,20 @@
 package com.nitrosoft.ua.advancedandroid.base
 
+/*
 import androidx.test.core.app.ApplicationProvider
 import java.util.*
 
 class TestApplication : App() {
 
+*/
 /*
     override fun initComponent(): ApplicationComponent {
         return DaggerTestApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
     }
-*/
+*//*
+
 
     override fun onCreate() {
         super.onCreate()
@@ -24,6 +27,7 @@ class TestApplication : App() {
         application.resources.configuration.setLocale(Locale("en", "US"))
     }
 
+*/
 /*    companion object {
 
         fun getComponent(): TestApplicationComponent {
@@ -32,5 +36,6 @@ class TestApplication : App() {
 
             return application.component as TestApplicationComponent
         }
-    }*/
-}
+    }*//*
+
+}*/

@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.data
 
+/*
 import android.os.Handler
 import android.os.Looper
 import com.nitrosoft.ua.advancedandroid.models.Contributor
@@ -18,7 +19,8 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
     private var holdFlags: Int = 0
 
     override suspend fun getTrendingRepos(): TrendingReposResponse {
-        /*if (errorFlags and FLAG_TRENDING_REPOS == 0) {
+        */
+/*if (errorFlags and FLAG_TRENDING_REPOS == 0) {
             val response = testUtils.loadJson<TrendingReposResponse>(
                     "mock/repos/search/get_trending_repos.json",
                     TrendingReposResponse::class.java)
@@ -26,7 +28,8 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
             return if ((holdFlags and FLAG_TRENDING_REPOS) == FLAG_TRENDING_REPOS) {
                 holdingSingle(response, FLAG_TRENDING_REPOS)
             } else Single.just(response)
-        }*/
+        }*//*
+
         return testUtils.loadJson(
                 "mock/repos/search/get_trending_repos.json",
                 TrendingReposResponse::class.java)
@@ -90,3 +93,4 @@ class TestRepoService @Inject internal constructor(private val testUtils: TestUt
         const val FLAG_GET_CONTRIBUTORS = 4
     }
 }
+*/
