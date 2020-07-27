@@ -13,27 +13,24 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-class NetworkModule {
+object NetworkModule {
 
-    companion object {
+    @Singleton
+    @Provides
+    fun provideOkHttp(mockInterceptor: MockInterceptor): Call.Factory {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(mockInterceptor)
+            .addInterceptor(StethoInterceptor())
+            .build()
+    }
 
-        @Singleton
-        @Provides
-        fun provideOkHttp(mockInterceptor: MockInterceptor): Call.Factory {
-            val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            return OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
-                    .addInterceptor(mockInterceptor)
-                    .addInterceptor(StethoInterceptor())
-                    .build()
-        }
-
-        @Singleton
-        @Provides
-        @Named("base_url")
-        fun provideBaseUrl(): String {
-            return "https://api.github.com"
-        }
+    @Singleton
+    @Provides
+    @Named("base_url")
+    fun provideBaseUrl(): String {
+        return "https://api.github.com"
     }
 }
