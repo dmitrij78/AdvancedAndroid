@@ -3,6 +3,7 @@ package com.nitrosoft.ua.advancedandroid.trending
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nitrosoft.ua.advancedandroid.data.TrendingReposResponse
+import com.nitrosoft.ua.advancedandroid.kotlin.TrendingRepoViewModel
 import com.nitrosoft.ua.advancedandroid.models.Repo
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.advancedandroid.repository.RepoRepository

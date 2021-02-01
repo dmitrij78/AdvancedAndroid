@@ -52,8 +52,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.tag(TAG).d("onCreateView")
-        val view = inflater.inflate(layoutRes(), container, false)
-
+        val view = bindView(inflater, container)
         onViewBound(view)
 
         disposables.addAll(*emptyList<Disposable>().toTypedArray())
@@ -81,11 +80,15 @@ abstract class BaseFragment : Fragment() {
         for (screenLifecycleTask in screenLifecycleTasks) {
             screenLifecycleTask.onDestroy()
         }
+
+        onViewUnBound()
     }
 
-    abstract fun layoutRes(): Int
+    abstract fun bindView(inflater: LayoutInflater, container: ViewGroup?): View
 
     protected open fun onViewBound(view: View) {}
+
+    protected open fun onViewUnBound() {}
 
     @Deprecated("Method wil be removes", ReplaceWith("emptyList()"))
     protected open fun subscriptions(): List<Disposable> {

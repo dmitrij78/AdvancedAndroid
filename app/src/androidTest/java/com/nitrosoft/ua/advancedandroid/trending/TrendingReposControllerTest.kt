@@ -8,6 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
+import com.nitrosoft.ua.advancedandroid.kotlin.TrendingReposFragment
 import com.nitrosoft.ua.advancedandroid.test.FragmentTest
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Before

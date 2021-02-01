@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.RxView
 import com.nitrosoft.ua.advancedandroid.R
@@ -13,10 +15,11 @@ import com.nitrosoft.ua.poweradapter.item.ItemRenderer
 import com.nitrosoft.ua.poweradapter.item.RecyclerItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.view_user_list_item.view.*
 import javax.inject.Inject
 
-class ContributorRenderer @Inject constructor(private val favoriteService: FavoriteService) : ItemRenderer<ContributorListItem> {
+class ContributorRenderer @Inject constructor(
+        private val favoriteService: FavoriteService
+) : ItemRenderer<ContributorListItem> {
 
     override fun layoutRes(): Int {
         return R.layout.view_user_list_item
@@ -35,12 +38,19 @@ class ContributorRenderer @Inject constructor(private val favoriteService: Favor
     }
 
     @SuppressLint("CheckResult")
-    class ViewBinder(private val itemView: View, private val favoriteService: FavoriteService) {
+    class ViewBinder(
+            private val itemView: View,
+            private val favoriteService: FavoriteService
+    ) {
         private var contributor: Contributor? = null
         private var favoriteDisposable: Disposable? = null
 
+        private val rootView = itemView.findViewById<View>(R.id.contributorRootView)
+        private val userNameTv = itemView.findViewById<TextView>(R.id.userNameTv)
+        private val avatarTv = itemView.findViewById<ImageView>(R.id.avatarIv)
+
         init {
-            RxView.attachEvents(itemView.contributorRootView)
+            RxView.attachEvents(rootView)
                     .subscribe {
                         if (it.view().isAttachedToWindow) {
                             listenForFavoriteChanges()
@@ -57,16 +67,16 @@ class ContributorRenderer @Inject constructor(private val favoriteService: Favor
                     .map { favoriteIds -> favoriteIds.contains(contributor?.id) }
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { isFavorite ->
-                        itemView.contributorRootView.setBackgroundColor(if (isFavorite) Color.YELLOW else Color.TRANSPARENT)
+                        rootView.setBackgroundColor(if (isFavorite) Color.YELLOW else Color.TRANSPARENT)
                     }
         }
 
         fun bind(contributorListItem: ContributorListItem) {
             this.contributor = contributorListItem.contributor
 
-            itemView.userNameTv.text = contributorListItem.contributor.login
+            userNameTv.text = contributorListItem.contributor.login
 
-            itemView.contributorRootView.setOnLongClickListener(View.OnLongClickListener {
+            rootView.setOnLongClickListener(View.OnLongClickListener {
                 if (this.contributor != null) {
                     favoriteService.toggleFavorite(this.contributor!!)
                 }
@@ -75,7 +85,7 @@ class ContributorRenderer @Inject constructor(private val favoriteService: Favor
 
             Glide.with(itemView.context)
                     .load(contributorListItem.contributor.avatarUrl)
-                    .into(itemView.avatarIv)
+                    .into(avatarTv)
         }
     }
 }

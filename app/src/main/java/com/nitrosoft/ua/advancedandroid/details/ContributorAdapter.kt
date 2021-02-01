@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nitrosoft.ua.advancedandroid.R
+import com.nitrosoft.ua.advancedandroid.databinding.ViewUserListItemBinding
 import com.nitrosoft.ua.advancedandroid.models.Contributor
-import kotlinx.android.synthetic.main.view_user_list_item.view.*
 
 class ContributorAdapter : RecyclerView.Adapter<ContributorAdapter.ContributorViewHolder>() {
 
@@ -52,10 +52,12 @@ class ContributorAdapter : RecyclerView.Adapter<ContributorAdapter.ContributorVi
     class ContributorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(contributor: Contributor) {
-            itemView.userNameTv.text = contributor.login
-            Glide.with(itemView.avatarIv.context)
+
+            val binder = ViewUserListItemBinding.bind(itemView)
+            binder.userNameTv.text = contributor.login
+            Glide.with(binder.avatarIv.context)
                     .load(contributor.avatarUrl)
-                    .into(itemView.avatarIv)
+                    .into(binder.avatarIv)
         }
     }
 }

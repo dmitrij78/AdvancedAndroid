@@ -1,4 +1,4 @@
-package com.nitrosoft.ua.advancedandroid.trending
+package com.nitrosoft.ua.advancedandroid.kotlin
 
 import com.nitrosoft.ua.advancedandroid.base.ScreenModule
 import com.nitrosoft.ua.advancedandroid.di.ScreenComponent

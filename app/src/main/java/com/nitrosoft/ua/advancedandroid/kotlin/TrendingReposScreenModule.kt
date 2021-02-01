@@ -1,4 +1,4 @@
-package com.nitrosoft.ua.advancedandroid.trending
+package com.nitrosoft.ua.advancedandroid.kotlin
 
 import androidx.lifecycle.ViewModel
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope

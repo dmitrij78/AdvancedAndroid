@@ -21,7 +21,7 @@ abstract class BaseRepositoryDataSourceBinder<Data, ResponseModel> : DataSourceB
                 }
                 is DataWrapper.Error -> {
                     onFetchFailed()
-                    emit(RepoState.Error(newData.throwable!!))
+                    //emit(RepoState.Error(newData.throwable!!))
                 }
             }
             emit(RepoState.Syncing(false))

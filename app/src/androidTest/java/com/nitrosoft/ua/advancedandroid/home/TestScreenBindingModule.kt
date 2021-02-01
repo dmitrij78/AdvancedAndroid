@@ -2,8 +2,8 @@ package com.nitrosoft.ua.advancedandroid.home
 
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsComponent
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsFragment
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposComponent
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
+import com.nitrosoft.ua.advancedandroid.kotlin.TrendingReposComponent
+import com.nitrosoft.ua.advancedandroid.kotlin.TrendingReposFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.AndroidInjector

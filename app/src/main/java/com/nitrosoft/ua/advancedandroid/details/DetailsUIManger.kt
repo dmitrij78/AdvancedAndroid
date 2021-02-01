@@ -1,11 +1,11 @@
 package com.nitrosoft.ua.advancedandroid.details
 
 import android.view.View
+import android.widget.Toolbar
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.ScreenScope
 import com.nitrosoft.ua.advancedandroid.lifecycle.ScreenLifecycleTask
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
-import kotlinx.android.synthetic.main.app_bar.view.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -16,9 +16,10 @@ class DetailsUIManger @Inject constructor(
 
     override fun onEnterScope(view: View) {
 
-        view.toolbar.title = name
-        view.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        view.toolbar.setNavigationOnClickListener {
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = name
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener {
             screenNavigator.pop()
         }
     }

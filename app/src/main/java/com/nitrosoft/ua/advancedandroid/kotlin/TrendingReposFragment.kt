@@ -1,20 +1,20 @@
-package com.nitrosoft.ua.advancedandroid.trending
+package com.nitrosoft.ua.advancedandroid.kotlin
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseFragment
 import com.nitrosoft.ua.advancedandroid.base.createTag
 import com.nitrosoft.ua.advancedandroid.data.RepoState
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntity
 import com.nitrosoft.ua.advancedandroid.database.repos.RepoEntityConverter
+import com.nitrosoft.ua.advancedandroid.databinding.ScreenTrendingRepoBinding
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerAdapter
 import com.nitrosoft.ua.poweradapter.adapter.RecyclerDataSource
-import kotlinx.android.synthetic.main.screen_trending_repo.*
-import kotlinx.android.synthetic.main.screen_trending_repo.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,6 +22,9 @@ class TrendingReposFragment : BaseFragment() {
 
     @Inject lateinit var recyclerDataSource: RecyclerDataSource
     @Inject lateinit var converter: RepoEntityConverter
+
+    private var _binding: ScreenTrendingRepoBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         private val TAG: String = createTag(TrendingReposFragment::class.java.simpleName)
@@ -31,8 +34,9 @@ class TrendingReposFragment : BaseFragment() {
         }
     }
 
-    override fun layoutRes(): Int {
-        return R.layout.screen_trending_repo
+    override fun bindView(inflater: LayoutInflater, container: ViewGroup?): View {
+        _binding = ScreenTrendingRepoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,9 +50,14 @@ class TrendingReposFragment : BaseFragment() {
         initList(view)
     }
 
+    override fun onViewUnBound() {
+        super.onViewUnBound()
+        _binding = null;
+    }
+
     private fun initList(view: View) {
-        view.repoList.layoutManager = LinearLayoutManager(view.context)
-        view.repoList.adapter = RecyclerAdapter(recyclerDataSource)
+        binding.repoList.layoutManager = LinearLayoutManager(view.context)
+        binding.repoList.adapter = RecyclerAdapter(recyclerDataSource)
     }
 
     private fun observeViewModel(viewModel: TrendingRepoViewModel) {
@@ -100,19 +109,20 @@ class TrendingReposFragment : BaseFragment() {
     private fun onError(errorStrRes: Int) {
         Timber.tag(TAG).d("onError. errorStrRes: %d", errorStrRes)
         if (errorStrRes == -1) {
-            errorText.text = null
-            errorText.visibility = View.GONE
+            binding.errorText.text = null
+            binding.errorText.visibility = View.GONE
         } else {
-            errorText.setText(errorStrRes)
-            errorText.visibility = View.VISIBLE
-            repoList.visibility = View.GONE
+            binding.errorText.setText(errorStrRes)
+            binding.errorText.visibility = View.VISIBLE
+            binding.errorText.visibility = View.VISIBLE
+            binding.repoList.visibility = View.GONE
         }
     }
 
     private fun onLoading(show: Boolean) {
         Timber.tag(TAG).d("onLoading. show: ${if (show) "true" else "false"}")
-        loadingIndicator.visibility = if (show) View.VISIBLE else View.GONE
-        repoList.visibility = if (show) View.GONE else View.VISIBLE
-        errorText.visibility = if (show) View.GONE else errorText?.visibility!!
+        binding.loadingIndicator.visibility = if (show) View.VISIBLE else View.GONE
+        binding.repoList.visibility = if (show) View.GONE else View.VISIBLE
+        binding.errorText.visibility = if (show) View.GONE else binding.errorText.visibility!!
     }
 }

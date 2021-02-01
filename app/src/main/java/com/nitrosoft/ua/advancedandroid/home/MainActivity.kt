@@ -3,7 +3,7 @@ package com.nitrosoft.ua.advancedandroid.home
 import androidx.fragment.app.Fragment
 import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.base.BaseActivity
-import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
+import com.nitrosoft.ua.advancedandroid.kotlin.TrendingReposFragment
 
 open class MainActivity : BaseActivity() {
 
