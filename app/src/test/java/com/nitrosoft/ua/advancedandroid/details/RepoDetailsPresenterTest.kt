@@ -47,7 +47,7 @@ class RepoDetailsPresenterTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
 
         Mockito.`when`(viewModel.processRepo()).thenReturn(repoConsumer)
         Mockito.`when`(viewModel.contributorsLoaded()).thenReturn(contributorsConsumer)

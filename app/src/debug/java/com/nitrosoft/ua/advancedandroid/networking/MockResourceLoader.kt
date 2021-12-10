@@ -22,7 +22,7 @@ class MockResourceLoader {
 
                 var finalPath: String? = null
                 for (path in mockList) {
-                    if (path.contains(method.toLowerCase())) {
+                    if (path.contains(method.lowercase())) {
                         finalPath = "$currentPath/$path"
                         break
                     }
