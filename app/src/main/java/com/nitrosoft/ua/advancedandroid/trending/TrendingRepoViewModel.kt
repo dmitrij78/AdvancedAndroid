@@ -22,7 +22,7 @@ class TrendingRepoViewModel @Inject constructor() {
         return errorRelay
     }
 
-    fun œloadingUpdated(): Consumer<Boolean> {
+    fun loadingUpdated(): Consumer<Boolean> {
         return loadRelay
     }
 
