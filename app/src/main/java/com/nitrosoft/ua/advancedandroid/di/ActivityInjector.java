@@ -3,8 +3,8 @@ package com.nitrosoft.ua.advancedandroid.di;
 import android.app.Activity;
 import android.content.Context;
 
+import com.nitrosoft.ua.advancedandroid.App;
 import com.nitrosoft.ua.advancedandroid.base.BaseActivity;
-import com.nitrosoft.ua.advancedandroid.base.MyApplication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +56,6 @@ public class ActivityInjector {
     }
 
     static ActivityInjector get(Context context) {
-        return ((MyApplication) context.getApplicationContext()).getActivityInjector();
+        return ((App) context.getApplicationContext()).getActivityInjector();
     }
 }

@@ -1,6 +1,9 @@
 package com.nitrosoft.ua.advancedandroid.base
 
 import androidx.test.core.app.ApplicationProvider
+import com.nitrosoft.ua.advancedandroid.MyApplication
+import com.nitrosoft.ua.advancedandroid.application.ApplicationComponent
+import com.nitrosoft.ua.advancedandroid.application.ApplicationModule
 import java.util.*
 
 class TestApplication : MyApplication() {

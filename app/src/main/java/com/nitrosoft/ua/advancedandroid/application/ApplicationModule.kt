@@ -1,4 +1,4 @@
-package com.nitrosoft.ua.advancedandroid.base
+package com.nitrosoft.ua.advancedandroid.application
 
 import android.app.Application
 import android.content.Context

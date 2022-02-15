@@ -1,5 +1,7 @@
 package com.nitrosoft.ua.advancedandroid.base
 
+import com.nitrosoft.ua.advancedandroid.application.ApplicationComponent
+import com.nitrosoft.ua.advancedandroid.application.ApplicationModule
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
 import com.nitrosoft.ua.advancedandroid.data.TestRepoServiceModule
