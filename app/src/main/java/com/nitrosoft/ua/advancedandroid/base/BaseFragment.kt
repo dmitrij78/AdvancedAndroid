@@ -56,7 +56,7 @@ abstract class BaseFragment : Fragment() {
             screenLifecycleTask.onEnterScope(rootView)
         }
 
-        return view
+        return rootView
     }
 
     override fun onDestroyView() {

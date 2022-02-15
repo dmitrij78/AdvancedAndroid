@@ -9,7 +9,7 @@ import com.nitrosoft.ua.advancedandroid.base.BaseActivity
 import com.nitrosoft.ua.advancedandroid.databinding.ActivityMainBinding
 import com.nitrosoft.ua.advancedandroid.trending.TrendingReposFragment
 
-open class MainActivity : AppCompatActivity() {
+open class MainActivity : BaseActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
@@ -18,11 +18,7 @@ open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-//    override fun initialFragment(): Fragment {
-//        return TrendingReposFragment.newInstance()
-//    }
-//
-//    override fun layoutRes(): View {
-//        return binding.root
-//    }
+    override fun layoutRes(): View = binding.root
+
+    override fun initialFragment(): Fragment = TrendingReposFragment.newInstance()
 }
