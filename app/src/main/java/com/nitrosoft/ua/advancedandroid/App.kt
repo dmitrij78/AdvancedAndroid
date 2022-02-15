@@ -27,8 +27,7 @@ open class App : Application() {
     }
 
     protected open fun initComponent(): ApplicationComponent {
-        return DaggerApplicationComponent.builder()
-            .applicationModule(ApplicationModule(this))
+        return DaggerApplicationComponent.builder().context(this)
             .build()
     }
 }

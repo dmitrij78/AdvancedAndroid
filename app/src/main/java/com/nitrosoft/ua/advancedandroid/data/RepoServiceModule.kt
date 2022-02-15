@@ -12,7 +12,6 @@ import javax.inject.Singleton
 @Module(includes = [ServiceModule::class])
 class RepoServiceModule {
 
-    @Singleton
     @Provides
     fun provideRepoServices(retrofit: Retrofit): RepoService {
         return retrofit.create(RepoService::class.java)
