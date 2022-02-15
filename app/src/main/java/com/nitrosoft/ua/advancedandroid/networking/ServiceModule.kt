@@ -15,29 +15,23 @@ import javax.inject.Singleton
 @Module(includes = [NetworkModule::class])
 class ServiceModule {
 
-    @Module
-    companion object {
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(ApplicationJsonAdapterFactory)
+            .add(ZoneDatetimeAdapter())
+            .build()
+    }
 
-        @JvmStatic
-        @Singleton
-        @Provides
-        fun provideMoshi(): Moshi {
-            return Moshi.Builder()
-                .add(ApplicationJsonAdapterFactory)
-                    .add(ZoneDatetimeAdapter())
-                    .build()
-        }
-
-        @JvmStatic
-        @Singleton
-        @Provides
-        fun provideRetrofit(moshi: Moshi, callFactory: Call.Factory, @Named("base_url") baseUrl: String): Retrofit {
-            return Retrofit.Builder()
-                    .baseUrl(baseUrl)
-                    .callFactory(callFactory)
-                    .addConverterFactory(MoshiConverterFactory.create(moshi))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build()
-        }
+    @Singleton
+    @Provides
+    fun provideRetrofit(moshi: Moshi, callFactory: Call.Factory, @Named("base_url") baseUrl: String): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .callFactory(callFactory)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
     }
 }

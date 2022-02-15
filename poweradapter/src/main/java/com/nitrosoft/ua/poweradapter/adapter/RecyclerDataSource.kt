@@ -29,7 +29,8 @@ class RecyclerDataSource(private val renderers: Map<String, ItemRenderer<out Rec
     }
 
     fun setData(newData: List<RecyclerItem>) {
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(RecyclerDiffCallback(data, newData))
+        val diffResult: DiffUtil.DiffResult =
+            DiffUtil.calculateDiff(RecyclerDiffCallback(data, newData))
         data.clear()
         data.addAll(newData)
         val adapter = adapterReference.get()

@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(private val dataSource: RecyclerDataSource) :
-        RecyclerView.Adapter<RecyclerViewHolder>() {
+    RecyclerView.Adapter<RecyclerViewHolder>() {
 
     init {
         setHasStableIds(true)

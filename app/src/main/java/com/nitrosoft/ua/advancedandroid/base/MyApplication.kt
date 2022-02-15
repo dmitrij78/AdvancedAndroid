@@ -10,7 +10,8 @@ open class MyApplication : Application() {
 
     protected lateinit var component: ApplicationComponent
 
-    @Inject lateinit var activityInjector: ActivityInjector
+    @Inject
+    lateinit var activityInjector: ActivityInjector
 
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +26,7 @@ open class MyApplication : Application() {
 
     protected open fun initComponent(): ApplicationComponent {
         return DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
+            .applicationModule(ApplicationModule(this))
+            .build()
     }
 }

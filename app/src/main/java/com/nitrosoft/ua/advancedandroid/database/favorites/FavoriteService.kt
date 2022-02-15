@@ -42,13 +42,13 @@ class FavoriteService @Inject constructor(private val appDatabase: AppDatabase) 
     }
 
     fun toggleFavorite(contributor: Contributor) {
-        runDbOp(Action {
+        runDbOp {
             if (favoriteContributorsRelay.value?.contains(contributor.id)!!) {
                 removeFavoriteContributor(contributor)
             } else {
                 addFavoriteContributor(contributor)
             }
-        })
+        }
     }
 
     private fun addFavoriteContributor(contributor: Contributor) {

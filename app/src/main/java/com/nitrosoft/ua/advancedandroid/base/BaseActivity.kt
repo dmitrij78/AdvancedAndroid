@@ -20,10 +20,17 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
         const val ACTIVITY_INSTANCE_ID_KEY = "instance_id"
     }
 
-    @Inject lateinit var screenInjector: ScreenFragmentInjector
-    @Inject lateinit var screenNavigator: ScreenNavigator
-    @Inject lateinit var activityViewInterceptor: ActivityViewInterceptor
-    @Inject lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
+    @Inject
+    lateinit var screenInjector: ScreenFragmentInjector
+
+    @Inject
+    lateinit var screenNavigator: ScreenNavigator
+
+    @Inject
+    lateinit var activityViewInterceptor: ActivityViewInterceptor
+
+    @Inject
+    lateinit var activityLifecycleTasks: Set<@JvmSuppressWildcards ActivityLifecycleTask>
 
     private lateinit var instanceId: String
 
@@ -38,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
         activityViewInterceptor.setContentView(this, layoutRes())
 
         findViewById<View>(R.id.screenContainer)
-                ?: throw NullPointerException("Activity must have a view with id: screen_container")
+            ?: throw NullPointerException("Activity must have a view with id: screen_container")
 
         for (activityLifecycleTask in activityLifecycleTasks) {
             activityLifecycleTask.onCreate(this)
@@ -100,7 +107,7 @@ abstract class BaseActivity : AppCompatActivity(), FragmentProvider {
         return instanceId
     }
 
-    abstract fun layoutRes(): Int
+    abstract fun layoutRes(): View
 
     abstract override fun initialFragment(): Fragment
 }
