@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.nitrosoft.ua.advancedandroid.data.RepoRepository
 import com.nitrosoft.ua.advancedandroid.data.TestRepoService
-import com.nitrosoft.ua.advancedandroid.home.MainActivity
+import com.nitrosoft.ua.advancedandroid.activity.MainActivity
 import com.nitrosoft.ua.advancedandroid.ui.TestScreenNavigator
 import org.junit.Rule
 

@@ -1,6 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.base
 
-import com.nitrosoft.ua.advancedandroid.home.MainActivity
+import com.nitrosoft.ua.advancedandroid.activity.MainActivity
 import com.nitrosoft.ua.advancedandroid.home.TestMainActivityComponent
 import dagger.Binds
 import dagger.Module

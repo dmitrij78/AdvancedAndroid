@@ -8,7 +8,7 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.di.Injector
 import com.nitrosoft.ua.advancedandroid.di.ScreenFragmentInjector
 import com.nitrosoft.ua.advancedandroid.lifecycle.ActivityLifecycleTask
-import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptor
+import com.nitrosoft.ua.advancedandroid.activity.ui.ActivityViewInterceptor
 import com.nitrosoft.ua.advancedandroid.ui.FragmentProvider
 import com.nitrosoft.ua.advancedandroid.ui.ScreenNavigator
 import java.util.*

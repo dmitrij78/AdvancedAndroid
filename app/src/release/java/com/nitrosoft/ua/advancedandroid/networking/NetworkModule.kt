@@ -8,24 +8,16 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+object NetworkModule {
 
-    @Module
-    companion object {
+    @Provides
+    fun provideOkHttp(): Call.Factory {
+        return OkHttpClient.Builder().build()
+    }
 
-        @JvmStatic
-        @Singleton
-        @Provides
-        fun provideOkHttp(): Call.Factory {
-            return OkHttpClient.Builder().build()
-        }
-
-        @JvmStatic
-        @Singleton
-        @Provides
-        @Named("base_url")
-        fun provideBaseUrl(): String {
-            return "https://api.github.com"
-        }
+    @Provides
+    @Named("base_url")
+    fun provideBaseUrl(): String {
+        return "https://api.github.com"
     }
 }

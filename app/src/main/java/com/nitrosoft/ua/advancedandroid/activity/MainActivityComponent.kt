@@ -1,15 +1,14 @@
-package com.nitrosoft.ua.advancedandroid.home
+package com.nitrosoft.ua.advancedandroid.activity
 
+import com.nitrosoft.ua.advancedandroid.activity.ui.ActivityViewInterceptorModule
 import com.nitrosoft.ua.advancedandroid.di.ActivityScope
-import com.nitrosoft.ua.advancedandroid.ui.ActivityViewInterceptorModule
 import com.nitrosoft.ua.advancedandroid.ui.NavigationModule
-import dagger.Module
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 
 @ActivityScope
 @Subcomponent(modules = [
-    MainScreenBindingModule::class,
+    MainActivityFragmentBindingModule::class,
     NavigationModule::class,
     ActivityViewInterceptorModule::class
 ])

@@ -1,4 +1,4 @@
-package com.nitrosoft.ua.advancedandroid.home
+package com.nitrosoft.ua.advancedandroid.activity
 
 import android.os.Bundle
 import android.view.View

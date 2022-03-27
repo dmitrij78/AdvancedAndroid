@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.ui
 
+import com.nitrosoft.ua.advancedandroid.activity.ui.ActivityViewInterceptor
 import dagger.Module
 import dagger.Provides
 

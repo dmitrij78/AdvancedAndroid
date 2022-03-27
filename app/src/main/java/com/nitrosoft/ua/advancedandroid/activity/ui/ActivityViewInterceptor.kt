@@ -1,4 +1,4 @@
-package com.nitrosoft.ua.advancedandroid.ui
+package com.nitrosoft.ua.advancedandroid.activity.ui
 
 import android.app.Activity
 import android.view.View

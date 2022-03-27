@@ -7,17 +7,13 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+object DatabaseModule {
 
-    @Module
-    companion object {
-
-        @JvmStatic
-        @Singleton
-        @Provides
-        fun provideDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "favorites-database")
-                    .build()
-        }
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "favorites-database")
+            .build()
     }
 }

@@ -7,7 +7,6 @@ import com.nitrosoft.ua.advancedandroid.models.Contributor
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.functions.Action
-import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -22,25 +21,20 @@ class FavoriteService @Inject constructor(private val appDatabase: AppDatabase) 
 
     init {
         appDatabase.favoriteContributorDao().getFavoriteContributors()
-                .subscribeOn(Schedulers.io())
-                .map(Function<List<FavouriteContributor>, Set<Long>> { favoriteContributors ->
-                    val contributorIds = HashSet<Long>()
-                    for (favouriteContributor in favoriteContributors) {
-                        contributorIds.add(favouriteContributor.id)
-                    }
-
-                    return@Function contributorIds
-                })
-                .subscribe(
-                        favoriteContributorsRelay,
-                        Consumer { Timber.e(it, "Error loading favorite contributors from database") }
-                )
+            .subscribeOn(Schedulers.io())
+            .map(Function { favoriteContributors ->
+                return@Function favoriteContributors.map { it.id }.toSet()
+            })
+            .subscribe(
+                favoriteContributorsRelay
+            ) { Timber.e(it, "Error loading favorite contributors from database") }
     }
 
     fun favoriteContributorIds(): Observable<Set<Long>> {
         return favoriteContributorsRelay
     }
 
+    
     fun toggleFavorite(contributor: Contributor) {
         runDbOp {
             if (favoriteContributorsRelay.value?.contains(contributor.id)!!) {
@@ -61,7 +55,7 @@ class FavoriteService @Inject constructor(private val appDatabase: AppDatabase) 
 
     private fun runDbOp(action: Action) {
         Completable.fromAction(action)
-                .subscribeOn(Schedulers.io())
-                .subscribe({}, { Timber.e(it, "Error performing database operation") })
+            .subscribeOn(Schedulers.io())
+            .subscribe({}, { Timber.e(it, "Error performing database operation") })
     }
 }

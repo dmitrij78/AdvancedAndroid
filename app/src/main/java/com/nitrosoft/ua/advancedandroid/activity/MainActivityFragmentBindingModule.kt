@@ -1,4 +1,4 @@
-package com.nitrosoft.ua.advancedandroid.home
+package com.nitrosoft.ua.advancedandroid.activity
 
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsComponent
 import com.nitrosoft.ua.advancedandroid.details.RepoDetailsFragment
@@ -14,15 +14,15 @@ import dagger.multibindings.IntoMap
     TrendingReposComponent::class,
     RepoDetailsComponent::class
 ])
-abstract class MainScreenBindingModule {
+interface  MainActivityFragmentBindingModule {
 
     @Binds
     @IntoMap
     @ClassKey(TrendingReposFragment::class)
-    abstract fun bindTrendingReposInjector(factory: TrendingReposComponent.Factory): AndroidInjector.Factory<*>
+    fun bindTrendingReposInjector(factory: TrendingReposComponent.Factory): AndroidInjector.Factory<*>
 
     @Binds
     @IntoMap
     @ClassKey(RepoDetailsFragment::class)
-    abstract fun bindRepoDetailInjector(factory: RepoDetailsComponent.Factory): AndroidInjector.Factory<*>
+    fun bindRepoDetailsInjector(factory: RepoDetailsComponent.Factory): AndroidInjector.Factory<*>
 }

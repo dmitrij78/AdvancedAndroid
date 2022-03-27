@@ -1,5 +1,6 @@
 package com.nitrosoft.ua.advancedandroid.home
 
+import com.nitrosoft.ua.advancedandroid.activity.MainActivity
 import com.nitrosoft.ua.advancedandroid.di.ActivityScope
 import dagger.Subcomponent
 import dagger.android.AndroidInjector

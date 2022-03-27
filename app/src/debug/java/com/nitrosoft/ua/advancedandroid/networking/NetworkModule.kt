@@ -8,18 +8,20 @@ import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Named
 
 @Module
-class NetworkModule {
+object NetworkModule {
 
+    @JvmStatic
     @Provides
-    fun provideOkHttp(): Call.Factory {
+    fun provideOkHttp(mockInterceptor: MockInterceptor): Call.Factory {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            //.addInterceptor(mockInterceptor)
+            .addInterceptor(mockInterceptor)
             .build()
     }
 
+    @JvmStatic
     @Provides
     @Named("base_url")
     fun provideBaseUrl(): String {

@@ -26,7 +26,11 @@ class ServiceModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(moshi: Moshi, callFactory: Call.Factory, @Named("base_url") baseUrl: String): Retrofit {
+    fun provideRetrofit(
+        moshi: Moshi,
+        callFactory: Call.Factory,
+        @Named("base_url") baseUrl: String
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .callFactory(callFactory)
