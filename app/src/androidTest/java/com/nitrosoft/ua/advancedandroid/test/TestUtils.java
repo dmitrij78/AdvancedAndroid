@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 public class TestUtils {
 
-    private Moshi moshi;
+    private final Moshi moshi;
 
     @Inject
     TestUtils(Moshi moshi) {
