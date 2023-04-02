@@ -8,15 +8,16 @@ import javax.inject.Inject
 
 open class MyApplication : Application() {
 
-    protected lateinit var component: ApplicationComponent
-
-    @Inject lateinit var activityInjector: ActivityInjector
+//    protected lateinit var component: ApplicationComponent
+//
+//    @Inject lateinit var activityInjector: ActivityInjector
+lateinit var activityInjector: ActivityInjector
 
     override fun onCreate() {
         super.onCreate()
 
-        component = initComponent()
-        component.inject(this)
+//        component = initComponent()
+//        component.inject(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

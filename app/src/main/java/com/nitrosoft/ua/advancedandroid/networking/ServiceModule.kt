@@ -23,7 +23,7 @@ class ServiceModule {
         @Provides
         fun provideMoshi(): Moshi {
             return Moshi.Builder()
-                    .add(ApplicationJsonAdapterFactory.INSTANCE)
+                    .add(ApplicationJsonAdapterFactory)
                     .add(ZoneDatetimeAdapter())
                     .build()
         }

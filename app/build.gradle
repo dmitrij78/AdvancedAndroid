@@ -1,11 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 33
     defaultConfig {
         applicationId rootProject.ext.applicationId
         minSdkVersion rootProject.ext.minSdkVersion
@@ -28,12 +26,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.nitrosoft.ua.advancedandroid'
 }
+
+//kapt {
+//    arguments {
+//        // When using Java 9 and above
+//        arg("kotshi.generatedAnnotation", "javax.annotation.processing.Generated")
+//    }
+//}
 
 dependencies {
     implementation project(':poweradapter')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.core:core:$androidxVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$recylerViewVersion"

@@ -7,7 +7,7 @@ import com.nitrosoft.ua.advancedandroid.R
 import com.nitrosoft.ua.advancedandroid.models.RepoListItem
 import com.nitrosoft.ua.poweradapter.item.ItemRenderer
 import com.nitrosoft.ua.poweradapter.item.RecyclerItem
-import kotlinx.android.synthetic.main.view_repo_list_item.view.*
+//import kotlinx.android.synthetic.main.view_repo_list_item.view.*
 import java.text.NumberFormat
 import javax.inject.Inject
 import javax.inject.Provider
@@ -44,10 +44,10 @@ class RepoRenderer @Inject constructor(private val presenterProvider: Provider<T
         fun bind(repoListItem: RepoListItem) {
             this.repoListItem = repoListItem
 
-            itemView.repoName.text = this.repoListItem.repo.name
-            itemView.repoDescription.text = this.repoListItem.repo.description
-            itemView.starCount.text = NumberFormat.getInstance().format(this.repoListItem.repo.starGazersCount)
-            itemView.forkCount.text = NumberFormat.getInstance().format(this.repoListItem.repo.forksCount)
+//            itemView.repoName.text = this.repoListItem.repo.name
+//            itemView.repoDescription.text = this.repoListItem.repo.description
+//            itemView.starCount.text = NumberFormat.getInstance().format(this.repoListItem.repo.starGazersCount)
+//            itemView.forkCount.text = NumberFormat.getInstance().format(this.repoListItem.repo.forksCount)
         }
     }
 }

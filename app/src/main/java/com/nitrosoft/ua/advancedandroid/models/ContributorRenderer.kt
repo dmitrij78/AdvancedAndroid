@@ -13,7 +13,7 @@ import com.nitrosoft.ua.poweradapter.item.ItemRenderer
 import com.nitrosoft.ua.poweradapter.item.RecyclerItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.view_user_list_item.view.*
+//import kotlinx.android.synthetic.main.view_user_list_item.view.*
 import javax.inject.Inject
 
 class ContributorRenderer @Inject constructor(private val favoriteService: FavoriteService) : ItemRenderer<ContributorListItem> {
@@ -40,42 +40,42 @@ class ContributorRenderer @Inject constructor(private val favoriteService: Favor
         private var favoriteDisposable: Disposable? = null
 
         init {
-            RxView.attachEvents(itemView.contributorRootView)
-                    .subscribe {
-                        if (it.view().isAttachedToWindow) {
-                            listenForFavoriteChanges()
-                        } else {
-                            favoriteDisposable?.dispose()
-                            favoriteDisposable = null
-                        }
-                    }
+//            RxView.attachEvents(itemView.contributorRootView)
+//                    .subscribe {
+//                        if (it.view().isAttachedToWindow) {
+//                            listenForFavoriteChanges()
+//                        } else {
+//                            favoriteDisposable?.dispose()
+//                            favoriteDisposable = null
+//                        }
+//                    }
         }
 
         private fun listenForFavoriteChanges() {
-            favoriteDisposable = favoriteService.favoriteContributorIds()
-                    .filter { contributor != null }
-                    .map { favoriteIds -> favoriteIds.contains(contributor?.id) }
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { isFavorite ->
-                        itemView.contributorRootView.setBackgroundColor(if (isFavorite) Color.YELLOW else Color.TRANSPARENT)
-                    }
+//            favoriteDisposable = favoriteService.favoriteContributorIds()
+//                    .filter { contributor != null }
+//                    .map { favoriteIds -> favoriteIds.contains(contributor?.id) }
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe { isFavorite ->
+//                        itemView.contributorRootView.setBackgroundColor(if (isFavorite) Color.YELLOW else Color.TRANSPARENT)
+//                    }
         }
 
         fun bind(contributorListItem: ContributorListItem) {
-            this.contributor = contributorListItem.contributor
-
-            itemView.userNameTv.text = contributorListItem.contributor.login
-
-            itemView.contributorRootView.setOnLongClickListener(View.OnLongClickListener {
-                if (this.contributor != null) {
-                    favoriteService.toggleFavorite(this.contributor!!)
-                }
-                return@OnLongClickListener true
-            })
-
-            Glide.with(itemView.context)
-                    .load(contributorListItem.contributor.avatarUrl)
-                    .into(itemView.avatarIv)
+//            this.contributor = contributorListItem.contributor
+//
+//            itemView.userNameTv.text = contributorListItem.contributor.login
+//
+//            itemView.contributorRootView.setOnLongClickListener(View.OnLongClickListener {
+//                if (this.contributor != null) {
+//                    favoriteService.toggleFavorite(this.contributor!!)
+//                }
+//                return@OnLongClickListener true
+//            })
+//
+//            Glide.with(itemView.context)
+//                    .load(contributorListItem.contributor.avatarUrl)
+//                    .into(itemView.avatarIv)
         }
     }
 }
