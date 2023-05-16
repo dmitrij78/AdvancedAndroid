@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
+# proguardFiles setting in build.gradle.kts.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
@@ -29,9 +29,6 @@
     @retrofit2.http.* <methods>;
 }
 
-# Ignore annotation used for build tooling.
--dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
-
 # Ignore JSR 305 annotations for embedding nullability information.
 -dontwarn javax.annotation.**
 
@@ -39,7 +36,7 @@
 -dontwarn kotlin.Unit
 
 # Top-level functions that can only be used by Kotlin.
--dontwarn retrofit2.-KotlinExtensions
+# -dontwarn retrofit2.-KotlinExtensions
 
 
 # Moshi
@@ -63,7 +60,7 @@
 }
 
 # Moshi-kotlin
--keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoaderImpl
+# -keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoaderImpl
 
 -keepclassmembers class kotlin.Metadata {
     public <methods>;
