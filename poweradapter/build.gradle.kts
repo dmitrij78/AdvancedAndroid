@@ -10,12 +10,10 @@ android {
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
             @Suppress("UnstableApiUsage")
             proguardFiles(
