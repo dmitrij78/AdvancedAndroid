@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.nitrosoft.ua.poweradapter"
-    compileSdk = 33
+    compileSdk = rootProject.extra["compileSdk"] as Int
 
     defaultConfig {
-        minSdk = 24
+        minSdk = rootProject.extra["minSdk"] as Int
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,26 +37,11 @@ android {
     }
 }
 
-val androidXCoreVersion = "1.10.1"
-val androidXCore = "androidx.core:core:$androidXCoreVersion"
-
-val cardViewVersion = "1.0.0"
-val cardView = "androidx.cardview:cardview:$cardViewVersion"
-
-val recyclerviewVersion = "1.3.0"
-val recyclerview = "androidx.recyclerview:recyclerview:$recyclerviewVersion"
-
-val daggerVersion = "2.45"
-val dagger = "com.google.dagger:dagger:$daggerVersion"
-
-val junitVersion = "4.13.2"
-val junit = "junit:junit:$junitVersion"
-
 dependencies {
-    implementation(androidXCore)
-    implementation(cardView)
-    implementation(recyclerview)
-    implementation(dagger)
+    implementation(rootProject.extra["androidXCore"] as String)
+    implementation(rootProject.extra["cardView"] as String)
+    implementation(rootProject.extra["recyclerview"] as String)
+    implementation(rootProject.extra["dagger"] as String)
 
-    testImplementation(junit)
+    testImplementation(rootProject.extra["junit"] as String)
 }
