@@ -93,18 +93,23 @@ dependencies {
     androidTestImplementation(rootProject.extra["espressoCore"] as String)
 }
 
-//def mockCopySpec = copySpec {
-//    from rootProject . file ('app/')
-//    include 'mock/'
-//}
-//
-//task copyMock (type: Copy) {
-//    ['src/debug/assets', 'src/test/resources', 'src/androidTest/resources'].each { dest ->
-//        copy {
-//            with mockCopySpec
-//                    into dest
-//        }
-//    }
-//}
+tasks.register("copyMock") {
+    val mockCopySpec = copySpec {
+        from(rootProject.file("app/"))
+        include("mock/")
+    }
+    listOf(
+        "src/debug/assets",
+        "src/test/resources",
+        "src/androidTest/resources"
+    ).forEach { destination ->
+        copy {
+            with(mockCopySpec)
+            into(destination)
+        }
+    }
+}
 
-//build.finalizedBy(copyMock)
+tasks.build {
+    finalizedBy("copyMock")
+}
